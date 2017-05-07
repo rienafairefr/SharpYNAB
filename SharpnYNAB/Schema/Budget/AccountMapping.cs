@@ -1,8 +1,9 @@
 using SharpnYNAB.Schema.Types;
+// ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class AccountMapping
+    public class AccountMapping:Entity
     {
         public Date date_sequence { get; set; }
         public Account entities_account { get; set; }

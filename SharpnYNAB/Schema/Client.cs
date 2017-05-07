@@ -14,13 +14,16 @@ namespace SharpnYNAB.Schema
         public string budget_name { get; set; }
         public int starting_device_knowledge { get; set; } = 0;
         public int ending_device_knowledge { get; set; } = 0;
+        public string UserId => Connection.UserId;
 
         public CatalogClient CatalogClient { get; set; }
         public BudgetClient BudgetClient { get; set; }
-        public Connection Connection { get; set; }
+        public IConnection Connection { get; set; }
 
         public Client()
         {
+            budget = new Roots.Budget();
+            catalog = new Roots.Catalog();
             CatalogClient = new CatalogClient(this);
             BudgetClient = new BudgetClient(this);
         }
@@ -39,21 +42,31 @@ namespace SharpnYNAB.Schema
 
     public class BudgetClient : RootObjClient
     {
-        public BudgetClient(Client client) : base(client,client.budget) { }
-        public override Dictionary<string, object> Extra { get; set; }
+        public BudgetClient(Client client) : base(client, client.budget)
+        {
+        }
+
+        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
+        {
+            ["calculated_entities_included"] = false,
+            ["budget_version_id"] = Client.budget_version.id
+        };
         public override string opname => "syncBudgetData";
     }
 
     public class CatalogClient : RootObjClient
     {
         public CatalogClient(Client client) : base(client,client.catalog) { }
-        public override Dictionary<string, object> Extra { get; set; }
+        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
+        {
+            ["user_id"] = Client.UserId
+        };
         public override string opname => "syncCatalogData";
     }
 
     public abstract class RootObjClient: IRootObjClient
     {
-        public abstract Dictionary<string,object> Extra { get; set; }
+        public abstract Dictionary<string, object> Extra { get; }
         public abstract string opname { get; }
         public Client Client { get; set; }
         public Knowledge knowledge { get; set; }
@@ -90,7 +103,7 @@ namespace SharpnYNAB.Schema
             return Connection.Dorequest(request_data, opname);
         }
 
-        public Connection Connection => Client.Connection;
+        public IConnection Connection => Client.Connection;
     }
 
     public class Knowledge

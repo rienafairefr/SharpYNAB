@@ -1,25 +1,43 @@
 ﻿using System.Collections.Generic;
 using SharpnYNAB.Schema;
+using System.Net;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+// ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB
 {
-    public class Connection
+    public interface IConnection
     {
-        private const string urlCatalog = "https://app.youneedabudget.com/api/v1/catalog";
+        void init_session();
+        Task<Connection.YnabResponse> Dorequest(Dictionary<string, object> request_dict, string opname);
+        string UserId { get; set; }
+    }
+
+    public class Connection : IConnection
+    {
+        private Uri urlCatalog = new Uri("https://app.youneedabudget.com");
+        private string baseCatalog = "/api/v1/catalog";
 
         public string Email { get; set; }
         public string Password { get; set; }
         public string Id { get; set; } = Utils.GenerateUuid();
+        public CookieContainer Cookies { get; private set; }
 
         public Connection(string email, string password)
         {
             Email = email;
             Password = password;
+
         }
 
-        public void init_session()
+        public async void init_session()
         {
-            var FirstLogin = Dorequest(new Dictionary<string, object>
+            Cookies = new CookieContainer();
+            var FirstLogin = await Dorequest(new Dictionary<string, object>
             {
                 ["email"] = Email,
                 ["password"] = Password,
@@ -29,6 +47,7 @@ namespace SharpnYNAB
                     ["id"] = Id
                 }
             }, "loginUser");
+            this.UserId=FirstLogin.user.id;
         }
 
         /*  self.session.cookies = RequestsCookieJar()
@@ -53,10 +72,71 @@ namespace SharpnYNAB
                               self.sessionToken = None
                               self.id = str(generateuuid())
                               self.lastrequest_elapsed = None*/
+        public enum YnabError
+        {
+            user_not_found, user_password_invalid, request_throttled
+        }
 
-        public object Dorequest(Dictionary<string, object> request_dict, string opname)
+        public class ResponseUser
+        {
+            public string id;
+        }
+        public class YnabResponse
+        {
+            [JsonConverter(typeof(StringEnumConverter))]
+            public YnabError? error { get; set; }
+
+            public string session_token { get; set; }
+            public ResponseUser user { get; set; }
+        }
+        public async Task<YnabResponse> Dorequest(Dictionary<string, object> request_dict, string opname)
         {
             var json_request_dict = Newtonsoft.Json.JsonConvert.SerializeObject(request_dict);
+            using (var handler = new HttpClientHandler() { CookieContainer = Cookies })
+            using (var client = new HttpClient(handler) { BaseAddress = urlCatalog })
+            {
+                var requestmessage = new HttpRequestMessage(HttpMethod.Post, baseCatalog);
+                requestmessage.Headers.Add("User-Agent","C# client for YNAB rienafairefr@gmail.com");
+                requestmessage.Headers.Add("X-YNAB-Device-Id", Id);
+                requestmessage.Content = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    ["operation_name"] = opname,
+                    ["request_data"] = json_request_dict,
+                });
+
+
+                var response = await client.SendAsync(requestmessage);
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.InternalServerError:
+                        break;
+                    case HttpStatusCode.OK:
+                        var responsecontent = await response.Content.ReadAsStringAsync();
+                        var js = Newtonsoft.Json.JsonConvert.DeserializeObject<YnabResponse>(responsecontent);
+                        switch (js.error)
+                        {
+                            case null:
+                                return js;
+                            case YnabError.user_not_found:
+                                break;
+                            case YnabError.user_password_invalid:
+                                break;
+                            case YnabError.request_throttled:
+                                var retryrafter = response.Headers.RetryAfter.Delta?.Milliseconds;
+                                if (retryrafter != null)
+                                {
+                                    await Task.Delay((int)retryrafter);
+                                    return Dorequest(request_dict, opname).Result;
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        break;
+                }
+            }
+
+
             return null;
             /*params = {
                     u'operation_name': opname, 'request_data': json_request_dict
@@ -90,7 +170,7 @@ namespace SharpnYNAB
                 */
         }
 
-
+        public string UserId { get; set; }
     }
 
 

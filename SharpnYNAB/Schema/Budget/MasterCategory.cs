@@ -1,6 +1,7 @@
+// ReSharper disable InconsistentNaming
 namespace SharpnYNAB.Schema.Budget
 {
-    public class MasterCategory
+    public class MasterCategory:Entity
     {
         public bool deletable { get; set; } = true;
         public string internal_name { get; set; }

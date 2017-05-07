@@ -1,8 +1,9 @@
 using SharpnYNAB.Schema.Types;
+// ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class AccountCalculation
+    public class AccountCalculation:Entity
     {
         public Amount cleared_balance { get; set; }
         public Account entities_account { get; set; }

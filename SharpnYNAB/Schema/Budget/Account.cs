@@ -1,7 +1,6 @@
 ﻿namespace SharpnYNAB.Schema.Budget
 {
-    public class BudgetVersion
+    public class Account:Entity
     {
-        
     }
 }
