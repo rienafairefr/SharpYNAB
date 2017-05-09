@@ -1,6 +1,6 @@
 ﻿namespace SharpnYNAB.Schema.Budget
 {
-    public class PayeeRenameCondition
+    public class PayeeRenameCondition:Entity
     {
     }
 }

@@ -1,7 +1,14 @@
+using System.Collections.Generic;
+
 namespace SharpnYNAB.Schema.Roots
 {
-    public class RootObj
+    public interface IRootObj
     {
-        public Knowledge knowledge { get; set; }
+        Knowledge knowledge { get; set; }
+    }
+
+    public abstract class RootObj : IRootObj
+    {
+        public Knowledge knowledge { get; set; } = new Knowledge();
     }
 }

@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using SharpnYNAB.Schema.Types;
+﻿using SharpnYNAB.Schema.Types;
 
 // ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class SubCategory
+    public class SubCategory:Entity
     {
         public Account entities_account { get; set; }
         public MasterCategory entities_master_category { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SharpnYNAB.Schema.Budget;
-using SharpnYNAB.Schema.Roots;
+using SharpnYNAB.Schema.Catalog;
 
 // ReSharper disable InconsistentNaming
 
@@ -27,11 +28,11 @@ namespace SharpnYNAB.Schema
             CatalogClient = new CatalogClient(this);
             BudgetClient = new BudgetClient(this);
         }
-        public void Sync()
+        public async Task Sync()
         {
-            CatalogClient.Sync();
+            await CatalogClient.Sync();
             SelectBudget(budget_name);
-            BudgetClient.Sync();
+            await BudgetClient.Sync();
         }
 
         private void SelectBudget(string budgetName)
@@ -40,7 +41,7 @@ namespace SharpnYNAB.Schema
         }
     }
 
-    public class BudgetClient : RootObjClient
+    public partial class BudgetClient : RootObjClient<Roots.Budget>
     {
         public BudgetClient(Client client) : base(client, client.budget)
         {
@@ -54,7 +55,7 @@ namespace SharpnYNAB.Schema
         public override string opname => "syncBudgetData";
     }
 
-    public class CatalogClient : RootObjClient
+    public partial class CatalogClient : RootObjClient<Roots.Catalog>
     {
         public CatalogClient(Client client) : base(client,client.catalog) { }
         public override Dictionary<string, object> Extra => new Dictionary<string, object>()
@@ -62,48 +63,6 @@ namespace SharpnYNAB.Schema
             ["user_id"] = Client.UserId
         };
         public override string opname => "syncCatalogData";
-    }
-
-    public abstract class RootObjClient: IRootObjClient
-    {
-        public abstract Dictionary<string, object> Extra { get; }
-        public abstract string opname { get; }
-        public Client Client { get; set; }
-        public Knowledge knowledge { get; set; }
-
-        protected RootObjClient(Client client, RootObj obj)
-        {
-            Client = client;
-            Obj = obj;
-        }
-
-        public RootObj Obj { get; set; }
-
-        public void Sync()
-        {
-            var sync_data = GetSyncDataObj();
-        }
-
-        public object GetSyncDataObj()
-        {
-            var request_data = new Dictionary<string, object>
-            {
-                ["starting_device_knowledge"] = Client.starting_device_knowledge,
-                ["ending_device_knowledge"] = Client.ending_device_knowledge, 
-                ["device_knowledge_of_server"]= Obj.knowledge,
-                ["changed_entities"] = new Dictionary<string, object>()
-
-            };
-
-            foreach (var keyValuePair in Extra)
-            {
-                request_data.Add(keyValuePair.Key,keyValuePair.Value);
-            }
-
-            return Connection.Dorequest(request_data, opname);
-        }
-
-        public IConnection Connection => Client.Connection;
     }
 
     public class Knowledge
@@ -114,6 +73,6 @@ namespace SharpnYNAB.Schema
 
     public interface IRootObjClient
     {
-        void Sync();
+        Task Sync();
     }
 }

@@ -1,5 +1,6 @@
-using SharpnYNAB.Schema.Types;
 // ReSharper disable InconsistentNaming
+
+using SharpnYNAB.Schema.Types;
 
 namespace SharpnYNAB.Schema.Budget
 {

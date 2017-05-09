@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using SharpnYNAB.Schema.Types;
+// ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class ScheduledTransaction
+    public class ScheduledTransaction:Entity
     {
         public Amount amount { get; set; }
         public Date date { get; set; }

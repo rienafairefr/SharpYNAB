@@ -1,0 +1,68 @@
+﻿<#@ import namespace="System.Collections.Generic" #>
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using SharpnYNAB.Schema.Budget;
+using SharpnYNAB.Schema.Catalog;
+using System.Linq;
+
+namespace SharpnYNAB.Schema
+{
+<# 
+var objects = new Dictionary<string,List<string[]>>{
+["Budget"]=new List<string[]>{
+        new []{"be_transactions","Transaction"},
+
+        new []{"be_master_categories","MasterCategory"},
+        new []{"be_settings","Setting"},
+        new []{"be_monthly_budget_calculations","MonthlyBudgetCalculation"},
+        new []{"be_account_mappings","AccountMapping"},
+        new []{"be_subtransactions","SubTransaction"},
+        new []{"be_scheduled_subtransactions","ScheduledSubTransaction"},
+        new []{"be_monthly_budgets","MonthlyBudget"},
+        new []{"be_subcategories","SubCategory"},
+        new []{"be_payee_locations","PayeeLocation"},
+        new []{"be_account_calculations","AccountCalculation"},
+        new []{"be_monthly_account_calculations","MonthlyAccountCalculation"},
+        new []{"be_monthly_subcategory_budget_calculations","MonthlySubCategoryBudgetCalculation"},
+        new []{"be_scheduled_transactions","ScheduledTransaction"},
+        new []{"be_payees","Payee"},
+        new []{"be_monthly_subcategory_budgets","MonthlySubCategoryBudget"},
+        new []{"be_payee_rename_conditions","PayeeRenameCondition"},
+        new []{"be_accounts","Account"}
+        },
+["Catalog"]=new List<string[]>{
+        new []{"ce_user_budgets","UserBudget"}
+        }
+};
+
+
+foreach (var kv in objects){ 
+var root = kv.Key;
+var data = kv.Value;
+#>
+    public partial class <#=root#>Client{
+        public override void UpdateFromChangedEntities(Roots.<#=root#> changedEntities)
+        {
+<# foreach (var row in data){#>
+            foreach (var obj in changedEntities.<#=row[0]#>)
+            {
+                var currentObj = Obj.<#=row[0]#>.FirstOrDefault(o=>o.id == obj.id);
+                if (currentObj != null){
+                    if (obj.is_tombstone){
+                        Obj.<#=row[0]#>.Remove(currentObj);
+                    }
+                }else{
+                    Obj.<#=row[0]#>.Add(obj);
+                }
+            }
+<# }#>
+        }
+    }
+<# }#>
+}
+<#+
+public struct Element{
+    public string RootName {get;set;}
+}
+
+#>

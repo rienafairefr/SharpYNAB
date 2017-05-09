@@ -3,7 +3,7 @@ using SharpnYNAB.Schema.Types;
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class MonthlySubCategoryBudgetCalculation
+    public class MonthlySubCategoryBudgetCalculation:Entity
     {
         public string additional_to_be_budgeted { get; set; }
         public Amount all_spending { get; set; }

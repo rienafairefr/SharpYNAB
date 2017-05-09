@@ -5,22 +5,23 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+
 // ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB
 {
     public interface IConnection
     {
-        void init_session();
-        Task<Connection.YnabResponse> Dorequest(Dictionary<string, object> request_dict, string opname);
+        Task init_session();
+        Task<string> Dorequest(Dictionary<string, object> request_dict, string opname);
         string UserId { get; set; }
     }
 
-    public class Connection : IConnection
+    public partial class Connection : IConnection
     {
         private Uri urlCatalog = new Uri("https://app.youneedabudget.com");
         private string baseCatalog = "/api/v1/catalog";
+        private string SessionToken { get; set; }
 
         public string Email { get; set; }
         public string Password { get; set; }
@@ -34,7 +35,18 @@ namespace SharpnYNAB
 
         }
 
-        public async void init_session()
+        class UserData
+        {
+            public string id { get; set; }
+        }
+
+        class FirstLoginResponse
+        {
+            public string session_token { get; set; }
+            public UserData userdata { get; set; }
+        }
+
+        public async Task init_session()
         {
             Cookies = new CookieContainer();
             var FirstLogin = await Dorequest(new Dictionary<string, object>
@@ -47,7 +59,9 @@ namespace SharpnYNAB
                     ["id"] = Id
                 }
             }, "loginUser");
-            this.UserId=FirstLogin.user.id;
+            var firstlogin = JsonConvert.DeserializeObject<FirstLoginResponse>(FirstLogin);
+            SessionToken = firstlogin.session_token;
+            UserId = firstlogin.userdata?.id;
         }
 
         /*  self.session.cookies = RequestsCookieJar()
@@ -61,15 +75,15 @@ namespace SharpnYNAB
                               }, 'loginUser')
                               if firstlogin is None:
                                   raise NYnabConnectionError('Couldnt connect with the provided email and password')
-                              self.sessionToken = firstlogin["session_token"]
-                              self.session.headers['X-Session-Token'] = self.sessionToken
+                              self.SessionToken = firstlogin["session_token"]
+                              self.session.headers['X-Session-Token'] = self.SessionToken
                               self.user_id = firstlogin['user']['id']
 
                           def __init__(self, email, password):
                               self.email = email
                               self.password = password
                               self.session = requests.Session()
-                              self.sessionToken = None
+                              self.SessionToken = None
                               self.id = str(generateuuid())
                               self.lastrequest_elapsed = None*/
         public enum YnabError
@@ -81,23 +95,27 @@ namespace SharpnYNAB
         {
             public string id;
         }
-        public class YnabResponse
-        {
-            [JsonConverter(typeof(StringEnumConverter))]
-            public YnabError? error { get; set; }
 
-            public string session_token { get; set; }
-            public ResponseUser user { get; set; }
-        }
-        public async Task<YnabResponse> Dorequest(Dictionary<string, object> request_dict, string opname)
+        public async Task<string> Dorequest(Dictionary<string, object> request_dict, string opname)
         {
             var json_request_dict = Newtonsoft.Json.JsonConvert.SerializeObject(request_dict);
-            using (var handler = new HttpClientHandler() { CookieContainer = Cookies })
-            using (var client = new HttpClient(handler) { BaseAddress = urlCatalog })
+            using (var handler = new HttpClientHandler()
+            {
+                CookieContainer = Cookies,
+                UseCookies = true
+            })
+            using (var client = new HttpClient(handler)
+            {
+                BaseAddress = urlCatalog,
+            })
             {
                 var requestmessage = new HttpRequestMessage(HttpMethod.Post, baseCatalog);
-                requestmessage.Headers.Add("User-Agent","C# client for YNAB rienafairefr@gmail.com");
+                requestmessage.Headers.Add("User-Agent", "C# client for YNAB rienafairefr");
                 requestmessage.Headers.Add("X-YNAB-Device-Id", Id);
+                if (SessionToken != null)
+                {
+                    requestmessage.Headers.Add("X-Session-Token", SessionToken);
+                }
                 requestmessage.Content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     ["operation_name"] = opname,
@@ -116,7 +134,7 @@ namespace SharpnYNAB
                         switch (js.error)
                         {
                             case null:
-                                return js;
+                                return responsecontent;
                             case YnabError.user_not_found:
                                 break;
                             case YnabError.user_password_invalid:

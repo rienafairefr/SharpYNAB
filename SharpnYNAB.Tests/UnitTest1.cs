@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 using Newtonsoft.Json;
 
@@ -12,7 +13,7 @@ namespace SharpnYNAB.Tests
     public class UnitTest1
     {
         [Fact]
-        public void TestMethod1()
+        public async void TestMethod1()
         {
             Args args;
             using (var file = File.OpenText(("ynab.conf")))
@@ -21,12 +22,12 @@ namespace SharpnYNAB.Tests
                 args = (Args)serializer.Deserialize(file, typeof(Args));
             }
             var connection = new Connection(args.Email, args.Password);
-            connection.init_session();
+            await connection.init_session();
             var client = new Schema.Client()
             {
                 Connection = connection
             };
-            client.Sync();
+            await client.Sync();
         }
     }
 }

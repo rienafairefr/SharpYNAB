@@ -3,7 +3,7 @@ using SharpnYNAB.Schema.Types;
 
 namespace SharpnYNAB.Schema.Budget
 {
-    public class Payee
+    public class Payee:Entity
     {
         public Amount auto_fill_amount { get; set; }
         public string auto_fill_amount_enabled { get; set; }

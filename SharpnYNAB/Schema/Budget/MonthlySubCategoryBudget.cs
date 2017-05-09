@@ -1,6 +1,7 @@
 namespace SharpnYNAB.Schema.Budget
 {
-    public class MonthlySubCategoryBudget
+    public class MonthlySubCategoryBudget:Entity
+
     {
     }
 }

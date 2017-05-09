@@ -1,7 +1,7 @@
 // ReSharper disable InconsistentNaming
 namespace SharpnYNAB.Schema.Budget
 {
-    public class PayeeLocation
+    public class PayeeLocation:Entity
     {
         public Payee entities_payee { get; set; }
         public string latitude { get; set; }
