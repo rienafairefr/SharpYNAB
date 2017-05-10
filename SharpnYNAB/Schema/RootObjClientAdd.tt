@@ -31,7 +31,11 @@ var objects = new Dictionary<string,List<string[]>>{
         new []{"be_accounts","Account"}
         },
 ["Catalog"]=new List<string[]>{
-        new []{"ce_user_budgets","UserBudget"}
+        new []{"ce_user_budgets","UserBudget"},
+        new []{"ce_user_settings","UserSetting"},
+        new []{"ce_budget_versions","BudgetVersion"},
+        new []{"ce_users","User"},
+        new []{"ce_budgets","CatalogBudget"}
         }
 };
 

@@ -9,6 +9,7 @@ namespace SharpnYNAB.Tests
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public string BudgetName { get; set; }
     }
     public class UnitTest1
     {
@@ -23,9 +24,10 @@ namespace SharpnYNAB.Tests
             }
             var connection = new Connection(args.Email, args.Password);
             await connection.init_session();
-            var client = new Schema.Client()
+            var client = new Schema.Client
             {
-                Connection = connection
+                Connection = connection,
+                budget_name=args.BudgetName
             };
             await client.Sync();
         }

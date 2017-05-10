@@ -223,6 +223,50 @@ namespace SharpnYNAB.Schema
                     Obj.ce_user_budgets.Add(obj);
                 }
             }
+            foreach (var obj in changedEntities.ce_user_settings)
+            {
+                var currentObj = Obj.ce_user_settings.FirstOrDefault(o=>o.id == obj.id);
+                if (currentObj != null){
+                    if (obj.is_tombstone){
+                        Obj.ce_user_settings.Remove(currentObj);
+                    }
+                }else{
+                    Obj.ce_user_settings.Add(obj);
+                }
+            }
+            foreach (var obj in changedEntities.ce_budget_versions)
+            {
+                var currentObj = Obj.ce_budget_versions.FirstOrDefault(o=>o.id == obj.id);
+                if (currentObj != null){
+                    if (obj.is_tombstone){
+                        Obj.ce_budget_versions.Remove(currentObj);
+                    }
+                }else{
+                    Obj.ce_budget_versions.Add(obj);
+                }
+            }
+            foreach (var obj in changedEntities.ce_users)
+            {
+                var currentObj = Obj.ce_users.FirstOrDefault(o=>o.id == obj.id);
+                if (currentObj != null){
+                    if (obj.is_tombstone){
+                        Obj.ce_users.Remove(currentObj);
+                    }
+                }else{
+                    Obj.ce_users.Add(obj);
+                }
+            }
+            foreach (var obj in changedEntities.ce_budgets)
+            {
+                var currentObj = Obj.ce_budgets.FirstOrDefault(o=>o.id == obj.id);
+                if (currentObj != null){
+                    if (obj.is_tombstone){
+                        Obj.ce_budgets.Remove(currentObj);
+                    }
+                }else{
+                    Obj.ce_budgets.Add(obj);
+                }
+            }
         }
     }
 }
