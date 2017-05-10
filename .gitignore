@@ -1,3 +1,4 @@
+*.conf
 .vs/
 */bin/*
 */obj/*
