@@ -1,5 +1,6 @@
 // ReSharper disable InconsistentNaming
 
+using System;
 using SharpnYNAB.Schema.Types;
 
 namespace SharpnYNAB.Schema.Budget
@@ -8,6 +9,7 @@ namespace SharpnYNAB.Schema.Budget
     {
         public Date date_sequence { get; set; }
         public Account entities_account { get; set; }
+        public Guid entities_account_id { get; set; }
         public string hash { get; set; }
         public string fid { get; set; }
         public string salt { get; set; }

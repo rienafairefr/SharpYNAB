@@ -1,3 +1,4 @@
+using System;
 using SharpnYNAB.Schema.Types;
 // ReSharper disable InconsistentNaming
 
@@ -12,8 +13,10 @@ namespace SharpnYNAB.Schema.Budget
         public string auto_fill_subcategory_enabled { get; set; }
 
         public SubCategory auto_fill_subcategory { get; set; }
+        public Guid? auto_fill_subcategory_id { get; set; }
         public bool enabled { get; set; }
         public Account entities_account { get; set; }
+        public Guid? entities_account_id { get; set; }
         public string internal_name { get; set; }
         public string name { get; set; }
         public string rename_on_import_enabled { get; set; }

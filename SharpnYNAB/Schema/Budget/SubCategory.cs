@@ -1,4 +1,5 @@
-﻿using SharpnYNAB.Schema.Types;
+﻿using System;
+using SharpnYNAB.Schema.Types;
 
 // ReSharper disable InconsistentNaming
 
@@ -7,7 +8,9 @@ namespace SharpnYNAB.Schema.Budget
     public class SubCategory:Entity
     {
         public Account entities_account { get; set; }
+        public Guid? entities_account_id { get; set; }
         public MasterCategory entities_master_category { get; set; }
+        public Guid entities_master_category_id { get; set; }
         public string goal_creation_month { get; set; }
         public string goal_type { get; set; }
         public string internal_name { get; set; }

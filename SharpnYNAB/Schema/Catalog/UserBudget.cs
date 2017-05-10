@@ -11,6 +11,6 @@ namespace SharpnYNAB.Schema.Catalog
         public Guid budget_id { get; set; }
         public User user { get; set; }
         public Guid user_id { get; set; }
-        public string permissions { get; set; }
+        public int permissions { get; set; }
     }
 }

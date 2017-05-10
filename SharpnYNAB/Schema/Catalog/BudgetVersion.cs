@@ -5,10 +5,9 @@ using SharpnYNAB.Schema.Types;
 
 namespace SharpnYNAB.Schema.Catalog
 {
-    
     public class BudgetVersion:Entity
     {
-        public string date_format { get; set; }
+        public DateFormat date_format { get; set; }
         public DateTime last_accessed_on { get; set; }
         public CurrencyFormat currency_format { get; set; }
         public Guid budget_id { get; set; }

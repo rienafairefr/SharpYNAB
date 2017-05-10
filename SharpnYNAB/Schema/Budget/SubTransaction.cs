@@ -1,3 +1,4 @@
+using System;
 using SharpnYNAB.Schema.Types;
 // ReSharper disable InconsistentNaming
 
@@ -10,12 +11,17 @@ namespace SharpnYNAB.Schema.Budget
         public string heck_number { get; set; }
         public Amount credit_amount { get; set; }
         public Payee entities_payee { get; set; }
+        public Guid entities_payee_id { get; set; }
         public SubCategory entities_subcategory { get; set; }
+        public Guid entities_subcategory_id { get; set; }
         public Transaction entities_transaction { get; set; }
+        public Guid entities_transaction_d { get; set; }
         public string memo { get; set; }
         public int sortable_index { get; set; } = 0;
         public int subcategory_credit_amount_preceding { get; set; } = 0;
         public Account transfer_account { get; set; }
+        public Guid transfer_account_id { get; set; }
         public Transaction transfer_transaction { get; set; }
+        public Guid transfer_transaction_id { get; set; }
     }
 }

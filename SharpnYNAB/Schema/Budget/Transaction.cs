@@ -1,3 +1,4 @@
+using System;
 using SharpnYNAB.Schema.Types;
 // ReSharper disable InconsistentNaming
 
@@ -15,19 +16,27 @@ namespace SharpnYNAB.Schema.Budget
         public Date date { get; set; }
         public Date date_entered_from_schedule { get; set; }
         public Account entities_account { get; set; }
+        public Guid entities_account_id { get; set; }
         public Payee entities_payee { get; set; }
+        public Guid entities_payee_id { get; set; }
         public SubCategory entities_subcategory { get; set; }
+        public Guid entities_subcategory_id { get; set; }
         public ScheduledTransaction entities_scheduled_transaction { get; set; }
+        public Guid? entities_scheduled_transaction_id { get; set; }
         public string flag { get; set; }
         public Date imported_date { get; set; }
         public string imported_payee { get; set; }
         public Transaction matched_transaction { get; set; }
+        public Guid? matched_transaction_id { get; set; }
         public string memo { get; set; }
         public string source { get; set; }
         public Amount subcategory_credit_amount_preceding { get; set; } = 0;
         public Account transfer_account { get; set; }
+        public Guid? transfer_account_id { get; set; }
         public SubTransaction transfer_subtransaction { get; set; }
+        public Guid? transfer_subtransaction_id { get; set; }
         public Transaction transfer_transaction { get; set; }
+        public Guid? transfer_transaction_id { get; set; }
         public string ynab_id { get; set; }
     }
 }

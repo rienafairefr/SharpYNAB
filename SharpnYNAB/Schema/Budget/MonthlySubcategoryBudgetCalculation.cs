@@ -1,3 +1,4 @@
+using System;
 using SharpnYNAB.Schema.Types;
 // ReSharper disable InconsistentNaming
 
@@ -18,6 +19,7 @@ namespace SharpnYNAB.Schema.Budget
         public Amount cash_outflows { get; set; }
         public Amount credit_outflows { get; set; }
         public MonthlySubCategoryBudget entities_monthly_subcategory_budget { get; set; }
+        public Guid entities_monthly_subcategory_budget_id { get; set; }
         public string goal_expected_completion { get; set; }
         public Amount goal_overall_funded { get; set; }
         public Amount goal_overall_left { get; set; }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Catalog;
@@ -37,8 +39,16 @@ namespace SharpnYNAB.Schema
 
         private void SelectBudget(string budgetName)
         {
-            throw new System.NotImplementedException();
+            budget_version = catalog.ce_budget_versions.FirstOrDefault(bv => bv.version_name == budgetName);
+            if (budget_version == null)
+            {
+                throw new BudgetNotFoundException();
+            }
         }
+    }
+
+    internal class BudgetNotFoundException : Exception
+    {
     }
 
     public partial class BudgetClient : RootObjClient<Roots.Budget>
