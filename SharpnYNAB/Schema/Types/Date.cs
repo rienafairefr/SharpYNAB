@@ -4,6 +4,11 @@ namespace SharpnYNAB.Schema.Types
 {
     public class Date
     {
-        public DateTime DateTime { get; set; }
+        public DateTime Value;
+
+        public Date(DateTime value)
+        {
+            Value = value;
+        }
     }
 }

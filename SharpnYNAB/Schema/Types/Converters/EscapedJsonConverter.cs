@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SharpnYNAB.Schema.Types.Converters
 {
-    public class CurrencyFormatConverter : JsonConverter {
+    public class EscapedJsonConverter<T> : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -16,12 +16,12 @@ namespace SharpnYNAB.Schema.Types.Converters
             var token = JToken.Load(reader);
             var data = token.ToObject<string>();
             var unescaped = Regex.Unescape(data);
-            return JsonConvert.DeserializeObject<CurrencyFormat>(unescaped);
+            return JsonConvert.DeserializeObject<T>(unescaped);
         }
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(CurrencyFormat) == objectType;
+            return typeof(T) == objectType;
         }
     }
 }

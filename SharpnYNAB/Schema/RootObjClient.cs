@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SharpnYNAB.Schema.Catalog;
 using SharpnYNAB.Schema.Roots;
 using SharpnYNAB.Schema.Types;
 using SharpnYNAB.Schema.Types.Converters;
@@ -49,7 +46,8 @@ namespace SharpnYNAB.Schema
             {
                 new DateConverter(),
                 new AmountConverter(),
-                new CurrencyFormatConverter(),
+                new EscapedJsonConverter<DateFormat>(),
+                new EscapedJsonConverter<CurrencyFormat>(),
                 new IdConverter()
             }
 

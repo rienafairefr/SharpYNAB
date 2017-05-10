@@ -20,7 +20,7 @@ namespace SharpnYNAB.Schema.Types.Converters
             var result = DateTime.TryParseExact(data, "yyyy-MM-dd", 
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out date);
-            if (result) return new Date{DateTime=date};
+            if (result) return new Date(date.Date);
             return null;
         }
 
