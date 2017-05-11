@@ -10,7 +10,10 @@ namespace SharpnYNAB.Schema.Types.Converters
         public Regex RegexUuid = new Regex("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value is Guid)
+            {
+                writer.WriteValue(((Guid) value).ToString());
+            }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

@@ -8,7 +8,10 @@ namespace SharpnYNAB.Schema.Types.Converters
     public class EscapedJsonConverter<T> : JsonConverter {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value is T)
+            {
+                writer.WriteValue(Regex.Escape(JsonConvert.SerializeObject(value)));
+            }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

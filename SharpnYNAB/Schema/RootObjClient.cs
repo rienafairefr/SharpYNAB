@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Roots;
 using SharpnYNAB.Schema.Types;
 using SharpnYNAB.Schema.Types.Converters;
@@ -11,7 +17,7 @@ namespace SharpnYNAB.Schema
     {
 
     }
-    public abstract class RootObjClient<T> : IRootObjClient where T : IRootObj
+    public abstract class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
     {
         public abstract Dictionary<string, object> Extra { get; }
         public abstract string opname { get; }
@@ -22,6 +28,7 @@ namespace SharpnYNAB.Schema
         {
             Client = client;
             Obj = obj;
+            Changed = new T();
         }
 
         public T Obj { get; set; }
@@ -34,9 +41,103 @@ namespace SharpnYNAB.Schema
             public ErrorData  error { get; set; }
         }
 
+        public T Changed { get; set; }
+
+        public void ResetChanged()
+        {
+            Changed = new T();
+        }
+
         public class ErrorData
         {
             public string id { get; set; }
+        }
+
+        protected PropertyChangedEventHandler GetSubCollectionItemChanged<T2>(
+            ObservableCollection<T2> changedCollection) where T2 : class, IEntity
+        {
+            return (o, e) =>
+            {
+                var obj = (T2)o;
+                if (!changedCollection.Contains(obj))
+                {
+                    changedCollection.Add(obj);
+                }
+            };
+        }
+
+        protected void ResetChangedItemWatchers<T2>(ObservableCollection<T2> changedCollection, IList collection) where T2: class, IEntity
+        {
+            if (collection != null)
+            {
+                foreach (T2 item in collection)
+                    item.PropertyChanged += GetSubCollectionItemChanged(changedCollection);
+            }
+            else
+            {
+                
+            }
+        }
+
+        protected void ResetChanged<T2>(ObservableCollection<T2> changedCollection, ObservableCollection<T2> collection) where T2 : class, IEntity
+        {
+            collection.CollectionChanged += GetSubCollectionChanged(changedCollection);
+            ResetChangedItemWatchers(changedCollection, collection);
+        }
+
+        protected NotifyCollectionChangedEventHandler GetSubCollectionChanged<T2>(ObservableCollection<T2> changedCollection) where T2 : class, IEntity
+        {
+            return (o, e) =>
+            {
+                if (e.NewItems != null)
+                {
+                    ResetChangedItemWatchers(changedCollection, e.NewItems);
+                }
+
+                if (e.OldItems != null)
+                    foreach (IEntity item in e.OldItems)
+                        item.PropertyChanged -= GetSubCollectionItemChanged(changedCollection);
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        foreach (T2 obj in e.NewItems)
+                        {
+                            changedCollection.Add(obj);
+                        }
+                        break;
+                    case NotifyCollectionChangedAction.Move:
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        foreach (T2 obj in e.OldItems)
+                        {
+                            obj.is_tombstone = true;
+                            if (!changedCollection.Contains(obj))
+                            {
+                                changedCollection.Add(obj);
+                            }
+
+                        }
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        foreach (T2 obj in e.NewItems)
+                        {
+                            changedCollection.Add(obj);
+                        }
+                        foreach (T2 obj in e.OldItems)
+                        {
+                            obj.is_tombstone = true;
+                            if (!changedCollection.Contains(obj))
+                            {
+                                changedCollection.Add(obj);
+                            }
+                        }
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            };
         }
 
         private JsonSerializerSettings jsonsettings = new JsonSerializerSettings
@@ -65,6 +166,10 @@ namespace SharpnYNAB.Schema
                 Obj.knowledge.current_device_knowledge = serverKnowledgeOfDevice;
             }
             Obj.knowledge.device_knowledge_of_server = currentServerKnowledge;
+        }
+
+        public async Task Push()
+        {
         }
 
         public abstract void UpdateFromChangedEntities(T syncDataChangedEntities);

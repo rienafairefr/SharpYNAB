@@ -9,7 +9,9 @@ namespace SharpnYNAB.Schema.Types.Converters
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (!(value is Date)) return;
+
+            writer.WriteValue(((Date) value).Value.ToString("yyyy-MM-dd"));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -20,8 +22,7 @@ namespace SharpnYNAB.Schema.Types.Converters
             var result = DateTime.TryParseExact(data, "yyyy-MM-dd", 
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out date);
-            if (result) return new Date(date.Date);
-            return null;
+            return result ? new Date(date.Date) : null;
         }
 
         public override bool CanConvert(Type objectType)

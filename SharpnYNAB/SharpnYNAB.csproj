@@ -5,11 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.0-preview1-final" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Schema\Budget\Classes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Classes.cs</LastGenOutput>
+    </None>
+    <None Update="Schema\Catalog\Classes.tt">
+      <LastGenOutput>Classes.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Schema\Classes.tt">
+      <LastGenOutput>Classes.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Schema\RootObjClientAdd.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RootObjClientAdd.cs</LastGenOutput>
@@ -21,6 +35,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Schema\Budget\Classes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Classes.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Schema\Catalog\Classes.cs">
+      <DependentUpon>Classes.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Schema\Classes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Classes.tt</DependentUpon>
+    </Compile>
     <Compile Update="Schema\RootObjClientAdd.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

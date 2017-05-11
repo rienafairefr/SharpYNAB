@@ -136,9 +136,9 @@ namespace SharpnYNAB
                             case null:
                                 return responsecontent;
                             case YnabError.user_not_found:
-                                break;
+                                throw new YnabUserNotFoundException();
                             case YnabError.user_password_invalid:
-                                break;
+                                throw new YnabUserPasswordInvalidException();
                             case YnabError.request_throttled:
                                 var retryrafter = response.Headers.RetryAfter.Delta?.Milliseconds;
                                 if (retryrafter != null)
@@ -191,5 +191,11 @@ namespace SharpnYNAB
         public string UserId { get; set; }
     }
 
+    public class YnabUserNotFoundException : Exception
+    {
+    }
 
+    public class YnabUserPasswordInvalidException : Exception
+    {
+    }
 }

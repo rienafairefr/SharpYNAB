@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using SharpnYNAB.Schema.Budget;
@@ -15,12 +15,15 @@ namespace SharpnYNAB.Schema
         public Roots.Budget budget { get; set; }
         public BudgetVersion budget_version { get; set; }
         public string budget_name { get; set; }
-        public int starting_device_knowledge { get; set; } = 0;
-        public int ending_device_knowledge { get; set; } = 0;
+        public int starting_device_knowledge { get; set; }
+        public int ending_device_knowledge { get; set; }
         public string UserId => Connection.UserId;
 
+        [NotMapped]
         public CatalogClient CatalogClient { get; set; }
+        [NotMapped]
         public BudgetClient BudgetClient { get; set; }
+        [NotMapped]
         public IConnection Connection { get; set; }
 
         public Client()
@@ -29,7 +32,29 @@ namespace SharpnYNAB.Schema
             catalog = new Roots.Catalog();
             CatalogClient = new CatalogClient(this);
             BudgetClient = new BudgetClient(this);
+            CatalogClient.ResetChanged();
+            BudgetClient.ResetChanged();
         }
+
+        public async Task Push(int expected_delta)
+        {
+            var catalog_changed_entities = CatalogClient.Changed;
+            var budget_changed_entities = BudgetClient.Changed;
+            var delta = catalog_changed_entities.Size + budget_changed_entities.Size;
+            if (delta != expected_delta)
+            {
+                throw new WrongPushException();
+            }
+            if (delta > 0)
+            {
+                ending_device_knowledge = starting_device_knowledge + 1;
+
+                await CatalogClient.Push();
+                await BudgetClient.Push();
+                starting_device_knowledge = ending_device_knowledge;
+            }
+        }
+
         public async Task Sync()
         {
             await CatalogClient.Sync();
@@ -47,42 +72,7 @@ namespace SharpnYNAB.Schema
         }
     }
 
-    internal class BudgetNotFoundException : Exception
+    public class WrongPushException : Exception
     {
-    }
-
-    public partial class BudgetClient : RootObjClient<Roots.Budget>
-    {
-        public BudgetClient(Client client) : base(client, client.budget)
-        {
-        }
-
-        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
-        {
-            ["calculated_entities_included"] = false,
-            ["budget_version_id"] = Client.budget_version.id
-        };
-        public override string opname => "syncBudgetData";
-    }
-
-    public partial class CatalogClient : RootObjClient<Roots.Catalog>
-    {
-        public CatalogClient(Client client) : base(client,client.catalog) { }
-        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
-        {
-            ["user_id"] = Client.UserId
-        };
-        public override string opname => "syncCatalogData";
-    }
-
-    public class Knowledge
-    {
-        public int current_device_knowledge { get; set; }
-        public int device_knowledge_of_server { get; set; }
-    }
-
-    public interface IRootObjClient
-    {
-        Task Sync();
     }
 }
