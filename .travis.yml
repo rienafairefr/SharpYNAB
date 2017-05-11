@@ -4,9 +4,14 @@ solution: SharpYNAB.sln
 install:
   - nuget restore SharpYNAB.sln
 dist: trusty  
-mono: none
+mono: latest
 dotnet: 1.0.3
+install:
+ - nuget install xunit.runner.console -Version 2.2.0 -OutputDirectory testrunner
 script:  
-  - ./build.sh --quiet verify
+ - ./build.sh --quiet verify
+ 
 script:
-- dotnet xunit
+ - mono ./testrunner/xunit.runner.console.2.2.0/tools/xunit.console.exe
+ - dotnet restore
+ - dotnet test SharpYNAB.Tests -c Release -f netcoreapp1.1
