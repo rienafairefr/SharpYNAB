@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Catalog;
 
-// ReSharper disable InconsistentNaming
-
 namespace SharpnYNAB.Schema
 {
     public class Client
     {
         public int Id { get; set; }
-        public Roots.Catalog catalog { get; set; }
-        public Roots.Budget budget { get; set; }
-        public BudgetVersion budget_version { get; set; }
-        public string budget_name { get; set; }
-        public int starting_device_knowledge { get; set; }
-        public int ending_device_knowledge { get; set; }
+        public Roots.Catalog Catalog { get; set; }
+        public Roots.Budget Budget { get; set; }
+
+        public BudgetVersion BudgetVersion { get; set; }
+        public string BudgetName { get; set; }
+        public int StartingDeviceKnowledge { get; set; }
+        public int EndingDeviceKnowledge { get; set; }
         public string UserId => Connection.UserId;
 
         [NotMapped]
@@ -29,44 +28,44 @@ namespace SharpnYNAB.Schema
 
         public Client()
         {
-            budget = new Roots.Budget();
-            catalog = new Roots.Catalog();
+            Budget = new Roots.Budget();
+            Catalog = new Roots.Catalog();
             CatalogClient = new CatalogClient(this);
             BudgetClient = new BudgetClient(this);
             CatalogClient.ResetChanged();
             BudgetClient.ResetChanged();
         }
 
-        public async Task Push(int expected_delta)
+        public async Task Push(int expectedDelta)
         {
-            var catalog_changed_entities = CatalogClient.Changed;
-            var budget_changed_entities = BudgetClient.Changed;
-            var delta = catalog_changed_entities.Size + budget_changed_entities.Size;
-            if (delta != expected_delta)
+            var catalogChangedEntities = CatalogClient.Changed;
+            var budgetChangedEntities = BudgetClient.Changed;
+            var delta = catalogChangedEntities.Size + budgetChangedEntities.Size;
+            if (delta != expectedDelta)
             {
                 throw new WrongPushException();
             }
             if (delta > 0)
             {
-                ending_device_knowledge = starting_device_knowledge + 1;
+                EndingDeviceKnowledge = StartingDeviceKnowledge + 1;
 
                 await CatalogClient.Push();
                 await BudgetClient.Push();
-                starting_device_knowledge = ending_device_knowledge;
+                StartingDeviceKnowledge = EndingDeviceKnowledge;
             }
         }
 
         public async Task Sync()
         {
             await CatalogClient.Sync();
-            SelectBudget(budget_name);
+            SelectBudget(BudgetName);
             await BudgetClient.Sync();
         }
 
         private void SelectBudget(string budgetName)
         {
-            budget_version = catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == budgetName);
-            if (budget_version == null)
+            BudgetVersion = Catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == budgetName);
+            if (BudgetVersion == null)
             {
                 throw new BudgetNotFoundException();
             }

@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Catalog;
-
-// ReSharper disable InconsistentNaming
 
 namespace SharpnYNAB.Schema.Roots
 {

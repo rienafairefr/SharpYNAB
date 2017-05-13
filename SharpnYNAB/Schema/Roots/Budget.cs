@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Types;
 
-// ReSharper disable InconsistentNaming
-
 namespace SharpnYNAB.Schema.Roots
 {
     public class Budget : RootObj
