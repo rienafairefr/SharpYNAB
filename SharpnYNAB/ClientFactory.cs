@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SharpnYNAB.Schema;
+using SharpnYNAB.Schema.Budget;
 
 
 namespace SharpnYNAB
@@ -18,6 +19,15 @@ namespace SharpnYNAB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("sqlite://:memory:");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountCalculation>()
+                .HasOne(ac => ac.EntitiesAccount)
+                .WithMany(b => b.AccountCalculations);
+            modelBuilder.Entity<MonthlySubcategoryBudget>()
+                .HasOne(a => a.EntitiesSubcategory)
+                .WithOne(a => a.MonthlySubcategoryBudget);
         }
         public DbSet<Client> Clients { get; set; }
     }
@@ -36,7 +46,7 @@ namespace SharpnYNAB
             {
                 throw new NoBudgetNameException();
             }
-            
+
             if (args.Connection == null)
             {
                 args.Connection = new Connection(args.Email, args.Password);

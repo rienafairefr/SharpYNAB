@@ -15,10 +15,10 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.be_accounts.Add(acc);
+            client.budget.Accounts.Add(acc);
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
-            Assert.Equal(acc, changed.be_accounts[0]);
+            Assert.Equal(acc, changed.Accounts[0]);
         }
 
         [Fact]
@@ -26,14 +26,14 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.be_accounts.Add(acc);
+            client.budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            client.budget.be_accounts.Remove(acc);
+            client.budget.Accounts.Remove(acc);
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
-            Assert.Equal(true, changed.be_accounts[0].is_tombstone);
-            Assert.Equal(acc, changed.be_accounts[0]);
+            Assert.Equal(true, changed.Accounts[0].is_tombstone);
+            Assert.Equal(acc, changed.Accounts[0]);
         }
 
         [Fact]
@@ -41,15 +41,15 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.be_accounts.Add(acc);
+            client.budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            acc.account_name = "BLABLA";
+            acc.AccountName = "BLABLA";
 
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
-            Assert.Equal("BLABLA", changed.be_accounts[0].account_name);
-            Assert.Equal(acc, changed.be_accounts[0]);
+            Assert.Equal("BLABLA", changed.Accounts[0].AccountName);
+            Assert.Equal(acc, changed.Accounts[0]);
         }
 
         [Fact]
@@ -57,16 +57,16 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.be_accounts.Add(acc);
+            client.budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            acc.account_name = "BLABLA";
-            acc.account_name = "TURLUTUTU";
+            acc.AccountName = "BLABLA";
+            acc.AccountName = "TURLUTUTU";
 
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
-            Assert.Equal("TURLUTUTU", changed.be_accounts[0].account_name);
-            Assert.Equal(acc, changed.be_accounts[0]);
+            Assert.Equal("TURLUTUTU", changed.Accounts[0].AccountName);
+            Assert.Equal(acc, changed.Accounts[0]);
         }
 
         [Fact]
@@ -75,30 +75,30 @@ namespace SharpnYNAB.Tests
             var client = new Client();
             var acc = new Account
             {
-                account_name = "FIRST"
+                AccountName = "FIRST"
             };
             var acc2 = new Account
             {
-                account_name = "SECOND"
+                AccountName = "SECOND"
             };
-            client.budget.be_accounts.Add(acc);
+            client.budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            client.budget.be_accounts[0] = acc2;
+            client.budget.Accounts[0] = acc2;
 
             var changed = client.BudgetClient.Changed;
             Assert.Equal(2, changed.Size);
-            var names = changed.be_accounts.Select(o => o.account_name).ToList();
+            var names = changed.Accounts.Select(o => o.AccountName).ToList();
             Assert.Contains("FIRST", names);
             Assert.Contains("SECOND", names);
 
-            foreach (var obj in changed.be_accounts)
+            foreach (var obj in changed.Accounts)
             {
-                if (obj.account_name == "FIRST")
+                if (obj.AccountName == "FIRST")
                 {
                     Assert.Equal(true, obj.is_tombstone);
                 }
-                if (obj.account_name == "SECOND")
+                if (obj.AccountName == "SECOND")
                 {
                     Assert.Equal(false, obj.is_tombstone);
                 }

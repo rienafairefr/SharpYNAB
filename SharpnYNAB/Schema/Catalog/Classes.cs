@@ -12,15 +12,21 @@ namespace SharpnYNAB.Schema.Catalog
 {
     public class BudgetVersion : Entity
     {
-        public string version_name { get => _versionname ; set{ _versionname = value;OnPropertyChanged();} } 
-        public string source { get => _source ; set{ _source = value;OnPropertyChanged();} } 
-        public DateTime last_accessed_on { get => _lastaccessedon ; set{ _lastaccessedon = value;OnPropertyChanged();} } 
-        public DateFormat date_format { get => _dateformat ; set{ _dateformat = value;OnPropertyChanged();} } 
-        public CurrencyFormat currency_format { get => _currencyformat ; set{ _currencyformat = value;OnPropertyChanged();} } 
-
+        [JsonProperty("version_name")]
+        public string VersionName { get => _versionname ; set{ _versionname = value;OnPropertyChanged();} } 
+        [JsonProperty("source")]
+        public string Source { get => _source ; set{ _source = value;OnPropertyChanged();} } 
+        [JsonProperty("last_accessed_on")]
+        public DateTime LastAccessedOn { get => _lastaccessedon ; set{ _lastaccessedon = value;OnPropertyChanged();} } 
+        [JsonProperty("date_format")]
+        public DateFormat DateFormat { get => _dateformat ; set{ _dateformat = value;OnPropertyChanged();} } 
+        [JsonProperty("currency_format")]
+        public CurrencyFormat CurrencyFormat { get => _currencyformat ; set{ _currencyformat = value;OnPropertyChanged();} } 
         [JsonIgnore]
-        public CatalogBudget budget { get => _budget ; set{ _budget = value;OnPropertyChanged();} } 
-        public Guid budget_id { get => _budgetid ; set{ _budgetid = value;OnPropertyChanged();} } 
+        public CatalogBudget Budget { get => _budget ; set{ _budget = value;OnPropertyChanged();} } 
+        [JsonProperty("budget_id")]
+        [ForeignKey(nameof(Budget))]
+        public Guid BudgetId { get => _budgetid ; set{ _budgetid = value;OnPropertyChanged();} } 
         private DateFormat _dateformat ;
         private DateTime _lastaccessedon ;
         private CurrencyFormat _currencyformat ;
@@ -31,19 +37,27 @@ namespace SharpnYNAB.Schema.Catalog
     }
     public class CatalogBudget : Entity
     {
-        public DateTime? created_at { get => _createdat ; set{ _createdat = value;OnPropertyChanged();} } 
-        public string budget_name { get => _budgetname ; set{ _budgetname = value;OnPropertyChanged();} } 
+        [JsonProperty("created_at")]
+        public DateTime? CreatedAt { get => _createdat ; set{ _createdat = value;OnPropertyChanged();} } 
+        [JsonProperty("budget_name")]
+        public string BudgetName { get => _budgetname ; set{ _budgetname = value;OnPropertyChanged();} } 
         private string _budgetname ;
         private DateTime? _createdat ;
     }
     public class User : Entity
     {
-        public string username { get => _username ; set{ _username = value;OnPropertyChanged();} } 
-        public Date trial_expires_on { get => _trialexpireson ; set{ _trialexpireson = value;OnPropertyChanged();} } 
-        public int sign_in_count { get => _signincount ; set{ _signincount = value;OnPropertyChanged();} } 
-        public bool is_subscribed { get => _issubscribed ; set{ _issubscribed = value;OnPropertyChanged();} } 
-        public List<string> feature_flags { get => _featureflags ; set{ _featureflags = value;OnPropertyChanged();} } 
-        public string email { get => _email ; set{ _email = value;OnPropertyChanged();} } 
+        [JsonProperty("username")]
+        public string Username { get => _username ; set{ _username = value;OnPropertyChanged();} } 
+        [JsonProperty("trial_expires_on")]
+        public Date TrialExpiresOn { get => _trialexpireson ; set{ _trialexpireson = value;OnPropertyChanged();} } 
+        [JsonProperty("sign_in_count")]
+        public int SignInCount { get => _signincount ; set{ _signincount = value;OnPropertyChanged();} } 
+        [JsonProperty("is_subscribed")]
+        public bool IsSubscribed { get => _issubscribed ; set{ _issubscribed = value;OnPropertyChanged();} } 
+        [JsonProperty("feature_flags")]
+        public List<string> FeatureFlags { get => _featureflags ; set{ _featureflags = value;OnPropertyChanged();} } 
+        [JsonProperty("email")]
+        public string Email { get => _email ; set{ _email = value;OnPropertyChanged();} } 
         private string _username ;
         private Date _trialexpireson ;
         private string _email ;
@@ -53,12 +67,19 @@ namespace SharpnYNAB.Schema.Catalog
     }
     public class UserBudget : Entity
     {
-        public Guid user_id { get => _userid ; set{ _userid = value;OnPropertyChanged();} } 
-
+        [JsonProperty("user_id")]
+        [ForeignKey(nameof(User))]
+        public Guid UserId { get => _userid ; set{ _userid = value;OnPropertyChanged();} } 
         [JsonIgnore]
-        public User user { get => _user ; set{ _user = value;OnPropertyChanged();} } 
-        public int permissions { get => _permissions ; set{ _permissions = value;OnPropertyChanged();} } 
-        public Guid budget_id { get => _budgetid ; set{ _budgetid = value;OnPropertyChanged();} } 
+        public User User { get => _user ; set{ _user = value;OnPropertyChanged();} } 
+        [JsonProperty("permissions")]
+        public int Permissions { get => _permissions ; set{ _permissions = value;OnPropertyChanged();} } 
+        [JsonProperty("budget_id")]
+        [ForeignKey(nameof(Budget))]
+        public Guid BudgetId { get => _budgetid ; set{ _budgetid = value;OnPropertyChanged();} } 
+        [JsonIgnore]
+        public CatalogBudget Budget { get => _budget ; set{ _budget = value;OnPropertyChanged();} } 
+        private CatalogBudget _budget ;
         private Guid _budgetid ;
         private User _user ;
         private Guid _userid ;
@@ -66,10 +87,15 @@ namespace SharpnYNAB.Schema.Catalog
     }
     public class UserSetting : Entity
     {
-        public Guid user_id { get => _userid ; set{ _userid = value;OnPropertyChanged();} } 
-        public User user { get => _user ; set{ _user = value;OnPropertyChanged();} } 
-        public string setting_value { get => _settingvalue ; set{ _settingvalue = value;OnPropertyChanged();} } 
-        public string setting_name { get => _settingname ; set{ _settingname = value;OnPropertyChanged();} } 
+        [JsonProperty("user_id")]
+        [ForeignKey(nameof(User))]
+        public Guid UserId { get => _userid ; set{ _userid = value;OnPropertyChanged();} } 
+        [JsonProperty("user")]
+        public User User { get => _user ; set{ _user = value;OnPropertyChanged();} } 
+        [JsonProperty("setting_value")]
+        public string SettingValue { get => _settingvalue ; set{ _settingvalue = value;OnPropertyChanged();} } 
+        [JsonProperty("setting_name")]
+        public string SettingName { get => _settingname ; set{ _settingname = value;OnPropertyChanged();} } 
         private string _settingname ;
         private User _user ;
         private Guid _userid ;

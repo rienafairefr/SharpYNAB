@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Catalog;
@@ -10,202 +9,202 @@ namespace SharpnYNAB.Schema
     public partial class BudgetClient{
         public override void UpdateFromChangedEntities(Roots.Budget changedEntities)
         {
-            foreach (var obj in changedEntities.be_transactions)
+            foreach (var obj in changedEntities.Transactions)
             {
-                var currentObj = Obj.be_transactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Transactions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_transactions.Remove(currentObj);
+                        Obj.Transactions.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_transactions.Add(obj);
+                    Obj.Transactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_master_categories)
+            foreach (var obj in changedEntities.MasterCategories)
             {
-                var currentObj = Obj.be_master_categories.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MasterCategories.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_master_categories.Remove(currentObj);
+                        Obj.MasterCategories.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_master_categories.Add(obj);
+                    Obj.MasterCategories.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_settings)
+            foreach (var obj in changedEntities.Settings)
             {
-                var currentObj = Obj.be_settings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Settings.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_settings.Remove(currentObj);
+                        Obj.Settings.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_settings.Add(obj);
+                    Obj.Settings.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_monthly_budget_calculations)
+            foreach (var obj in changedEntities.MonthlyBudgetCalculations)
             {
-                var currentObj = Obj.be_monthly_budget_calculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_monthly_budget_calculations.Remove(currentObj);
+                        Obj.MonthlyBudgetCalculations.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_monthly_budget_calculations.Add(obj);
+                    Obj.MonthlyBudgetCalculations.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_account_mappings)
+            foreach (var obj in changedEntities.AccountMappings)
             {
-                var currentObj = Obj.be_account_mappings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.AccountMappings.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_account_mappings.Remove(currentObj);
+                        Obj.AccountMappings.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_account_mappings.Add(obj);
+                    Obj.AccountMappings.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_subtransactions)
+            foreach (var obj in changedEntities.Subtransactions)
             {
-                var currentObj = Obj.be_subtransactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Subtransactions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_subtransactions.Remove(currentObj);
+                        Obj.Subtransactions.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_subtransactions.Add(obj);
+                    Obj.Subtransactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_scheduled_subtransactions)
+            foreach (var obj in changedEntities.ScheduledSubtransactions)
             {
-                var currentObj = Obj.be_scheduled_subtransactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.ScheduledSubtransactions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_scheduled_subtransactions.Remove(currentObj);
+                        Obj.ScheduledSubtransactions.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_scheduled_subtransactions.Add(obj);
+                    Obj.ScheduledSubtransactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_monthly_budgets)
+            foreach (var obj in changedEntities.MonthlyBudgets)
             {
-                var currentObj = Obj.be_monthly_budgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyBudgets.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_monthly_budgets.Remove(currentObj);
+                        Obj.MonthlyBudgets.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_monthly_budgets.Add(obj);
+                    Obj.MonthlyBudgets.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_subcategories)
+            foreach (var obj in changedEntities.Subcategories)
             {
-                var currentObj = Obj.be_subcategories.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Subcategories.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_subcategories.Remove(currentObj);
+                        Obj.Subcategories.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_subcategories.Add(obj);
+                    Obj.Subcategories.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_payee_locations)
+            foreach (var obj in changedEntities.PayeeLocations)
             {
-                var currentObj = Obj.be_payee_locations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.PayeeLocations.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_payee_locations.Remove(currentObj);
+                        Obj.PayeeLocations.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_payee_locations.Add(obj);
+                    Obj.PayeeLocations.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_account_calculations)
+            foreach (var obj in changedEntities.AccountCalculations)
             {
-                var currentObj = Obj.be_account_calculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.AccountCalculations.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_account_calculations.Remove(currentObj);
+                        Obj.AccountCalculations.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_account_calculations.Add(obj);
+                    Obj.AccountCalculations.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_monthly_account_calculations)
+            foreach (var obj in changedEntities.MonthlyAccountCalculations)
             {
-                var currentObj = Obj.be_monthly_account_calculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyAccountCalculations.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_monthly_account_calculations.Remove(currentObj);
+                        Obj.MonthlyAccountCalculations.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_monthly_account_calculations.Add(obj);
+                    Obj.MonthlyAccountCalculations.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_monthly_subcategory_budget_calculations)
+            foreach (var obj in changedEntities.MonthlySubcategoryBudgetCalculations)
             {
-                var currentObj = Obj.be_monthly_subcategory_budget_calculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlySubcategoryBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_monthly_subcategory_budget_calculations.Remove(currentObj);
+                        Obj.MonthlySubcategoryBudgetCalculations.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_monthly_subcategory_budget_calculations.Add(obj);
+                    Obj.MonthlySubcategoryBudgetCalculations.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_scheduled_transactions)
+            foreach (var obj in changedEntities.ScheduledTransactions)
             {
-                var currentObj = Obj.be_scheduled_transactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.ScheduledTransactions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_scheduled_transactions.Remove(currentObj);
+                        Obj.ScheduledTransactions.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_scheduled_transactions.Add(obj);
+                    Obj.ScheduledTransactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_payees)
+            foreach (var obj in changedEntities.Payees)
             {
-                var currentObj = Obj.be_payees.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Payees.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_payees.Remove(currentObj);
+                        Obj.Payees.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_payees.Add(obj);
+                    Obj.Payees.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_monthly_subcategory_budgets)
+            foreach (var obj in changedEntities.MonthlySubcategoryBudgets)
             {
-                var currentObj = Obj.be_monthly_subcategory_budgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlySubcategoryBudgets.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_monthly_subcategory_budgets.Remove(currentObj);
+                        Obj.MonthlySubcategoryBudgets.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_monthly_subcategory_budgets.Add(obj);
+                    Obj.MonthlySubcategoryBudgets.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_payee_rename_conditions)
+            foreach (var obj in changedEntities.PayeeRenameConditions)
             {
-                var currentObj = Obj.be_payee_rename_conditions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.PayeeRenameConditions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_payee_rename_conditions.Remove(currentObj);
+                        Obj.PayeeRenameConditions.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_payee_rename_conditions.Add(obj);
+                    Obj.PayeeRenameConditions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.be_accounts)
+            foreach (var obj in changedEntities.Accounts)
             {
-                var currentObj = Obj.be_accounts.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Accounts.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.be_accounts.Remove(currentObj);
+                        Obj.Accounts.Remove(currentObj);
                     }
                 }else{
-                    Obj.be_accounts.Add(obj);
+                    Obj.Accounts.Add(obj);
                 }
             }
         }
@@ -213,59 +212,59 @@ namespace SharpnYNAB.Schema
     public partial class CatalogClient{
         public override void UpdateFromChangedEntities(Roots.Catalog changedEntities)
         {
-            foreach (var obj in changedEntities.ce_user_budgets)
+            foreach (var obj in changedEntities.UserBudgets)
             {
-                var currentObj = Obj.ce_user_budgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.UserBudgets.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.ce_user_budgets.Remove(currentObj);
+                        Obj.UserBudgets.Remove(currentObj);
                     }
                 }else{
-                    Obj.ce_user_budgets.Add(obj);
+                    Obj.UserBudgets.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.ce_user_settings)
+            foreach (var obj in changedEntities.UserSettings)
             {
-                var currentObj = Obj.ce_user_settings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.UserSettings.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.ce_user_settings.Remove(currentObj);
+                        Obj.UserSettings.Remove(currentObj);
                     }
                 }else{
-                    Obj.ce_user_settings.Add(obj);
+                    Obj.UserSettings.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.ce_budget_versions)
+            foreach (var obj in changedEntities.BudgetVersions)
             {
-                var currentObj = Obj.ce_budget_versions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.BudgetVersions.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.ce_budget_versions.Remove(currentObj);
+                        Obj.BudgetVersions.Remove(currentObj);
                     }
                 }else{
-                    Obj.ce_budget_versions.Add(obj);
+                    Obj.BudgetVersions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.ce_users)
+            foreach (var obj in changedEntities.Users)
             {
-                var currentObj = Obj.ce_users.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Users.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.ce_users.Remove(currentObj);
+                        Obj.Users.Remove(currentObj);
                     }
                 }else{
-                    Obj.ce_users.Add(obj);
+                    Obj.Users.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.ce_budgets)
+            foreach (var obj in changedEntities.Budgets)
             {
-                var currentObj = Obj.ce_budgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Budgets.FirstOrDefault(o=>o.id == obj.id);
                 if (currentObj != null){
                     if (obj.is_tombstone){
-                        Obj.ce_budgets.Remove(currentObj);
+                        Obj.Budgets.Remove(currentObj);
                     }
                 }else{
-                    Obj.ce_budgets.Add(obj);
+                    Obj.Budgets.Add(obj);
                 }
             }
         }

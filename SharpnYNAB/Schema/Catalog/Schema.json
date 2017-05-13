@@ -16,7 +16,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "budget_id"
+        "Name": "budget_id",
+        "ForeignKey": "nameof(Budget)"
       },
       {
         "Type": "CatalogBudget",
@@ -70,8 +71,14 @@
     ],
     "UserBudget": [
       {
+        "Type": "CatalogBudget",
+        "Name": "budget",
+        "JsonIgnore": true 
+      },
+      {
         "Type": "Guid",
-        "Name": "budget_id"
+        "Name": "budget_id",
+        "ForeignKey": "nameof(Budget)"
       },
       {
         "Type": "User",
@@ -80,7 +87,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "user_id"
+        "Name": "user_id",
+        "ForeignKey": "nameof(User)"
       },
       {
         "Type": "int",
@@ -98,7 +106,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "user_id"
+        "Name": "user_id",
+        "ForeignKey": "nameof(User)"
       },
       {
         "Type": "string",

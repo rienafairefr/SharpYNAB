@@ -31,12 +31,13 @@ var properties = keyvalue.Value;
 <#+ foreach (var property in properties.OrderBy(prop=>prop.Name[0]).Reverse()){ 
 var fieldname = FieldName(property);
 #><#+ if (property.JsonIgnore){#>
-
         [JsonIgnore]
-<#+}#><#+ if (property.ForeignKey !=null){#>
+<#+}else{#>
+        [JsonProperty("<#= property.Name #>")]
+<#+}#><#+ if (property.ForeignKey!=null){#>
         [ForeignKey(<#= property.ForeignKey #>)]
 <#+}#>
-        public <#= property.Type #> <#= property.Name #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
+        public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
 <#+}#>
 
 
@@ -56,11 +57,15 @@ public class ClassGroup{
 public string FieldName(Property property){
     return "_"+property.Name.ToLower().Replace("_","").Replace("@","");
 }
+public string CamelCase(string snake_case){
+    return snake_case.Split(new [] {"_"}, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
+}
 public class Property{
     public bool JsonIgnore {get;set;} = false;
     public string Type {get;set;}
     public string Name {get;set;}
     public string Default {get;set;}
     public string ForeignKey {get;set;}
+    public string InverseProperty {get;set;}
 }
 #>

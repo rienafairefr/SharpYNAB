@@ -10,32 +10,31 @@ namespace SharpnYNAB.Schema
 <# 
 var objects = new Dictionary<string,List<string[]>>{
 ["Budget"]=new List<string[]>{
-        new []{"be_transactions","Transaction"},
-
-        new []{"be_master_categories","MasterCategory"},
-        new []{"be_settings","Setting"},
-        new []{"be_monthly_budget_calculations","MonthlyBudgetCalculation"},
-        new []{"be_account_mappings","AccountMapping"},
-        new []{"be_subtransactions","SubTransaction"},
-        new []{"be_scheduled_subtransactions","ScheduledSubTransaction"},
-        new []{"be_monthly_budgets","MonthlyBudget"},
-        new []{"be_subcategories","SubCategory"},
-        new []{"be_payee_locations","PayeeLocation"},
-        new []{"be_account_calculations","AccountCalculation"},
-        new []{"be_monthly_account_calculations","MonthlyAccountCalculation"},
-        new []{"be_monthly_subcategory_budget_calculations","MonthlySubCategoryBudgetCalculation"},
-        new []{"be_scheduled_transactions","ScheduledTransaction"},
-        new []{"be_payees","Payee"},
-        new []{"be_monthly_subcategory_budgets","MonthlySubCategoryBudget"},
-        new []{"be_payee_rename_conditions","PayeeRenameCondition"},
-        new []{"be_accounts","Account"}
+        new []{"Transactions","Transaction"},
+        new []{"MasterCategories","MasterCategory"},
+        new []{"Settings","Setting"},
+        new []{"MonthlyBudgetCalculations","MonthlyBudgetCalculation"},
+        new []{"AccountMappings","AccountMapping"},
+        new []{"Subtransactions","Subtransaction"},
+        new []{"ScheduledSubtransactions","ScheduledSubtransaction"},
+        new []{"MonthlyBudgets","MonthlyBudget"},
+        new []{"Subcategories","Subcategory"},
+        new []{"PayeeLocations","PayeeLocation"},
+        new []{"AccountCalculations","AccountCalculation"},
+        new []{"MonthlyAccountCalculations","MonthlyAccountCalculation"},
+        new []{"MonthlySubcategoryBudgetCalculations","MonthlySubcategoryBudgetCalculation"},
+        new []{"ScheduledTransactions","ScheduledTransaction"},
+        new []{"Payees","Payee"},
+        new []{"MonthlySubcategoryBudgets","MonthlySubcategoryBudget"},
+        new []{"PayeeRenameConditions","PayeeRenameCondition"},
+        new []{"Accounts","Account"}
         },
 ["Catalog"]=new List<string[]>{
-        new []{"ce_user_budgets","UserBudget"},
-        new []{"ce_user_settings","UserSetting"},
-        new []{"ce_budget_versions","BudgetVersion"},
-        new []{"ce_users","User"},
-        new []{"ce_budgets","CatalogBudget"}
+        new []{"UserBudgets","UserBudget"},
+        new []{"UserSettings","UserSetting"},
+        new []{"BudgetVersions","BudgetVersion"},
+        new []{"Users","User"},
+        new []{"Budgets","CatalogBudget"}
         }
 };
 

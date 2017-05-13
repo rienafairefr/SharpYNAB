@@ -7,6 +7,10 @@
         "Name": "account_name"
       },
       {
+        "Type": "List<AccountCalculation>",
+        "Name": "AccountCalculations"
+      },
+      {
         "Type": "AccountType",
         "Name": "account_type"
       },
@@ -103,7 +107,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)" 
       }
     ],
     "AccountMapping": [
@@ -152,7 +157,8 @@
     "PayeeRenameCondition": [
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)" 
       },
       {
         "Type": "Payee",
@@ -206,7 +212,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)"
       },
       {
         "Type": "string",
@@ -291,7 +298,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_monthly_budget_id"
+        "Name": "entities_monthly_budget_id",
+        "ForeignKey": "nameof(EntitiesMonthlyBudget)"
       },
       {
         "Type": "Amount",
@@ -334,7 +342,7 @@
         "Name": "uncategorized_credit_outflows"
       }
     ],
-    "MonthlySubCategoryBudget": [
+    "MonthlySubcategoryBudget": [
       {
         "Type": "Amount",
         "Name": "budgeted"
@@ -346,16 +354,18 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_monthly_budget_id"
+        "Name": "entities_monthly_budget_id",
+        "ForeignKey": "nameof(EntitiesMonthlyBudget)"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "entities_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_subcategory_id"
+        "Name": "entities_subcategory_id",
+        "ForeignKey": "nameof(EntitiesSubcategory)"
       },
       {
         "Type": "string",
@@ -379,18 +389,23 @@
     "UpcomingInstance": [
       {
         "Type": "ScheduledTransaction",
-        "Name": "scheduledtransaction",
+        "Name": "scheduled_transaction",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "scheduledtransaction_id"
+        "Name": "scheduled_transaction_id",
+        "ForeignKey": "nameof(ScheduledTransaction)"
       }
     ],
     "Transaction": [
       {
         "Type": "string",
         "Name": "ynab_id"
+      },
+      {
+        "Type": "List<Subtransaction>",
+        "Name": "subtransactions"
       },
       {
         "Type": "string",
@@ -459,7 +474,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)" 
       },
       {
         "Type": "Payee",
@@ -468,16 +484,18 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "entities_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_subcategory_id"
+        "Name": "entities_subcategory_id",
+        "ForeignKey": "nameof(EntitiesSubcategory)"
       },
       {
         "Type": "ScheduledTransaction",
@@ -486,7 +504,8 @@
       },
       {
         "Type": "Guid?",
-        "Name": "entities_scheduled_transaction_id"
+        "Name": "entities_scheduled_transaction_id",
+        "ForeignKey": "nameof(EntitiesScheduledTransaction)"
       },
       {
         "Type": "Transaction",
@@ -496,7 +515,7 @@
       {
         "Type": "Guid?",
         "Name": "matched_transaction_id",
-        "ForeignKey": "nameof(matched_transaction)"
+        "ForeignKey": "nameof(MatchedTransaction)"
       },
       {
         "Type": "Account",
@@ -505,16 +524,18 @@
       },
       {
         "Type": "Guid?",
-        "Name": "transfer_account_id"
+        "Name": "transfer_account_id",
+        "ForeignKey": "nameof(TransferAccount)"
       },
       {
-        "Type": "SubTransaction",
+        "Type": "Subtransaction",
         "Name": "transfer_subtransaction",
         "JsonIgnore": true
       },
       {
         "Type": "Guid?",
-        "Name": "transfer_subtransaction_id"
+        "Name": "transfer_subtransaction_id",
+        "ForeignKey": "nameof(TransferSubtransaction)"
       },
       {
         "Type": "Transaction",
@@ -524,10 +545,10 @@
       {
         "Type": "Guid?",
         "Name": "transfer_transaction_id",
-        "ForeignKey": "nameof(transfer_transaction)"
+        "ForeignKey": "nameof(TransferTransaction)"
       }
     ],
-    "SubTransaction": [
+    "Subtransaction": [
       {
         "Type": "Amount",
         "Name": "amount"
@@ -564,16 +585,18 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "entities_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_subcategory_id"
+        "Name": "entities_subcategory_id",
+        "ForeignKey": "nameof(EntitiesSubcategory)"
       },
       {
         "Type": "Transaction",
@@ -582,7 +605,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_transaction_d"
+        "Name": "entities_transaction_id",
+        "ForeignKey": "nameof(EntitiesTransaction)"
       },
       {
         "Type": "Account",
@@ -591,7 +615,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "transfer_account_id"
+        "Name": "transfer_account_id",
+        "ForeignKey": "nameof(TransferAccount)"
       },
       {
         "Type": "Transaction",
@@ -600,10 +625,15 @@
       },
       {
         "Type": "Guid",
-        "Name": "transfer_transaction_id"
+        "Name": "transfer_transaction_id",
+        "ForeignKey": "nameof(TransferTransaction)"
       }
     ],
-    "SubCategory": [
+    "Subcategory": [
+      {
+        "Type": "MonthlySubcategoryBudget",
+        "Name": "MonthlySubcategoryBudget"
+      },
       {
         "Type": "string",
         "Name": "goal_creation_month"
@@ -657,7 +687,8 @@
       },
       {
         "Type": "Guid?",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)"
       },
       {
         "Type": "MasterCategory",
@@ -666,7 +697,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_master_category_id"
+        "Name": "entities_master_category_id",
+        "ForeignKey": "nameof(EntitiesMasterCategory)"
       }
     ],
     "ScheduledTransaction": [
@@ -697,7 +729,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)"
       },
       {
         "Type": "Payee",
@@ -706,16 +739,18 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "entities_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_subcategory_id"
+        "Name": "entities_subcategory_id",
+        "ForeignKey": "nameof(EntitiesSubcategory)"
       },
       {
         "Type": "Transaction",
@@ -724,7 +759,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "transaction_id"
+        "Name": "transaction_id",
+        "ForeignKey": "nameof(Transaction)"
       },
       {
         "Type": "Account",
@@ -733,7 +769,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "transfer_account_id"
+        "Name": "transfer_account_id",
+        "ForeignKey": "nameof(TransferAccount)"
       },
       {
         "Type": "List<UpcomingInstance>",
@@ -741,7 +778,7 @@
         "JsonIgnore": true
       }
     ],
-    "ScheduledSubTransaction": [
+    "ScheduledSubtransaction": [
       {
         "Type": "Amount",
         "Name": "amount"
@@ -761,7 +798,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "transfer_account_id"
+        "Name": "transfer_account_id",
+        "ForeignKey": "nameof(TransferAccount)"
       },
       {
         "Type": "Payee",
@@ -770,7 +808,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)"
       },
       {
         "Type": "Transaction",
@@ -779,16 +818,18 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_scheduled_transaction_id"
+        "Name": "entities_scheduled_transaction_id",
+        "ForeignKey": "nameof(EntitiesScheduledTransaction)"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "entities_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_subcategory_id"
+        "Name": "entities_subcategory_id",
+        "ForeignKey": "nameof(EntitiesSubcategory)"
       }
     ],
     "PayeeLocation": [
@@ -799,7 +840,8 @@
       },
       {
         "Type": "Guid",
-        "Name": "entities_payee_id"
+        "Name": "entities_payee_id",
+        "ForeignKey": "nameof(EntitiesPayee)"
       },
       {
         "Type": "string",
@@ -832,13 +874,14 @@
         "Name": "auto_fill_subcategory_enabled"
       },
       {
-        "Type": "SubCategory",
+        "Type": "Subcategory",
         "Name": "auto_fill_subcategory",
         "JsonIgnore": true
       },
       {
         "Type": "Guid?",
-        "Name": "auto_fill_subcategory_id"
+        "Name": "auto_fill_subcategory_id",
+        "ForeignKey": "nameof(AutoFillSubcategory)"
       },
       {
         "Type": "bool",
@@ -851,7 +894,8 @@
       },
       {
         "Type": "Guid?",
-        "Name": "entities_account_id"
+        "Name": "entities_account_id",
+        "ForeignKey": "nameof(EntitiesAccount)"
       },
       {
         "Type": "string",
@@ -866,7 +910,7 @@
         "Name": "rename_on_import_enabled"
       }
     ],
-    "MonthlySubCategoryBudgetCalculation": [
+    "MonthlySubcategoryBudgetCalculation": [
       {
         "Type": "string",
         "Name": "additional_to_be_budgeted"
@@ -916,13 +960,14 @@
         "Name": "credit_outflows"
       },
       {
-        "Type": "MonthlySubCategoryBudget",
+        "Type": "MonthlySubcategoryBudget",
         "Name": "entities_monthly_subcategory_budget",
         "JsonIgnore": true
       },
       {
         "Type": "Guid",
-        "Name": "entities_monthly_subcategory_budget_id"
+        "Name": "entities_monthly_subcategory_budget_id",
+        "ForeignKey": "nameof(EntitiesMonthlySubcategoryBudget)"
       },
       {
         "Type": "string",
