@@ -11,6 +11,7 @@ namespace SharpnYNAB.Schema
 {
     public class Client
     {
+        public int Id { get; set; }
         public Roots.Catalog catalog { get; set; }
         public Roots.Budget budget { get; set; }
         public BudgetVersion budget_version { get; set; }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SharpnYNAB.Schema;
 using SharpnYNAB.Schema.Budget;
+using SharpnYNAB.Schema.Catalog;
 
 
 namespace SharpnYNAB
@@ -26,7 +27,7 @@ namespace SharpnYNAB
             modelBuilder.Entity<Transaction>().HasOne(s => s.TransferSubtransaction).WithOne(s => s.TransferTransaction);
             modelBuilder.Entity<Transaction>().HasOne(s => s.TransferTransaction).WithMany();
             modelBuilder.Entity<Subtransaction>().HasOne(s => s.EntitiesTransaction).WithMany(s => s.Subtransactions);
-
+            modelBuilder.Entity<User>().Ignore(s => s.FeatureFlags);
         }
         public DbSet<Client> Clients { get; set; }
     }
