@@ -5,39 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Schema\Budget\Classes.autogen.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Schema\Budget\Classes.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Schema\Catalog\Classes.autogen.cs">
-      <DependentUpon>Classes.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Schema\Catalog\Classes.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Schema\Classes.autogen.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Schema\Classes.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="coveralls.net" Version="0.8.0-unstable0013" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.0-preview1-final" />
@@ -46,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Schema\Budget\Classes.tt">
+    <None Update="Schema\Budget\Budget.Classes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Classes.cs</LastGenOutput>
+      <LastGenOutput>Budget.Classes.cs</LastGenOutput>
     </None>
-    <None Update="Schema\Catalog\Classes.tt">
-      <LastGenOutput>Classes.cs</LastGenOutput>
+    <None Update="Schema\Catalog\Catalog.Classes.tt">
+      <LastGenOutput>Catalog.Classes.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Update="Schema\Classes.tt">
@@ -69,6 +36,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Schema\Budget\Budget.Classes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Budget.Classes.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Schema\Catalog\Catalog.Classes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Catalog.Classes.tt</DependentUpon>
+    </Compile>
     <Compile Update="Schema\RootObjClientAdd.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

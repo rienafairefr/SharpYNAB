@@ -405,7 +405,8 @@
       },
       {
         "Type": "List<Subtransaction>",
-        "Name": "Subtransactions"
+        "Name": "Subtransactions",
+        "JsonIgnore": true 
       },
       {
         "Type": "string",
