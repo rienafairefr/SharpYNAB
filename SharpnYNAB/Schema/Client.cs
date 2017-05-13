@@ -64,7 +64,7 @@ namespace SharpnYNAB.Schema
 
         private void SelectBudget(string budgetName)
         {
-            budget_version = catalog.ce_budget_versions.FirstOrDefault(bv => bv.version_name == budgetName);
+            budget_version = catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == budgetName);
             if (budget_version == null)
             {
                 throw new BudgetNotFoundException();
