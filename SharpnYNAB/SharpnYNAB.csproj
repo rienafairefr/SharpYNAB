@@ -46,6 +46,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Catalog.Classes.tt</DependentUpon>
     </Compile>
+    <Compile Update="Schema\Classes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Classes.tt</DependentUpon>
+    </Compile>
     <Compile Update="Schema\RootObjClientAdd.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

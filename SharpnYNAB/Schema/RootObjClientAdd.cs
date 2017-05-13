@@ -31,28 +31,6 @@ namespace SharpnYNAB.Schema
                     Obj.Subtransactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.ScheduledSubtransactions)
-            {
-                var currentObj = Obj.ScheduledSubtransactions.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.ScheduledSubtransactions.Remove(currentObj);
-                    }
-                }else{
-                    Obj.ScheduledSubtransactions.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.ScheduledTransactions)
-            {
-                var currentObj = Obj.ScheduledTransactions.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.ScheduledTransactions.Remove(currentObj);
-                    }
-                }else{
-                    Obj.ScheduledTransactions.Add(obj);
-                }
-            }
         }
     }
     public partial class CatalogClient{

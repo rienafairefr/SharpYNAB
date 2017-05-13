@@ -30,25 +30,12 @@ var properties = keyvalue.Value;
     {
 <#+ foreach (var property in properties.OrderBy(prop=>prop.Name[0]).Reverse()){ 
 var fieldname = FieldName(property);
-#><#+ if (property.JsonIgnore){#>
-        
-        [JsonIgnore]
-<#+}else{#>
-        
-        [JsonProperty("<#= property.Name #>")]
-<#+}#><#+ if (property.ForeignKey!=null){#>
+#><#+ if (property.ForeignKey!=null){#>
         [ForeignKey(<#= property.ForeignKey #>)]
 <#+}#><#+ if (property.InverseProperty!=null){#>
         [InverseProperty(<#= property.InverseProperty #>)]
 <#+}#>
-        public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
-<#+}#>
-
-
-<#+ foreach (var property in properties){ 
-var fieldname = FieldName(property);
-#>
-        private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#>;
+        public <#= property.Type #> <#= CamelCase(property.Name) #> { get;set; } 
 <#+}#>
     }
 <#+}#>

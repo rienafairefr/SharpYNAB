@@ -8,16 +8,6 @@
         "JsonIgnore": true 
       },
       {
-        "Type": "ScheduledTransaction",
-        "Name": "entities_scheduled_transaction",
-        "JsonIgnore": true
-      },
-      {
-        "Type": "Guid?",
-        "Name": "entities_scheduled_transaction_id",
-        "ForeignKey": "nameof(EntitiesScheduledTransaction)"
-      },
-      {
         "Type": "Transaction",
         "Name": "matched_transaction",
         "JsonIgnore": true
@@ -71,42 +61,6 @@
         "Type": "Guid?",
         "Name": "transfer_transaction_id",
         "ForeignKey": "nameof(TransferTransaction)"
-      }
-    ],
-    "ScheduledTransaction": [
-      {
-        "Type": "Transaction",
-        "Name": "transaction",
-        "JsonIgnore": true
-      },
-      {
-        "Type": "Guid",
-        "Name": "transaction_id",
-        "ForeignKey": "nameof(Transaction)"
-      }
-    ],
-    "ScheduledSubtransaction": [
-      {
-        "Type": "Amount",
-        "Name": "amount"
-      },
-      {
-        "Type": "string",
-        "Name": "memo"
-      },
-      {
-        "Type": "int",
-        "Name": "sortable_index"
-      },
-      {
-        "Type": "Transaction",
-        "Name": "entities_scheduled_transaction",
-        "JsonIgnore": true
-      },
-      {
-        "Type": "Guid",
-        "Name": "entities_scheduled_transaction_id",
-        "ForeignKey": "nameof(EntitiesScheduledTransaction)"
       }
     ]
   }
