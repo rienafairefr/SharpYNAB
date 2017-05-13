@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Schema\Budget\Classes.tt">
+    <None Update="Schema\Budget\Budget.Classes.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Classes.cs</LastGenOutput>
+      <LastGenOutput>Budget.Classes.cs</LastGenOutput>
     </None>
-    <None Update="Schema\Catalog\Classes.tt">
-      <LastGenOutput>Classes.cs</LastGenOutput>
+    <None Update="Schema\Catalog\Catalog.Classes.tt">
+      <LastGenOutput>Catalog.Classes.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Update="Schema\Classes.tt">
@@ -36,13 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Schema\Budget\Classes.cs">
+    <Compile Update="Schema\Budget\Budget.Classes.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Classes.tt</DependentUpon>
+      <DependentUpon>Budget.Classes.tt</DependentUpon>
     </Compile>
-    <Compile Update="Schema\Catalog\Classes.cs">
-      <DependentUpon>Classes.tt</DependentUpon>
+    <Compile Update="Schema\Catalog\Catalog.Classes.cs">
+      <DependentUpon>Catalog.Classes.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
