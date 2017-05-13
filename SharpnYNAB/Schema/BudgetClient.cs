@@ -12,8 +12,6 @@ namespace SharpnYNAB.Schema
         public new void ResetChanged()
         {
             base.ResetChanged();
-            ResetChanged(Changed.Accounts, Obj.Accounts);
-            ResetChanged(Changed.AccountCalculations, Obj.AccountCalculations);
         }
 
         public override Dictionary<string, object> Extra => new Dictionary<string, object>()

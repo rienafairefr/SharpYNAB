@@ -11,23 +11,9 @@ namespace SharpnYNAB.Schema
 var objects = new Dictionary<string,List<string[]>>{
 ["Budget"]=new List<string[]>{
         new []{"Transactions","Transaction"},
-        new []{"MasterCategories","MasterCategory"},
-        new []{"Settings","Setting"},
-        new []{"MonthlyBudgetCalculations","MonthlyBudgetCalculation"},
-        new []{"AccountMappings","AccountMapping"},
         new []{"Subtransactions","Subtransaction"},
         new []{"ScheduledSubtransactions","ScheduledSubtransaction"},
-        new []{"MonthlyBudgets","MonthlyBudget"},
-        new []{"Subcategories","Subcategory"},
-        new []{"PayeeLocations","PayeeLocation"},
-        new []{"AccountCalculations","AccountCalculation"},
-        new []{"MonthlyAccountCalculations","MonthlyAccountCalculation"},
-        new []{"MonthlySubcategoryBudgetCalculations","MonthlySubcategoryBudgetCalculation"},
         new []{"ScheduledTransactions","ScheduledTransaction"},
-        new []{"Payees","Payee"},
-        new []{"MonthlySubcategoryBudgets","MonthlySubcategoryBudget"},
-        new []{"PayeeRenameConditions","PayeeRenameCondition"},
-        new []{"Accounts","Account"}
         },
 ["Catalog"]=new List<string[]>{
         new []{"UserBudgets","UserBudget"},

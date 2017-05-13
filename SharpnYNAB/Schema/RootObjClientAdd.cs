@@ -20,50 +20,6 @@ namespace SharpnYNAB.Schema
                     Obj.Transactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.MasterCategories)
-            {
-                var currentObj = Obj.MasterCategories.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MasterCategories.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MasterCategories.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.Settings)
-            {
-                var currentObj = Obj.Settings.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.Settings.Remove(currentObj);
-                    }
-                }else{
-                    Obj.Settings.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.MonthlyBudgetCalculations)
-            {
-                var currentObj = Obj.MonthlyBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MonthlyBudgetCalculations.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MonthlyBudgetCalculations.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.AccountMappings)
-            {
-                var currentObj = Obj.AccountMappings.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.AccountMappings.Remove(currentObj);
-                    }
-                }else{
-                    Obj.AccountMappings.Add(obj);
-                }
-            }
             foreach (var obj in changedEntities.Subtransactions)
             {
                 var currentObj = Obj.Subtransactions.FirstOrDefault(o=>o.id == obj.id);
@@ -86,72 +42,6 @@ namespace SharpnYNAB.Schema
                     Obj.ScheduledSubtransactions.Add(obj);
                 }
             }
-            foreach (var obj in changedEntities.MonthlyBudgets)
-            {
-                var currentObj = Obj.MonthlyBudgets.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MonthlyBudgets.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MonthlyBudgets.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.Subcategories)
-            {
-                var currentObj = Obj.Subcategories.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.Subcategories.Remove(currentObj);
-                    }
-                }else{
-                    Obj.Subcategories.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.PayeeLocations)
-            {
-                var currentObj = Obj.PayeeLocations.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.PayeeLocations.Remove(currentObj);
-                    }
-                }else{
-                    Obj.PayeeLocations.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.AccountCalculations)
-            {
-                var currentObj = Obj.AccountCalculations.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.AccountCalculations.Remove(currentObj);
-                    }
-                }else{
-                    Obj.AccountCalculations.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.MonthlyAccountCalculations)
-            {
-                var currentObj = Obj.MonthlyAccountCalculations.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MonthlyAccountCalculations.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MonthlyAccountCalculations.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.MonthlySubcategoryBudgetCalculations)
-            {
-                var currentObj = Obj.MonthlySubcategoryBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MonthlySubcategoryBudgetCalculations.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MonthlySubcategoryBudgetCalculations.Add(obj);
-                }
-            }
             foreach (var obj in changedEntities.ScheduledTransactions)
             {
                 var currentObj = Obj.ScheduledTransactions.FirstOrDefault(o=>o.id == obj.id);
@@ -161,50 +51,6 @@ namespace SharpnYNAB.Schema
                     }
                 }else{
                     Obj.ScheduledTransactions.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.Payees)
-            {
-                var currentObj = Obj.Payees.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.Payees.Remove(currentObj);
-                    }
-                }else{
-                    Obj.Payees.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.MonthlySubcategoryBudgets)
-            {
-                var currentObj = Obj.MonthlySubcategoryBudgets.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.MonthlySubcategoryBudgets.Remove(currentObj);
-                    }
-                }else{
-                    Obj.MonthlySubcategoryBudgets.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.PayeeRenameConditions)
-            {
-                var currentObj = Obj.PayeeRenameConditions.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.PayeeRenameConditions.Remove(currentObj);
-                    }
-                }else{
-                    Obj.PayeeRenameConditions.Add(obj);
-                }
-            }
-            foreach (var obj in changedEntities.Accounts)
-            {
-                var currentObj = Obj.Accounts.FirstOrDefault(o=>o.id == obj.id);
-                if (currentObj != null){
-                    if (obj.is_tombstone){
-                        Obj.Accounts.Remove(currentObj);
-                    }
-                }else{
-                    Obj.Accounts.Add(obj);
                 }
             }
         }
