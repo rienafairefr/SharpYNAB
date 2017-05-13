@@ -20,8 +20,7 @@
       {
         "Type": "Subtransaction",
         "Name": "transfer_subtransaction",
-        "JsonIgnore": true,
-        "InverseProperty": "nameof(Subtransaction.TransferTransaction)" 
+        "JsonIgnore": true
       },
       {
         "Type": "Guid?",
@@ -43,8 +42,7 @@
       {
         "Type": "Transaction",
         "Name": "entities_transaction",
-        "JsonIgnore": true,
-        "InverseProperty": "nameof(Transaction.Subtransactions)" 
+        "JsonIgnore": true
       },
       {
         "Type": "Guid",
@@ -54,8 +52,7 @@
       {
         "Type": "Transaction",
         "Name": "transfer_transaction",
-        "JsonIgnore": true,
-        "InverseProperty": "nameof(Transaction.TransferSubtransaction)" 
+        "JsonIgnore": true
       },
       {
         "Type": "Guid?",

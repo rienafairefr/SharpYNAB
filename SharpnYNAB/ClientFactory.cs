@@ -22,6 +22,10 @@ namespace SharpnYNAB
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Transaction>().HasOne(s => s.MatchedTransaction).WithMany();
+            modelBuilder.Entity<Transaction>().HasOne(s => s.TransferSubtransaction).WithOne(s=> s.TransferTransaction);
+            modelBuilder.Entity<Transaction>().HasOne(s => s.TransferTransaction).WithMany();
+            modelBuilder.Entity<Subtransaction>().HasOne(s => s.EntitiesTransaction).WithMany(s => s.Subtransactions);
         }
         public DbSet<Client> Clients { get; set; }
     }

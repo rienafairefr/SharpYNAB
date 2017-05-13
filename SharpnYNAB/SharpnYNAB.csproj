@@ -17,10 +17,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Budget.Classes.cs</LastGenOutput>
     </None>
-    <None Update="Schema\Catalog\Catalog.Classes.tt">
-      <LastGenOutput>Catalog.Classes.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
     <None Update="Schema\Classes.tt">
       <LastGenOutput>Classes.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -40,11 +36,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Budget.Classes.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Schema\Catalog\Catalog.Classes.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Catalog.Classes.tt</DependentUpon>
     </Compile>
     <Compile Update="Schema\Classes.cs">
       <DesignTime>True</DesignTime>

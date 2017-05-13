@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SharpnYNAB.Schema.Budget;
-using SharpnYNAB.Schema.Catalog;
 using System.Linq;
 
 namespace SharpnYNAB.Schema
@@ -12,13 +11,6 @@ var objects = new Dictionary<string,List<string[]>>{
 ["Budget"]=new List<string[]>{
         new []{"Transactions","Transaction"},
         new []{"Subtransactions","Subtransaction"},
-        },
-["Catalog"]=new List<string[]>{
-        new []{"UserBudgets","UserBudget"},
-        new []{"UserSettings","UserSetting"},
-        new []{"BudgetVersions","BudgetVersion"},
-        new []{"Users","User"},
-        new []{"Budgets","CatalogBudget"}
         }
 };
 

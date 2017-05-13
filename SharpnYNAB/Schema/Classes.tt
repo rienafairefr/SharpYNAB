@@ -31,6 +31,7 @@ var properties = keyvalue.Value;
 <#+ foreach (var property in properties.OrderBy(prop=>prop.Name[0]).Reverse()){ 
 var fieldname = FieldName(property);
 #><#+ if (property.ForeignKey!=null){#>
+        
         [ForeignKey(<#= property.ForeignKey #>)]
 <#+}#><#+ if (property.InverseProperty!=null){#>
         [InverseProperty(<#= property.InverseProperty #>)]
