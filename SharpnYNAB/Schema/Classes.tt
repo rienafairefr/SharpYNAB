@@ -22,13 +22,13 @@ var nmspace = data.NameSpace;
 #>namespace SharpnYNAB.Schema.<#=nmspace#>
 {
 <#+
-foreach (var keyvalue in data.Properties){
+foreach (var keyvalue in data.Classes){
 var classname = keyvalue.Key;
-var properties = keyvalue.Value;
+var @class = keyvalue.Value;
 #>
     public class <#= classname #> : Entity
     {
-<#+ foreach (var property in properties.OrderBy(prop=>prop.Name[0]).Reverse()){ 
+<#+ foreach (var property in @class.OrderBy(prop=>prop.Name[0]).Reverse()){ 
 var fieldname = FieldName(property);
 #><#+ if (property.JsonIgnore){#>
         [JsonIgnore]
@@ -41,7 +41,7 @@ var fieldname = FieldName(property);
 <#+}#>
 
 
-<#+ foreach (var property in properties){ 
+<#+ foreach (var property in @class){ 
 var fieldname = FieldName(property);
 #>
         private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#>;
@@ -52,7 +52,7 @@ var fieldname = FieldName(property);
 <#+} 
 public class ClassGroup{
     public string NameSpace {get;set;}
-    public Dictionary<string,List<Property>> Properties {get;set;}
+    public Dictionary<string,List<Property>> Classes {get;set;}
 }
 public string FieldName(Property property){
     return "_"+property.Name.ToLower().Replace("_","").Replace("@","");
@@ -66,6 +66,5 @@ public class Property{
     public string Name {get;set;}
     public string Default {get;set;}
     public string ForeignKey {get;set;}
-    public string InverseProperty {get;set;}
 }
 #>

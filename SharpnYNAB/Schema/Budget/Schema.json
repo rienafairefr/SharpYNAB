@@ -1,6 +1,6 @@
 ﻿{
   "NameSpace": "Budget",
-  "Properties": {
+  "Classes": {
     "Account": [
       {
         "Type": "string",

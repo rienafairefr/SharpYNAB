@@ -1,6 +1,6 @@
 ﻿{
   "NameSpace": "Catalog",
-  "Properties": {
+  "Classes": {
     "BudgetVersion": [
       {
         "Type": "DateFormat",
