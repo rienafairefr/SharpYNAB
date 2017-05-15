@@ -58,7 +58,7 @@ namespace SharpYNAB.Schema.Roots
         public string _LastMonth
         {
             get => JsonConvert.SerializeObject(LastMonth);
-            set { LastMonth = JsonConvert.DeserializeObject<Date>(value); }
+            set => LastMonth = JsonConvert.DeserializeObject<Date>(value);
         }
 
         [JsonProperty("first_month")]
@@ -72,7 +72,7 @@ namespace SharpYNAB.Schema.Roots
         public string _FirstMonth
         {
             get => JsonConvert.SerializeObject(_FirstMonth);
-            set { FirstMonth = JsonConvert.DeserializeObject<Date>(value); }
+            set => FirstMonth = JsonConvert.DeserializeObject<Date>(value);
         }
 
         public override int Size => Transactions.Count + MasterCategories.Count + Settings.Count +

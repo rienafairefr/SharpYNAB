@@ -32,7 +32,7 @@ namespace SharpYNAB.Tests
             client.Budget.Accounts.Remove(acc);
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
-            Assert.Equal(true, changed.Accounts[0].is_tombstone);
+            Assert.Equal(true, changed.Accounts[0].IsTombstone);
             Assert.Equal(acc, changed.Accounts[0]);
         }
 
@@ -96,11 +96,11 @@ namespace SharpYNAB.Tests
             {
                 if (obj.AccountName == "FIRST")
                 {
-                    Assert.Equal(true, obj.is_tombstone);
+                    Assert.Equal(true, obj.IsTombstone);
                 }
                 if (obj.AccountName == "SECOND")
                 {
-                    Assert.Equal(false, obj.is_tombstone);
+                    Assert.Equal(false, obj.IsTombstone);
                 }
             }
         }

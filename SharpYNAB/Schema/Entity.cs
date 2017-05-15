@@ -1,22 +1,22 @@
-﻿// ReSharper disable InconsistentNaming
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SharpYNAB.Schema.Types;
+using Newtonsoft.Json;
 
 namespace SharpYNAB.Schema
 {
     public interface IEntity:INotifyPropertyChanged
     {
-        Guid id { get; set; }
-        bool is_tombstone { get; set; }
+        Guid Id { get; set; }
+        bool IsTombstone { get; set; }
     }
 
     public class Entity:IEntity
     {
-        public Guid id { get; set; }
-        public bool is_tombstone { get; set; }
+        [JsonProperty("id")]
+        public Guid Id { get; set; }
+        [JsonProperty("is_tombstone")]
+        public bool IsTombstone { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
-using SharpYNAB.Annotations;
 
 namespace SharpYNAB.Schema.Roots
 {

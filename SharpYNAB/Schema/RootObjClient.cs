@@ -110,7 +110,7 @@ namespace SharpYNAB.Schema
                     case NotifyCollectionChangedAction.Remove:
                         foreach (T2 obj in e.OldItems)
                         {
-                            obj.is_tombstone = true;
+                            obj.IsTombstone = true;
                             if (!changedCollection.Contains(obj))
                             {
                                 changedCollection.Add(obj);
@@ -125,7 +125,7 @@ namespace SharpYNAB.Schema
                         }
                         foreach (T2 obj in e.OldItems)
                         {
-                            obj.is_tombstone = true;
+                            obj.IsTombstone = true;
                             if (!changedCollection.Contains(obj))
                             {
                                 changedCollection.Add(obj);
@@ -170,6 +170,7 @@ namespace SharpYNAB.Schema
 
         public async Task Push()
         {
+            
         }
 
         public abstract void UpdateFromChangedEntities(T syncDataChangedEntities);

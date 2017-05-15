@@ -11,9 +11,9 @@ namespace SharpYNAB.Schema
         {
             foreach (var obj in changedEntities.Transactions)
             {
-                var currentObj = Obj.Transactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Transactions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Transactions.Remove(currentObj);
                     }
                 }else{
@@ -22,9 +22,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MasterCategories)
             {
-                var currentObj = Obj.MasterCategories.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MasterCategories.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MasterCategories.Remove(currentObj);
                     }
                 }else{
@@ -33,9 +33,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Settings)
             {
-                var currentObj = Obj.Settings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Settings.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Settings.Remove(currentObj);
                     }
                 }else{
@@ -44,9 +44,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MonthlyBudgetCalculations)
             {
-                var currentObj = Obj.MonthlyBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyBudgetCalculations.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MonthlyBudgetCalculations.Remove(currentObj);
                     }
                 }else{
@@ -55,9 +55,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.AccountMappings)
             {
-                var currentObj = Obj.AccountMappings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.AccountMappings.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.AccountMappings.Remove(currentObj);
                     }
                 }else{
@@ -66,9 +66,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Subtransactions)
             {
-                var currentObj = Obj.Subtransactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Subtransactions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Subtransactions.Remove(currentObj);
                     }
                 }else{
@@ -77,9 +77,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.ScheduledSubtransactions)
             {
-                var currentObj = Obj.ScheduledSubtransactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.ScheduledSubtransactions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.ScheduledSubtransactions.Remove(currentObj);
                     }
                 }else{
@@ -88,9 +88,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MonthlyBudgets)
             {
-                var currentObj = Obj.MonthlyBudgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyBudgets.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MonthlyBudgets.Remove(currentObj);
                     }
                 }else{
@@ -99,9 +99,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Subcategories)
             {
-                var currentObj = Obj.Subcategories.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Subcategories.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Subcategories.Remove(currentObj);
                     }
                 }else{
@@ -110,9 +110,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.PayeeLocations)
             {
-                var currentObj = Obj.PayeeLocations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.PayeeLocations.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.PayeeLocations.Remove(currentObj);
                     }
                 }else{
@@ -121,9 +121,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.AccountCalculations)
             {
-                var currentObj = Obj.AccountCalculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.AccountCalculations.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.AccountCalculations.Remove(currentObj);
                     }
                 }else{
@@ -132,9 +132,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MonthlyAccountCalculations)
             {
-                var currentObj = Obj.MonthlyAccountCalculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlyAccountCalculations.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MonthlyAccountCalculations.Remove(currentObj);
                     }
                 }else{
@@ -143,9 +143,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MonthlySubcategoryBudgetCalculations)
             {
-                var currentObj = Obj.MonthlySubcategoryBudgetCalculations.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlySubcategoryBudgetCalculations.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MonthlySubcategoryBudgetCalculations.Remove(currentObj);
                     }
                 }else{
@@ -154,9 +154,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.ScheduledTransactions)
             {
-                var currentObj = Obj.ScheduledTransactions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.ScheduledTransactions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.ScheduledTransactions.Remove(currentObj);
                     }
                 }else{
@@ -165,9 +165,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Payees)
             {
-                var currentObj = Obj.Payees.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Payees.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Payees.Remove(currentObj);
                     }
                 }else{
@@ -176,9 +176,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.MonthlySubcategoryBudgets)
             {
-                var currentObj = Obj.MonthlySubcategoryBudgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.MonthlySubcategoryBudgets.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.MonthlySubcategoryBudgets.Remove(currentObj);
                     }
                 }else{
@@ -187,9 +187,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.PayeeRenameConditions)
             {
-                var currentObj = Obj.PayeeRenameConditions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.PayeeRenameConditions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.PayeeRenameConditions.Remove(currentObj);
                     }
                 }else{
@@ -198,9 +198,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Accounts)
             {
-                var currentObj = Obj.Accounts.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Accounts.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Accounts.Remove(currentObj);
                     }
                 }else{
@@ -214,9 +214,9 @@ namespace SharpYNAB.Schema
         {
             foreach (var obj in changedEntities.UserBudgets)
             {
-                var currentObj = Obj.UserBudgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.UserBudgets.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.UserBudgets.Remove(currentObj);
                     }
                 }else{
@@ -225,9 +225,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.UserSettings)
             {
-                var currentObj = Obj.UserSettings.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.UserSettings.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.UserSettings.Remove(currentObj);
                     }
                 }else{
@@ -236,9 +236,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.BudgetVersions)
             {
-                var currentObj = Obj.BudgetVersions.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.BudgetVersions.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.BudgetVersions.Remove(currentObj);
                     }
                 }else{
@@ -247,9 +247,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Users)
             {
-                var currentObj = Obj.Users.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Users.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Users.Remove(currentObj);
                     }
                 }else{
@@ -258,9 +258,9 @@ namespace SharpYNAB.Schema
             }
             foreach (var obj in changedEntities.Budgets)
             {
-                var currentObj = Obj.Budgets.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.Budgets.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.Budgets.Remove(currentObj);
                     }
                 }else{

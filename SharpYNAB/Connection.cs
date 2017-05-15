@@ -6,21 +6,19 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-// ReSharper disable InconsistentNaming
-
 namespace SharpYNAB
 {
     public interface IConnection
     {
         Task init_session();
-        Task<string> Dorequest(Dictionary<string, object> request_dict, string opname);
+        Task<string> Dorequest(Dictionary<string, object> requestDict, string opname);
         string UserId { get; set; }
     }
 
-    public partial class Connection : IConnection
+    public partial class Connection
     {
-        private Uri urlCatalog = new Uri("https://app.youneedabudget.com");
-        private string baseCatalog = "/api/v1/catalog";
+        private readonly Uri _urlCatalog = new Uri("https://app.youneedabudget.com");
+        private const string BaseCatalog = "/api/v1/catalog";
         private string SessionToken { get; set; }
 
         public string Email { get; set; }
@@ -37,19 +35,22 @@ namespace SharpYNAB
 
         class UserData
         {
-            public string id { get; set; }
+            [JsonProperty("id")]
+            public string Id { get; set; }
         }
 
         class FirstLoginResponse
         {
-            public string session_token { get; set; }
-            public UserData userdata { get; set; }
+            [JsonProperty("session_token")]
+            public string SessionToken { get; set; }
+            [JsonProperty("userdata")]
+            public UserData Userdata { get; set; }
         }
 
         public async Task init_session()
         {
             Cookies = new CookieContainer();
-            var FirstLogin = await Dorequest(new Dictionary<string, object>
+            var firstLogin = await Dorequest(new Dictionary<string, object>
             {
                 ["email"] = Email,
                 ["password"] = Password,
@@ -59,9 +60,9 @@ namespace SharpYNAB
                     ["id"] = Id
                 }
             }, "loginUser");
-            var firstlogin = JsonConvert.DeserializeObject<FirstLoginResponse>(FirstLogin);
-            SessionToken = firstlogin.session_token;
-            UserId = firstlogin.userdata?.id;
+            var firstlogin = JsonConvert.DeserializeObject<FirstLoginResponse>(firstLogin);
+            SessionToken = firstlogin.SessionToken;
+            UserId = firstlogin.Userdata?.Id;
         }
 
         /*  self.session.cookies = RequestsCookieJar()
@@ -88,17 +89,23 @@ namespace SharpYNAB
                               self.lastrequest_elapsed = None*/
         public enum YnabError
         {
-            user_not_found, user_password_invalid, request_throttled
+            [JsonProperty("user_not_found")]
+            UserNotFound,
+            [JsonProperty("user_password_invalid")]
+            UserPasswordInvalid,
+            [JsonProperty("request_throttled")]
+            RequestThrottled
         }
 
         public class ResponseUser
         {
-            public string id;
+            [JsonProperty("id")]
+            public string Id;
         }
 
-        public async Task<string> Dorequest(Dictionary<string, object> request_dict, string opname)
+        public async Task<string> Dorequest(Dictionary<string, object> requestDict, string opname)
         {
-            var json_request_dict = Newtonsoft.Json.JsonConvert.SerializeObject(request_dict);
+            var jsonRequestDict = JsonConvert.SerializeObject(requestDict);
             using (var handler = new HttpClientHandler()
             {
                 CookieContainer = Cookies,
@@ -106,10 +113,10 @@ namespace SharpYNAB
             })
             using (var client = new HttpClient(handler)
             {
-                BaseAddress = urlCatalog,
+                BaseAddress = _urlCatalog,
             })
             {
-                var requestmessage = new HttpRequestMessage(HttpMethod.Post, baseCatalog);
+                var requestmessage = new HttpRequestMessage(HttpMethod.Post, BaseCatalog);
                 requestmessage.Headers.Add("User-Agent", "C# client for YNAB rienafairefr");
                 requestmessage.Headers.Add("X-YNAB-Device-Id", Id);
                 if (SessionToken != null)
@@ -119,7 +126,7 @@ namespace SharpYNAB
                 requestmessage.Content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     ["operation_name"] = opname,
-                    ["request_data"] = json_request_dict,
+                    ["request_data"] = jsonRequestDict,
                 });
 
 
@@ -130,21 +137,21 @@ namespace SharpYNAB
                         break;
                     case HttpStatusCode.OK:
                         var responsecontent = await response.Content.ReadAsStringAsync();
-                        var js = Newtonsoft.Json.JsonConvert.DeserializeObject<YnabResponse>(responsecontent);
+                        var js = JsonConvert.DeserializeObject<YnabResponse>(responsecontent);
                         switch (js.error)
                         {
                             case null:
                                 return responsecontent;
-                            case YnabError.user_not_found:
+                            case YnabError.UserNotFound:
                                 throw new YnabUserNotFoundException();
-                            case YnabError.user_password_invalid:
+                            case YnabError.UserPasswordInvalid:
                                 throw new YnabUserPasswordInvalidException();
-                            case YnabError.request_throttled:
+                            case YnabError.RequestThrottled:
                                 var retryrafter = response.Headers.RetryAfter.Delta?.Milliseconds;
                                 if (retryrafter != null)
                                 {
                                     await Task.Delay((int)retryrafter);
-                                    return Dorequest(request_dict, opname).Result;
+                                    return Dorequest(requestDict, opname).Result;
                                 }
                                 break;
                             default:
