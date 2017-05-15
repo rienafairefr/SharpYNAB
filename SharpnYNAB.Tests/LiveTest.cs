@@ -15,8 +15,7 @@ namespace SharpnYNAB.Tests
         {
             var args = JsonConvert.DeserializeObject<Args>(File.ReadAllText("ynab.conf"));
             args.BudgetName = "Test Budget - Dont Remove";
-            var factory = new ClientFactory();
-            var client = await factory.CreateClient(args);
+            var client = ClientFactory.CreateClient(args);
             await client.Sync();
             var transaction = client.Budget.Transactions.FirstOrDefault(tr => tr.Memo == "TEST TRANSACTION");
             Assert.Equal(12.34, transaction?.Amount);

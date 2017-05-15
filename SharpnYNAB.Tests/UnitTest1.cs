@@ -11,8 +11,7 @@ namespace SharpnYNAB.Tests
         public async void TestMethod1()
         {
             var args = JsonConvert.DeserializeObject<Args>(File.ReadAllText("ynab.conf"));
-            var factory = new ClientFactory();
-            var client = await factory.CreateClient(args);
+            var client = ClientFactory.CreateClient(args);
             await client.Sync();
         }
     }

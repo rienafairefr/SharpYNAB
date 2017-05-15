@@ -15,4 +15,37 @@ SharpnYNAB
 
 a C# .NET Core client for the YNAB API
 
-Still an alpha version, nothing yet guaranteed to work
+It's a port, with some rewriting, of pynYNAB a python client for YNAB (www.youneedabudget.com)
+
+This is a beta release, Sync seems to work but Push not yet tested.
+
+=========
+Usage
+=========
+
+You need to create an Args object that contains the email/password/budget name that will be used to connect to YNAB
+
+    var args = new Args{Email="**youremail**", "Password"="**yourpassword**", BudgetName="Test Budget"}
+
+If no budget with that name exists, this should fail with a BudgetNotFoundException
+
+Then use this to create a client:
+
+    var client = ClientFactory.CreateClient(args);
+
+To query YNAB data
+
+    client.Sync();
+
+To push data, modify the client.Budget and client.Catalog objects collections, for example
+
+    client.Budget.Transactions.Add(new Transaction{
+        // transaction properties, see SharpnYNAB.Schema.Budget.Transaction
+    });
+
+Then push
+
+    client.Push(1);
+
+Here I'm pushing a single modification, like adding an entity. For more involved scenarii (like adding an account, or transfer transactions), you need to push more entities. 
+SharpnYNAB protects your data at that point by forbidding you to push more that what you explicitely intend to modify

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SharpnYNAB.Schema;
@@ -15,7 +16,7 @@ namespace SharpnYNAB
         public string BudgetName { get; set; }
         public IConnection Connection { get; set; }
     }
-    public class ClientContext : DbContext
+    public class ClientContext : DbContext, IClientContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,16 +32,31 @@ namespace SharpnYNAB
         }
         public DbSet<Client> Clients { get; set; }
     }
+
+    public interface IClientContext
+    {
+        DbSet<Client> Clients { get; set; }
+    }
+
     public class ClientFactory
     {
-        public ClientFactory()
+        public static Client CreateClient(Args args)
         {
-            using (var context = new ClientContext())
+            var factory = new CustomClientFactory<ClientContext>();
+            return factory.CreateClient(args);
+        }
+    }
+
+    public class CustomClientFactory<T> where T : DbContext, IClientContext, new()
+    {
+        public CustomClientFactory()
+        {
+            using (var context = new T())
             {
                 context.Database.EnsureCreated();
             }
         }
-        public async Task<Client> CreateClient(Args args)
+        public Client CreateClient(Args args)
         {
             if (args.BudgetName == null)
             {
@@ -50,25 +66,19 @@ namespace SharpnYNAB
             if (args.Connection == null)
             {
                 args.Connection = new Connection(args.Email, args.Password);
-                await args.Connection.init_session();
+                Task.Run(()=>args.Connection.init_session()).Wait();
             }
             var clientId = args.Connection.UserId;
-            using (var db = new ClientContext())
+            using (var db = new T())
             {
-                var previousClient = await db.Clients.SingleOrDefaultAsync(x => x.UserId == clientId);
-                if (previousClient == null)
+                var previousClient = db.Clients.SingleOrDefault(x => x.UserId == clientId);
+                if (previousClient != null) return previousClient;
+                var client = new Client
                 {
-                    var client = new Client
-                    {
-                        BudgetName = args.BudgetName,
-                        Connection = args.Connection
-                    };
-                    return client;
-                }
-                else
-                {
-                    return previousClient;
-                }
+                    BudgetName = args.BudgetName,
+                    Connection = args.Connection
+                };
+                return client;
             }
         }
     }
