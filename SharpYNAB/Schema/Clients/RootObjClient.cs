@@ -15,7 +15,7 @@ using SharpYNAB.Schema.Types.Converters;
 
 namespace SharpYNAB.Schema.Clients
 {
-    public abstract partial class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
+    public abstract class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
     {
         public abstract Dictionary<string, object> Extra { get; }
         public abstract string Opname { get; }
@@ -58,10 +58,6 @@ namespace SharpYNAB.Schema.Clients
                 foreach (T2 item in collection)
                     item.PropertyChanged += GetSubCollectionItemChanged(changedCollection);
             }
-            else
-            {
-                
-            }
         }
 
         protected void ResetChanged<T2>(ObservableCollection<T2> changedCollection, ObservableCollection<T2> collection) where T2 : class, IEntity
@@ -85,35 +81,46 @@ namespace SharpYNAB.Schema.Clients
                 switch (e.Action)
                 {
                     case NotifyCollectionChangedAction.Add:
-                        foreach (T2 obj in e.NewItems)
+                        if (e.NewItems != null)
                         {
-                            changedCollection.Add(obj);
+                            foreach (T2 obj in e.NewItems)
+                            {
+                                changedCollection.Add(obj);
+                            }
                         }
                         break;
                     case NotifyCollectionChangedAction.Move:
                         break;
                     case NotifyCollectionChangedAction.Remove:
-                        foreach (T2 obj in e.OldItems)
+                        if (e.OldItems != null)
                         {
-                            obj.IsTombstone = true;
-                            if (!changedCollection.Contains(obj))
+                            foreach (T2 obj in e.OldItems)
                             {
-                                changedCollection.Add(obj);
+                                obj.IsTombstone = true;
+                                if (!changedCollection.Contains(obj))
+                                {
+                                    changedCollection.Add(obj);
+                                }
                             }
-
                         }
                         break;
                     case NotifyCollectionChangedAction.Replace:
-                        foreach (T2 obj in e.NewItems)
+                        if (e.NewItems != null)
                         {
-                            changedCollection.Add(obj);
-                        }
-                        foreach (T2 obj in e.OldItems)
-                        {
-                            obj.IsTombstone = true;
-                            if (!changedCollection.Contains(obj))
+                            foreach (T2 obj in e.NewItems)
                             {
                                 changedCollection.Add(obj);
+                            }
+                        }
+                        if (e.OldItems != null)
+                        {
+                            foreach (T2 obj in e.OldItems)
+                            {
+                                obj.IsTombstone = true;
+                                if (!changedCollection.Contains(obj))
+                                {
+                                    changedCollection.Add(obj);
+                                }
                             }
                         }
                         break;

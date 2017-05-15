@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SharpYNAB.Exceptions;
 
 namespace SharpYNAB.Schema.Clients
 {
@@ -6,11 +7,19 @@ namespace SharpYNAB.Schema.Clients
     {
         public BudgetClient(Client client) : base(client, client.Budget) { }
 
-        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
+        public override Dictionary<string, object> Extra
         {
-            ["calculated_entities_included"] = false,
-            ["budget_version_id"] = Client.BudgetVersion.Id
-        };
+            get
+            {
+                if (Client.BudgetVersion == null) throw new NoSelectedBudgetException();
+                return new Dictionary<string, object>()
+                {
+                    ["calculated_entities_included"] = false,
+                    ["budget_version_id"] = Client.BudgetVersion.Id
+                };
+            }
+        }
+
         public override string Opname => "syncBudgetData";
     }
 }

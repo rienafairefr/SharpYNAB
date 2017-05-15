@@ -51,7 +51,7 @@ namespace SharpYNAB.Schema
             {
                 EndingDeviceKnowledge = StartingDeviceKnowledge + 1;
 
-                Task.Run(()=>CatalogClient.Push()).Wait();
+                Task.Run(() => CatalogClient.Push()).Wait();
                 Task.Run(() => BudgetClient.Push()).Wait();
                 StartingDeviceKnowledge = EndingDeviceKnowledge;
             }

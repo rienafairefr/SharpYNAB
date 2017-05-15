@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpYNAB.Contracts;
+using SharpYNAB.Responses;
+using SharpYNAB.Schema;
 using SharpYNAB.Schema.Budget;
+using SharpYNAB.Schema.Catalog;
 using SharpYNAB.Schema.Roots;
 using Xunit;
 
@@ -30,7 +33,13 @@ namespace SharpYNAB.Tests
                 Dict = requestDict,
                 Opname = opname
             });
-            return "";
+            return JsonConvert.SerializeObject(new Dictionary<string,object>
+            {
+                ["server_knowledge_of_device"] = 0,
+                ["current_server_knowledge"] = 0,
+                ["error"] = new ErrorData{Id=null},
+                ["changed_entities"] = new Dictionary<string,object>()
+            });
         }
 
         public string UserId { get; set; }
@@ -44,16 +53,29 @@ namespace SharpYNAB.Tests
             var connection = new MockConnection();
             args.Connection = connection;
             var client = ClientFactory.CreateClient(args);
-            client.Budget.Transactions.Add(new Transaction
+            client.BudgetVersion = new BudgetVersion();
+            client.BudgetClient.ResetChanged();
+            var addedTransaction = new Transaction
             {
-                Amount=12,
-                Date=DateTime.Now
-            });
+                Amount = 12,
+                Date = DateTime.Now
+            };
+            client.Budget.Transactions.Add(addedTransaction);
             client.Push(1);
-            Assert.Equal(1, connection.Requests.Count);
-            Assert.Equal("syncBudgetData", connection.Requests[0].Opname);
-            var dict = connection.Requests[0].Dict;
-            var changedEntities = (Dictionary<string, object>) dict["changed_entities"];
+            
+            Assert.Equal(2, connection.Requests.Count);
+            Assert.Equal("syncCatalogData", connection.Requests[0].Opname);
+            Assert.Equal("syncBudgetData", connection.Requests[1].Opname);
+
+
+            var cchangedEntities = connection.Requests[0].Dict["changed_entities"] as Catalog;
+            Assert.NotNull(cchangedEntities);
+            Assert.Equal(0, cchangedEntities.Size);
+            var bchangedEntities = connection.Requests[1].Dict["changed_entities"] as Budget;
+            Assert.NotNull(bchangedEntities);
+            Assert.Equal(1, bchangedEntities.Size);
+            Assert.Equal(1, bchangedEntities.Transactions.Count);
+            Assert.Equal(addedTransaction, bchangedEntities.Transactions[0]);
         }
     }
 }

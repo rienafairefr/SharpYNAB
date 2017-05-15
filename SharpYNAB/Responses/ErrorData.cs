@@ -5,6 +5,6 @@ namespace SharpYNAB.Responses
     public class ErrorData
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public YnabError? Id { get; set; }
     }
 }
