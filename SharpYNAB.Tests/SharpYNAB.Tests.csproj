@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharpnYNAB\SharpYNAB.csproj" />
+    <ProjectReference Include="..\SharpYNAB\SharpYNAB.csproj" />
   </ItemGroup>
 
   <ItemGroup>
