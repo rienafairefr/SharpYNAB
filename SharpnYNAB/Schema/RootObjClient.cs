@@ -160,12 +160,12 @@ namespace SharpnYNAB.Schema
             UpdateFromChangedEntities(response.changed_entities);
             var serverKnowledgeOfDevice = response.server_knowledge_of_device;
             var currentServerKnowledge = response.current_server_knowledge;
-            var change = currentServerKnowledge - Obj.knowledge.device_knowledge_of_server;
-            if (Obj.knowledge.current_device_knowledge < serverKnowledgeOfDevice)
+            var change = currentServerKnowledge - Obj.Knowledge.DeviceKnowledgeOfServer;
+            if (Obj.Knowledge.CurrentDeviceKnowledge < serverKnowledgeOfDevice)
             {
-                Obj.knowledge.current_device_knowledge = serverKnowledgeOfDevice;
+                Obj.Knowledge.CurrentDeviceKnowledge = serverKnowledgeOfDevice;
             }
-            Obj.knowledge.device_knowledge_of_server = currentServerKnowledge;
+            Obj.Knowledge.DeviceKnowledgeOfServer = currentServerKnowledge;
         }
 
         public async Task Push()
@@ -178,9 +178,9 @@ namespace SharpnYNAB.Schema
         {
             var request_data = new Dictionary<string, object>
             {
-                ["starting_device_knowledge"] = Client.starting_device_knowledge,
-                ["ending_device_knowledge"] = Client.ending_device_knowledge,
-                ["device_knowledge_of_server"] = Obj.knowledge.device_knowledge_of_server,
+                ["starting_device_knowledge"] = Client.StartingDeviceKnowledge,
+                ["ending_device_knowledge"] = Client.EndingDeviceKnowledge,
+                ["device_knowledge_of_server"] = Obj.Knowledge.DeviceKnowledgeOfServer,
                 ["changed_entities"] = new Dictionary<string, object>()
 
             };

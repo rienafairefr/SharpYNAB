@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace SharpnYNAB.Schema.Types
 {
     public class DateFormat
     {
-        public string format { get; set; }
+        [JsonProperty("format")]
+        public string Format { get; set; }
     }
 }

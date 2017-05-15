@@ -19,7 +19,7 @@ namespace SharpnYNAB.Schema
         public override Dictionary<string, object> Extra => new Dictionary<string, object>()
         {
             ["calculated_entities_included"] = false,
-            ["budget_version_id"] = Client.budget_version.id
+            ["budget_version_id"] = Client.BudgetVersion.id
         };
         public override string opname => "syncBudgetData";
     }

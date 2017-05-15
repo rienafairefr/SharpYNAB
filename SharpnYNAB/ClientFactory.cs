@@ -60,7 +60,7 @@ namespace SharpnYNAB
                 {
                     var client = new Client
                     {
-                        budget_name = args.BudgetName,
+                        BudgetName = args.BudgetName,
                         Connection = args.Connection
                     };
                     return client;

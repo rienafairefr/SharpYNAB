@@ -1,19 +1,23 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using SharpnYNAB.Annotations;
 
 namespace SharpnYNAB.Schema.Roots
 {
     public interface IRootObj
     {
-        Knowledge knowledge { get; set; }
+        Knowledge Knowledge { get; set; }
         int Size { get; }
     }
 
     public abstract class RootObj : IRootObj, INotifyPropertyChanged
     {
-        public Knowledge knowledge { get; set; } = new Knowledge();
+        [JsonIgnore]
+        public int Id { get; set; }
+        [JsonIgnore]
+        public Knowledge Knowledge { get; set; } = new Knowledge();
+        [JsonIgnore]
         public abstract int Size { get; }
         public event PropertyChangedEventHandler PropertyChanged;
 
