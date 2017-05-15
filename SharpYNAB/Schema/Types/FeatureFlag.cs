@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SharpYNAB.Schema.Catalog
+namespace SharpYNAB.Schema.Types
 {
     public class FeatureFlag
     {

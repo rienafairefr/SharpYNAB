@@ -1,15 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using SharpYNAB.Schema.Roots.Contracts;
 
 namespace SharpYNAB.Schema.Roots
 {
-    public interface IRootObj
-    {
-        Knowledge Knowledge { get; set; }
-        int Size { get; }
-    }
-
     public abstract class RootObj : IRootObj, INotifyPropertyChanged
     {
         [JsonIgnore]

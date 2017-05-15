@@ -1,11 +1,7 @@
 ﻿<#@ import namespace="System.Collections.Generic" #>
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using SharpYNAB.Schema.Budget;
-using SharpYNAB.Schema.Catalog;
 using System.Linq;
 
-namespace SharpYNAB.Schema
+namespace SharpYNAB.Schema.Clients
 {
 <# 
 var objects = new Dictionary<string,List<string[]>>{
@@ -44,14 +40,22 @@ var root = kv.Key;
 var data = kv.Value;
 #>
     public partial class <#=root#>Client{
+        public new void ResetChanged()
+        {
+            base.ResetChanged();
+<# foreach (var row in data){#>
+            ResetChanged(Changed.<#=row[0]#>, Obj.<#=row[0]#>);
+<# }#>
+        }
+
         public override void UpdateFromChangedEntities(Roots.<#=root#> changedEntities)
         {
 <# foreach (var row in data){#>
             foreach (var obj in changedEntities.<#=row[0]#>)
             {
-                var currentObj = Obj.<#=row[0]#>.FirstOrDefault(o=>o.id == obj.id);
+                var currentObj = Obj.<#=row[0]#>.FirstOrDefault(o=>o.Id == obj.Id);
                 if (currentObj != null){
-                    if (obj.is_tombstone){
+                    if (obj.IsTombstone){
                         Obj.<#=row[0]#>.Remove(currentObj);
                     }
                 }else{

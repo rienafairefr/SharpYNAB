@@ -1,12 +1,31 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using SharpYNAB.Schema.Budget;
-using SharpYNAB.Schema.Catalog;
-using System.Linq;
+﻿using System.Linq;
 
-namespace SharpYNAB.Schema
+namespace SharpYNAB.Schema.Clients
 {
     public partial class BudgetClient{
+        public new void ResetChanged()
+        {
+            base.ResetChanged();
+            ResetChanged(Changed.Transactions, Obj.Transactions);
+            ResetChanged(Changed.MasterCategories, Obj.MasterCategories);
+            ResetChanged(Changed.Settings, Obj.Settings);
+            ResetChanged(Changed.MonthlyBudgetCalculations, Obj.MonthlyBudgetCalculations);
+            ResetChanged(Changed.AccountMappings, Obj.AccountMappings);
+            ResetChanged(Changed.Subtransactions, Obj.Subtransactions);
+            ResetChanged(Changed.ScheduledSubtransactions, Obj.ScheduledSubtransactions);
+            ResetChanged(Changed.MonthlyBudgets, Obj.MonthlyBudgets);
+            ResetChanged(Changed.Subcategories, Obj.Subcategories);
+            ResetChanged(Changed.PayeeLocations, Obj.PayeeLocations);
+            ResetChanged(Changed.AccountCalculations, Obj.AccountCalculations);
+            ResetChanged(Changed.MonthlyAccountCalculations, Obj.MonthlyAccountCalculations);
+            ResetChanged(Changed.MonthlySubcategoryBudgetCalculations, Obj.MonthlySubcategoryBudgetCalculations);
+            ResetChanged(Changed.ScheduledTransactions, Obj.ScheduledTransactions);
+            ResetChanged(Changed.Payees, Obj.Payees);
+            ResetChanged(Changed.MonthlySubcategoryBudgets, Obj.MonthlySubcategoryBudgets);
+            ResetChanged(Changed.PayeeRenameConditions, Obj.PayeeRenameConditions);
+            ResetChanged(Changed.Accounts, Obj.Accounts);
+        }
+
         public override void UpdateFromChangedEntities(Roots.Budget changedEntities)
         {
             foreach (var obj in changedEntities.Transactions)
@@ -210,6 +229,16 @@ namespace SharpYNAB.Schema
         }
     }
     public partial class CatalogClient{
+        public new void ResetChanged()
+        {
+            base.ResetChanged();
+            ResetChanged(Changed.UserBudgets, Obj.UserBudgets);
+            ResetChanged(Changed.UserSettings, Obj.UserSettings);
+            ResetChanged(Changed.BudgetVersions, Obj.BudgetVersions);
+            ResetChanged(Changed.Users, Obj.Users);
+            ResetChanged(Changed.Budgets, Obj.Budgets);
+        }
+
         public override void UpdateFromChangedEntities(Roots.Catalog changedEntities)
         {
             foreach (var obj in changedEntities.UserBudgets)

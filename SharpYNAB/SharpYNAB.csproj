@@ -25,7 +25,7 @@
       <LastGenOutput>Classes.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Schema\RootObjClientAdd.tt">
+    <None Update="Schema\Clients\RootObjClientAdd.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RootObjClientAdd.cs</LastGenOutput>
     </None>
@@ -51,7 +51,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Classes.tt</DependentUpon>
     </Compile>
-    <Compile Update="Schema\RootObjClientAdd.cs">
+    <Compile Update="Schema\Clients\RootObjClientAdd.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RootObjClientAdd.tt</DependentUpon>

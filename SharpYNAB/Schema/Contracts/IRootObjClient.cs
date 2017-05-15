@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SharpYNAB.Schema
+namespace SharpYNAB.Schema.Contracts
 {
     public interface IRootObjClient
     {

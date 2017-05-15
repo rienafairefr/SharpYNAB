@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 using SharpYNAB.Schema.Types;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-
+// ReSharper disable ExplicitCallerInfoArgument
 
 namespace SharpYNAB.Schema.Catalog
 {
-    public partial class BudgetVersion : Entity
+    public class BudgetVersion : Entity
     {
         [JsonProperty("version_name")]
         public string VersionName { get => _versionname ; set{ _versionname = value;OnPropertyChanged();} } 
@@ -18,18 +18,18 @@ namespace SharpYNAB.Schema.Catalog
         [JsonProperty("date_format")]
         [NotMapped]
         public DateFormat DateFormat { get => _dateformat ; set{ _dateformat = value;OnPropertyChanged();} } 
-            public string _DateFormat_Format { get => DateFormat.Format ; set{ DateFormat.Format = value;OnPropertyChanged(nameof(DateFormat));} } 
+            public string DateFormatFormat { get => DateFormat.Format ; set{ DateFormat.Format = value;OnPropertyChanged(nameof(DateFormat));} } 
         [JsonProperty("currency_format")]
         [NotMapped]
         public CurrencyFormat CurrencyFormat { get => _currencyformat ; set{ _currencyformat = value;OnPropertyChanged();} } 
-            public bool _CurrencyFormat_DisplaySymbol { get => CurrencyFormat.DisplaySymbol ; set{ CurrencyFormat.DisplaySymbol = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public string _CurrencyFormat_IsoCode { get => CurrencyFormat.IsoCode ; set{ CurrencyFormat.IsoCode = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public bool _CurrencyFormat_SymbolFirst { get => CurrencyFormat.SymbolFirst ; set{ CurrencyFormat.SymbolFirst = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public string _CurrencyFormat_CurrencySymbol { get => CurrencyFormat.CurrencySymbol ; set{ CurrencyFormat.CurrencySymbol = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public int _CurrencyFormat_DecimalDigits { get => CurrencyFormat.DecimalDigits ; set{ CurrencyFormat.DecimalDigits = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public string _CurrencyFormat_DecimalSeparator { get => CurrencyFormat.DecimalSeparator ; set{ CurrencyFormat.DecimalSeparator = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public string _CurrencyFormat_GroupSeparator { get => CurrencyFormat.GroupSeparator ; set{ CurrencyFormat.GroupSeparator = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
-            public string _CurrencyFormat_ExampleFormat { get => CurrencyFormat.ExampleFormat ; set{ CurrencyFormat.ExampleFormat = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public bool CurrencyFormatDisplaySymbol { get => CurrencyFormat.DisplaySymbol ; set{ CurrencyFormat.DisplaySymbol = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public string CurrencyFormatIsoCode { get => CurrencyFormat.IsoCode ; set{ CurrencyFormat.IsoCode = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public bool CurrencyFormatSymbolFirst { get => CurrencyFormat.SymbolFirst ; set{ CurrencyFormat.SymbolFirst = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public string CurrencyFormatCurrencySymbol { get => CurrencyFormat.CurrencySymbol ; set{ CurrencyFormat.CurrencySymbol = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public int CurrencyFormatDecimalDigits { get => CurrencyFormat.DecimalDigits ; set{ CurrencyFormat.DecimalDigits = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public string CurrencyFormatDecimalSeparator { get => CurrencyFormat.DecimalSeparator ; set{ CurrencyFormat.DecimalSeparator = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public string CurrencyFormatGroupSeparator { get => CurrencyFormat.GroupSeparator ; set{ CurrencyFormat.GroupSeparator = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
+            public string CurrencyFormatExampleFormat { get => CurrencyFormat.ExampleFormat ; set{ CurrencyFormat.ExampleFormat = value;OnPropertyChanged(nameof(CurrencyFormat));} } 
         [JsonIgnore]
         public CatalogBudget Budget { get => _budget ; set{ _budget = value;OnPropertyChanged();} } 
         [JsonProperty("budget_id")]
@@ -46,7 +46,7 @@ namespace SharpYNAB.Schema.Catalog
         private string _source ;
 #endregion
     }
-    public partial class CatalogBudget : Entity
+    public class CatalogBudget : Entity
     {
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get => _createdat ; set{ _createdat = value;OnPropertyChanged();} } 
@@ -58,14 +58,14 @@ namespace SharpYNAB.Schema.Catalog
         private DateTime? _createdat ;
 #endregion
     }
-    public partial class User : Entity
+    public class User : Entity
     {
         [JsonProperty("username")]
         public string Username { get => _username ; set{ _username = value;OnPropertyChanged();} } 
         [JsonProperty("trial_expires_on")]
         [NotMapped]
         public Date TrialExpiresOn { get => _trialexpireson ; set{ _trialexpireson = value;OnPropertyChanged();} } 
-            public DateTime _TrialExpiresOn_Value { get => TrialExpiresOn.Value ; set{ TrialExpiresOn.Value = value;OnPropertyChanged(nameof(TrialExpiresOn));} } 
+            public DateTime TrialExpiresOnValue { get => TrialExpiresOn.Value ; set{ TrialExpiresOn.Value = value;OnPropertyChanged(nameof(TrialExpiresOn));} } 
         [JsonProperty("sign_in_count")]
         public int SignInCount { get => _signincount ; set{ _signincount = value;OnPropertyChanged();} } 
         [JsonProperty("is_subscribed")]
@@ -84,7 +84,7 @@ namespace SharpYNAB.Schema.Catalog
         private bool _issubscribed ;
 #endregion
     }
-    public partial class UserBudget : Entity
+    public class UserBudget : Entity
     {
         [JsonProperty("user_id")]
         [ForeignKey(nameof(User))]
@@ -107,7 +107,7 @@ namespace SharpYNAB.Schema.Catalog
         private int _permissions ;
 #endregion
     }
-    public partial class UserSetting : Entity
+    public class UserSetting : Entity
     {
         [JsonProperty("user_id")]
         [ForeignKey(nameof(User))]

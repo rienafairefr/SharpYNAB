@@ -2,7 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using SharpYNAB.Contracts;
+using SharpYNAB.Exceptions;
 using SharpYNAB.Schema.Catalog;
+using SharpYNAB.Schema.Clients;
 
 namespace SharpYNAB.Schema
 {
@@ -63,7 +66,7 @@ namespace SharpYNAB.Schema
 
         public void SelectBudget()
         {
-            BudgetVersion = Catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == BudgetName);
+            BudgetVersion = Enumerable.FirstOrDefault<BudgetVersion>(Catalog.BudgetVersions, bv => bv.VersionName == BudgetName);
             if (BudgetVersion == null)
             {
                 throw new BudgetNotFoundException();

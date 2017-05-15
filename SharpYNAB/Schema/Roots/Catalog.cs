@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using SharpYNAB.Schema.Catalog;
 
@@ -7,15 +8,15 @@ namespace SharpYNAB.Schema.Roots
     public class Catalog : RootObj
     {
         [JsonProperty("ce_user_budgets")]
-        public List<UserBudget> UserBudgets { get; set; } = new List<UserBudget>();
+        public ObservableCollection<UserBudget> UserBudgets { get; set; } = new ObservableCollection<UserBudget>();
         [JsonProperty("ce_user_settings")]
-        public List<UserSetting> UserSettings { get; set; } = new List<UserSetting>();
+        public ObservableCollection<UserSetting> UserSettings { get; set; } = new ObservableCollection<UserSetting>();
         [JsonProperty("ce_budget_versions")]
-        public List<BudgetVersion> BudgetVersions { get; set; } = new List<BudgetVersion>();
+        public ObservableCollection<BudgetVersion> BudgetVersions { get; set; } = new ObservableCollection<BudgetVersion>();
         [JsonProperty("ce_users")]
-        public List<User> Users { get; set; } = new List<User>();
+        public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
         [JsonProperty("ce_budgets")]
-        public List<CatalogBudget> Budgets { get; set; } = new List<CatalogBudget>();
+        public ObservableCollection<CatalogBudget> Budgets { get; set; } = new ObservableCollection<CatalogBudget>();
 
         public override int Size => UserBudgets.Count + UserSettings.Count + BudgetVersions.Count +
                                     Users.Count + Budgets.Count;

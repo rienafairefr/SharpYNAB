@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using SharpYNAB.Schema.Types;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-
+// ReSharper disable ExplicitCallerInfoArgument
 <#+ public void Generate() {
 var filepath = Host.ResolvePath("Schema.json");
 var data = JsonConvert.DeserializeObject<ClassGroup>(File.ReadAllText(filepath));
@@ -53,7 +53,7 @@ var complexTypesDictionary = new Dictionary<string,List<Property>>{
 };
 var @class = keyvalue.Value;
 #>
-    public partial class <#= classname #> : Entity
+    public class <#= classname #> : Entity
     {
 <#+ foreach (var property in @class.OrderBy(prop=>prop.Name[0]).Reverse()){ var fieldname = FieldName(property); #>
 <#+ if (property.JsonIgnore){ #>
@@ -68,7 +68,7 @@ var @class = keyvalue.Value;
         [NotMapped]
         public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
 <#+ foreach (var complexProperty in complexTypesDictionary[property.Type]){ #>
-            public <#= complexProperty.Type #> <#= "_" + CamelCase(property.Name) #>_<#= complexProperty.Name #> { get => <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> ; set{ <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> = value;OnPropertyChanged(nameof(<#= CamelCase(property.Name) #>));} } 
+            public <#= complexProperty.Type #> <#= CamelCase(property.Name) #><#= complexProperty.Name #> { get => <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> ; set{ <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> = value;OnPropertyChanged(nameof(<#= CamelCase(property.Name) #>));} } 
 <#+ } #>
 <#+ } else { #>
         public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 

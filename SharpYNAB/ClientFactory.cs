@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SharpYNAB.Contracts;
 using SharpYNAB.Schema;
 using SharpYNAB.Schema.Budget;
 using SharpYNAB.Schema.Catalog;
@@ -9,13 +10,6 @@ using SharpYNAB.Schema.Catalog;
 
 namespace SharpYNAB
 {
-    public class Args
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string BudgetName { get; set; }
-        public IConnection Connection { get; set; }
-    }
     public class ClientContext : DbContext, IClientContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,11 +25,6 @@ namespace SharpYNAB
             modelBuilder.Entity<User>().Ignore(s => s.FeatureFlags);
         }
         public DbSet<Client> Clients { get; set; }
-    }
-
-    public interface IClientContext
-    {
-        DbSet<Client> Clients { get; set; }
     }
 
     public class ClientFactory

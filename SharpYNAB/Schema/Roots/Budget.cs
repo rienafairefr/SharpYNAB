@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using SharpYNAB.Schema.Budget;
@@ -55,10 +56,10 @@ namespace SharpYNAB.Schema.Roots
             set { _lastMonth = value; OnPropertyChanged(); }
         }
 
-        public string _LastMonth
+        public DateTime LastMonthValue
         {
-            get => JsonConvert.SerializeObject(LastMonth);
-            set => LastMonth = JsonConvert.DeserializeObject<Date>(value);
+            get => LastMonth.Value;
+            set  { LastMonth.Value = value;OnPropertyChanged(nameof(LastMonth)); }
         }
 
         [JsonProperty("first_month")]
@@ -69,10 +70,10 @@ namespace SharpYNAB.Schema.Roots
             set { _firstMonth = value; OnPropertyChanged(); }
         }
 
-        public string _FirstMonth
+        public DateTime FirstMonthValue
         {
-            get => JsonConvert.SerializeObject(_FirstMonth);
-            set => FirstMonth = JsonConvert.DeserializeObject<Date>(value);
+            get => FirstMonth.Value;
+            set { FirstMonth.Value = value; OnPropertyChanged(nameof(FirstMonth)); }
         }
 
         public override int Size => Transactions.Count + MasterCategories.Count + Settings.Count +

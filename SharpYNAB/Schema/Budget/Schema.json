@@ -167,7 +167,7 @@
       },
       {
         "Type": "string",
-        "Name": "@operator"
+        "Name": "operator"
       },
       {
         "Type": "string",
@@ -575,8 +575,7 @@
       },
       {
         "Type": "int",
-        "Name": "subcategory_credit_amount_preceding",
-        "Default": "0"
+        "Name": "subcategory_credit_amount_preceding"
       },
       {
         "Type": "Payee",

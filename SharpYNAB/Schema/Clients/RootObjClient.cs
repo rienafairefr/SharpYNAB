@@ -6,23 +6,21 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SharpYNAB.Schema.Budget;
-using SharpYNAB.Schema.Roots;
+using SharpYNAB.Contracts;
+using SharpYNAB.Responses;
+using SharpYNAB.Schema.Contracts;
+using SharpYNAB.Schema.Roots.Contracts;
 using SharpYNAB.Schema.Types;
 using SharpYNAB.Schema.Types.Converters;
 
-namespace SharpYNAB.Schema
+namespace SharpYNAB.Schema.Clients
 {
-    public class EntityDict : Dictionary<string, object>
-    {
-
-    }
-    public abstract class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
+    public abstract partial class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
     {
         public abstract Dictionary<string, object> Extra { get; }
-        public abstract string opname { get; }
+        public abstract string Opname { get; }
         public Client Client { get; set; }
-        public Knowledge knowledge { get; set; }
+        public Knowledge Knowledge { get; set; }
 
         protected RootObjClient(Client client, T obj)
         {
@@ -33,24 +31,11 @@ namespace SharpYNAB.Schema
 
         public T Obj { get; set; }
 
-        public class Response
-        {
-            public T changed_entities { get; set; }
-            public int server_knowledge_of_device { get; set; }
-            public int current_server_knowledge { get; set; }
-            public ErrorData  error { get; set; }
-        }
-
         public T Changed { get; set; }
 
         public void ResetChanged()
         {
             Changed = new T();
-        }
-
-        public class ErrorData
-        {
-            public string id { get; set; }
         }
 
         protected PropertyChangedEventHandler GetSubCollectionItemChanged<T2>(
@@ -153,14 +138,13 @@ namespace SharpYNAB.Schema
             }
 
         };
-        public async Task Sync()
+
+        public void Incorporate(string data)
         {
-            var syncData = await GetSyncDataObj();
-            var response = JsonConvert.DeserializeObject<Response>(syncData, jsonsettings);
-            UpdateFromChangedEntities(response.changed_entities);
-            var serverKnowledgeOfDevice = response.server_knowledge_of_device;
-            var currentServerKnowledge = response.current_server_knowledge;
-            var change = currentServerKnowledge - Obj.Knowledge.DeviceKnowledgeOfServer;
+            var response = JsonConvert.DeserializeObject<Response<T>>(data, jsonsettings);
+            UpdateFromChangedEntities(response.ChangedEntities);
+            var serverKnowledgeOfDevice = response.ServerKnowledgeOfDevice;
+            var currentServerKnowledge = response.CurrentServerKnowledge;
             if (Obj.Knowledge.CurrentDeviceKnowledge < serverKnowledgeOfDevice)
             {
                 Obj.Knowledge.CurrentDeviceKnowledge = serverKnowledgeOfDevice;
@@ -170,14 +154,38 @@ namespace SharpYNAB.Schema
 
         public async Task Push()
         {
-            
+            Incorporate(await GetPushDataObj());
+        }
+
+        public async Task Sync()
+        {
+            Incorporate(await GetSyncDataObj());
+        }
+
+        public async Task<string> GetPushDataObj()
+        {
+            var requestData = new Dictionary<string, object>
+            {
+                ["starting_device_knowledge"] = Client.StartingDeviceKnowledge,
+                ["ending_device_knowledge"] = Client.EndingDeviceKnowledge,
+                ["device_knowledge_of_server"] = Obj.Knowledge.DeviceKnowledgeOfServer,
+                ["changed_entities"] = Changed
+
+            };
+
+            foreach (var keyValuePair in Extra)
+            {
+                requestData.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+
+            return await Connection.Dorequest(requestData, Opname);
         }
 
         public abstract void UpdateFromChangedEntities(T syncDataChangedEntities);
 
         public async Task<string> GetSyncDataObj()
         {
-            var request_data = new Dictionary<string, object>
+            var requestData = new Dictionary<string, object>
             {
                 ["starting_device_knowledge"] = Client.StartingDeviceKnowledge,
                 ["ending_device_knowledge"] = Client.EndingDeviceKnowledge,
@@ -188,10 +196,10 @@ namespace SharpYNAB.Schema
 
             foreach (var keyValuePair in Extra)
             {
-                request_data.Add(keyValuePair.Key, keyValuePair.Value);
+                requestData.Add(keyValuePair.Key, keyValuePair.Value);
             }
 
-            return await Connection.Dorequest(request_data, opname);
+            return await Connection.Dorequest(requestData, Opname);
         }
 
         public IConnection Connection => Client.Connection;
