@@ -18,10 +18,10 @@ namespace SharpYNAB.Tests
             {
                 return new Args
                 {
-                    Email= Environment.GetEnvironmentVariable("YNAB_EMAIL"),
+                    Email = Environment.GetEnvironmentVariable("YNAB_EMAIL"),
                     Password = Environment.GetEnvironmentVariable("YNAB_PASSWORD"),
                     BudgetName = Environment.GetEnvironmentVariable("YNAB_BUDGETNAME")
-                }
+                };
             }
         }
     }
