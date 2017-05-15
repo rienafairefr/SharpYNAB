@@ -10,7 +10,7 @@ namespace SharpYNAB.Tests
         [Fact]
         public async void TestMethod1()
         {
-            var args = JsonConvert.DeserializeObject<Args>(File.ReadAllText("ynab.conf"));
+            var args = Utils.GetTestArgs();
             var client = ClientFactory.CreateClient(args);
             await client.Sync();
         }

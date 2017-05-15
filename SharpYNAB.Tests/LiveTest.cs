@@ -13,7 +13,7 @@ namespace SharpYNAB.Tests
         [Fact]
         public async Task ApiScalingOk()
         {
-            var args = JsonConvert.DeserializeObject<Args>(File.ReadAllText("ynab.conf"));
+            var args = Utils.GetTestArgs();
             args.BudgetName = "Test Budget - Dont Remove";
             var client = ClientFactory.CreateClient(args);
             await client.Sync();
