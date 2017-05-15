@@ -758,7 +758,7 @@
         "JsonIgnore": true
       },
       {
-        "Type": "Guid",
+        "Type": "Guid?",
         "Name": "transaction_id",
         "ForeignKey": "nameof(Transaction)"
       },

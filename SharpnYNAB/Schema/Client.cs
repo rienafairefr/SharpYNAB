@@ -58,13 +58,13 @@ namespace SharpnYNAB.Schema
         public async Task Sync()
         {
             await CatalogClient.Sync();
-            SelectBudget(BudgetName);
+            SelectBudget();
             await BudgetClient.Sync();
         }
 
-        private void SelectBudget(string budgetName)
+        public void SelectBudget()
         {
-            BudgetVersion = Catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == budgetName);
+            BudgetVersion = Catalog.BudgetVersions.FirstOrDefault(bv => bv.VersionName == BudgetName);
             if (BudgetVersion == null)
             {
                 throw new BudgetNotFoundException();

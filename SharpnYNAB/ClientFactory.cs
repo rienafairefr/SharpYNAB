@@ -19,7 +19,7 @@ namespace SharpnYNAB
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("sqlite://:memory:");
+            optionsBuilder.UseInMemoryDatabase("SharpYNAB");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
