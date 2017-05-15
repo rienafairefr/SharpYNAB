@@ -1,16 +1,16 @@
-.. image:: https://travis-ci.org/rienafairefr/SharpnYNAB.svg?branch=master
-    :target: https://travis-ci.org/rienafairefr/SharpnYNAB
+.. image:: https://travis-ci.org/rienafairefr/SharpYNAB.svg?branch=master
+    :target: https://travis-ci.org/rienafairefr/SharpYNAB
 
 .. image:: https://ci.appveyor.com/api/projects/status/nwxyogku2q5tqwyf?svg=true
-    :target: https://ci.appveyor.com/project/rienafairefr/sharpnynab
+    :target: https://ci.appveyor.com/project/rienafairefr/SharpYNAB
 
-.. image:: https://coveralls.io/repos/github/rienafairefr/SharpnYNAB/badge.svg?branch=master
-    :target: https://coveralls.io/github/rienafairefr/SharpnYNAB?branch=master
+.. image:: https://coveralls.io/repos/github/rienafairefr/SharpYNAB/badge.svg?branch=master
+    :target: https://coveralls.io/github/rienafairefr/SharpYNAB?branch=master
 
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
 
 ========
-SharpnYNAB
+SharpYNAB
 ========
 
 a C# .NET Core client for the YNAB API
@@ -40,7 +40,7 @@ To query YNAB data
 To push data, modify the client.Budget and client.Catalog objects collections, for example
 
     client.Budget.Transactions.Add(new Transaction{
-        // transaction properties, see SharpnYNAB.Schema.Budget.Transaction
+        // transaction properties, see SharpYNAB.Schema.Budget.Transaction
     });
 
 Then push
@@ -48,4 +48,4 @@ Then push
     client.Push(1);
 
 Here I'm pushing a single modification, like adding an entity. For more involved scenarii (like adding an account, or transfer transactions), you need to push more entities. 
-SharpnYNAB protects your data at that point by forbidding you to push more that what you explicitely intend to modify
+SharpYNAB protects your data at that point by forbidding you to push more that what you explicitely intend to modify

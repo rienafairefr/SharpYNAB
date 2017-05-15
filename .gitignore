@@ -2,5 +2,5 @@
 .vs/
 */bin/*
 */obj/*
-SharpnYNAB/nYNABapi/
 *.Classes.cs
+SharpYNAB/nYNABapi/

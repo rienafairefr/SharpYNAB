@@ -1,0 +1,109 @@
+﻿<#@ template language="c#" hostspecific="true"  #>
+<#@ assembly name="Newtonsoft.Json.dll" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".cs" #>
+using System;
+using Newtonsoft.Json;
+using SharpYNAB.Schema.Types;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+<#+ public void Generate() {
+var filepath = Host.ResolvePath("Schema.json");
+var data = JsonConvert.DeserializeObject<ClassGroup>(File.ReadAllText(filepath));
+var nmspace = data.NameSpace;
+#>namespace SharpYNAB.Schema.<#=nmspace#>
+{
+<#+
+foreach (var keyvalue in data.Classes){
+var classname = keyvalue.Key;
+var complexTypes = new List<string>{
+"Date",
+"Amount",
+"CurrencyFormat",
+"DateFormat",
+};
+var complexTypesDictionary = new Dictionary<string,List<Property>>{
+    ["Date"] = new List<Property>{
+        new Property{Type="DateTime", Name="Value"}
+    },
+    ["Amount"] = new List<Property>{
+        new Property{Type="decimal", Name="Value"}
+    },
+    ["Amount"] = new List<Property>{
+        new Property{Type="decimal", Name="Value"}
+    },
+    ["DateFormat"] = new List<Property>{
+        new Property{Type="string",Name= "Format"}
+    },
+    ["CurrencyFormat"] = new List<Property>{
+        new Property{Type="bool", Name="DisplaySymbol"},
+        new Property{Type="string", Name="IsoCode"},
+        new Property{Type="bool", Name="SymbolFirst"},
+        new Property{Type="string", Name="CurrencySymbol"},
+        new Property{Type="int", Name="DecimalDigits"},
+        new Property{Type="string", Name="DecimalSeparator"},
+        new Property{Type="string", Name="GroupSeparator"},
+        new Property{Type="string", Name="ExampleFormat"}
+    }
+};
+var @class = keyvalue.Value;
+#>
+    public partial class <#= classname #> : Entity
+    {
+<#+ foreach (var property in @class.OrderBy(prop=>prop.Name[0]).Reverse()){ var fieldname = FieldName(property); #>
+<#+ if (property.JsonIgnore){ #>
+        [JsonIgnore]
+<#+ }else{ #>
+        [JsonProperty("<#= property.Name #>")]
+<#+ } #>
+<#+ if (property.ForeignKey!=null){ #>
+        [ForeignKey(<#= property.ForeignKey #>)]
+<#+ } #>
+<#+ if (complexTypesDictionary.ContainsKey(property.Type)){ #>
+        [NotMapped]
+        public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
+<#+ foreach (var complexProperty in complexTypesDictionary[property.Type]){ #>
+            public <#= complexProperty.Type #> <#= "_" + CamelCase(property.Name) #>_<#= complexProperty.Name #> { get => <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> ; set{ <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> = value;OnPropertyChanged(nameof(<#= CamelCase(property.Name) #>));} } 
+<#+ } #>
+<#+ } else { #>
+        public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
+<#+ } #>
+<#+ } #>
+
+#region fields
+<#+ foreach (var property in @class){ 
+var fieldname = FieldName(property); #>
+        private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#>;
+<#+ } #>
+#endregion
+    }
+<#+ } #>
+}
+<#+} 
+public class ComplexType {
+    public string Name {get; set;}
+    public List<Property> Properties {get; set;}
+}
+public class ClassGroup{
+    public string NameSpace {get;set;}
+    public Dictionary<string,List<Property>> Classes {get;set;}
+}
+public string FieldName(Property property){
+    return "_"+property.Name.ToLower().Replace("_","").Replace("@","");
+}
+public string CamelCase(string snake_case){
+    return snake_case.Split(new [] {"_"}, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
+}
+public class Property{
+    public bool JsonIgnore {get;set;} = false;
+    public string Type {get;set;}
+    public string Name {get;set;}
+    public string Default {get;set;}
+    public string ForeignKey {get;set;}
+}
+#>

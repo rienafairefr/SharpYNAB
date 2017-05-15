@@ -14,4 +14,4 @@ script:
 script:
  - mono ./testrunner/xunit.runner.console.2.2.0/tools/xunit.console.exe SharpYNAB.Tests/bin/Release/SharpYNAB.Tests.dll
  - dotnet restore
- - dotnet test SharpnYNAB.Tests/SharpnYNAB.Tests.csproj -c Release -f netcoreapp1.1
+ - dotnet test SharpYNAB.Tests/SharpYNAB.Tests.csproj -c Release -f netcoreapp1.1
