@@ -15,7 +15,7 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.Accounts.Add(acc);
+            client.Budget.Accounts.Add(acc);
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
             Assert.Equal(acc, changed.Accounts[0]);
@@ -26,10 +26,10 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.Accounts.Add(acc);
+            client.Budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            client.budget.Accounts.Remove(acc);
+            client.Budget.Accounts.Remove(acc);
             var changed = client.BudgetClient.Changed;
             Assert.Equal(1, changed.Size);
             Assert.Equal(true, changed.Accounts[0].is_tombstone);
@@ -41,7 +41,7 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.Accounts.Add(acc);
+            client.Budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
             acc.AccountName = "BLABLA";
@@ -57,7 +57,7 @@ namespace SharpnYNAB.Tests
         {
             var client = new Client();
             var acc = new Account();
-            client.budget.Accounts.Add(acc);
+            client.Budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
             acc.AccountName = "BLABLA";
@@ -81,10 +81,10 @@ namespace SharpnYNAB.Tests
             {
                 AccountName = "SECOND"
             };
-            client.budget.Accounts.Add(acc);
+            client.Budget.Accounts.Add(acc);
             client.BudgetClient.ResetChanged();
 
-            client.budget.Accounts[0] = acc2;
+            client.Budget.Accounts[0] = acc2;
 
             var changed = client.BudgetClient.Changed;
             Assert.Equal(2, changed.Size);

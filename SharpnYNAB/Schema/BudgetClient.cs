@@ -4,7 +4,7 @@ namespace SharpnYNAB.Schema
 {
     public partial class BudgetClient : RootObjClient<Roots.Budget>
     {
-        public BudgetClient(Client client) : base(client, client.budget)
+        public BudgetClient(Client client) : base(client, client.Budget)
         {
             
         }
