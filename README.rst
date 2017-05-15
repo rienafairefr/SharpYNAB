@@ -25,7 +25,7 @@ Usage
 
 You need to create an Args object that contains the email/password/budget name that will be used to connect to YNAB
 
-    var args = new Args{Email="**youremail**", "Password"="**yourpassword**", BudgetName="Test Budget"}
+    var args = new Args{Email="youremail", "Password"="yourpassword", BudgetName="Test Budget"}
 
 If no budget with that name exists, this should fail with a BudgetNotFoundException
 
@@ -33,7 +33,7 @@ Then use this to create a client:
 
     var client = ClientFactory.CreateClient(args);
 
-To query YNAB data
+To query YNAB data:
 
     client.Sync();
 

@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using SharpYNAB.Schema.Budget;
 using SharpYNAB.Schema.Catalog;
 
 namespace SharpYNAB.Schema
@@ -36,7 +35,7 @@ namespace SharpYNAB.Schema
             BudgetClient.ResetChanged();
         }
 
-        public async Task Push(int expectedDelta)
+        public void Push(int expectedDelta)
         {
             var catalogChangedEntities = CatalogClient.Changed;
             var budgetChangedEntities = BudgetClient.Changed;
@@ -49,17 +48,17 @@ namespace SharpYNAB.Schema
             {
                 EndingDeviceKnowledge = StartingDeviceKnowledge + 1;
 
-                await CatalogClient.Push();
-                await BudgetClient.Push();
+                Task.Run(()=>CatalogClient.Push()).Wait();
+                Task.Run(() => BudgetClient.Push()).Wait();
                 StartingDeviceKnowledge = EndingDeviceKnowledge;
             }
         }
 
-        public async Task Sync()
+        public void Sync()
         {
-            await CatalogClient.Sync();
+            Task.Run(() => CatalogClient.Sync()).Wait();
             SelectBudget();
-            await BudgetClient.Sync();
+            Task.Run(() => BudgetClient.Sync()).Wait();
         }
 
         public void SelectBudget()
