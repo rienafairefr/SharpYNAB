@@ -12,9 +12,6 @@ using SharpnYNAB.Schema.Types;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-// ReSharper disable InconsistentNaming
-
 <#+ public void Generate() {
 var filepath = Host.ResolvePath("Schema.json");
 var data = JsonConvert.DeserializeObject<ClassGroup>(File.ReadAllText(filepath));
@@ -24,30 +21,45 @@ var nmspace = data.NameSpace;
 <#+
 foreach (var keyvalue in data.Classes){
 var classname = keyvalue.Key;
+var notmapped = new List<string>{
+"Date",
+"Amount",
+"CurrencyFormat",
+"DateFormat",
+};
 var @class = keyvalue.Value;
 #>
-    public class <#= classname #> : Entity
+    public partial class <#= classname #> : Entity
     {
-<#+ foreach (var property in @class.OrderBy(prop=>prop.Name[0]).Reverse()){ 
-var fieldname = FieldName(property);
-#><#+ if (property.JsonIgnore){#>
+<#+ foreach (var property in @class.OrderBy(prop=>prop.Name[0]).Reverse()){ var fieldname = FieldName(property); #>
+<#+ if (property.JsonIgnore){ #>
         [JsonIgnore]
-<#+}else{#>
+<#+ }else{ #>
         [JsonProperty("<#= property.Name #>")]
-<#+}#><#+ if (property.ForeignKey!=null){#>
+<#+ } #>
+<#+ if (property.ForeignKey!=null){ #>
         [ForeignKey(<#= property.ForeignKey #>)]
-<#+}#>
+<#+ } #>
+<#+ if (notmapped.Contains(property.Type)){ #>
+        [NotMapped]
         public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
-<#+}#>
+        public string <#= "_" + CamelCase(property.Name) #> { 
+            get => JsonConvert.SerializeObject(<#= CamelCase(property.Name) #>) ; 
+            set { <#= CamelCase(property.Name) #> = JsonConvert.DeserializeObject<<#= property.Type #>>(value);} 
+        } 
+<#+ }else{ #>
+        public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
+<#+ } #>
+<#+ } #>
 
-
+#region fields
 <#+ foreach (var property in @class){ 
-var fieldname = FieldName(property);
-#>
+var fieldname = FieldName(property); #>
         private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#>;
-<#+}#>
+<#+ } #>
+#endregion
     }
-<#+}#>
+<#+ } #>
 }
 <#+} 
 public class ClassGroup{

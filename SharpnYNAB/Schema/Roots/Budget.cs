@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using SharpnYNAB.Schema.Budget;
 using SharpnYNAB.Schema.Types;
@@ -47,17 +48,31 @@ namespace SharpnYNAB.Schema.Roots
         public ObservableCollection<Account> Accounts { get; set; } = new ObservableCollection<Account>();
 
         [JsonProperty("last_month")]
+        [NotMapped]
         public Date LastMonth
         {
             get => _lastMonth;
             set { _lastMonth = value; OnPropertyChanged(); }
         }
 
+        public string _LastMonth
+        {
+            get => JsonConvert.SerializeObject(LastMonth);
+            set { LastMonth = JsonConvert.DeserializeObject<Date>(value); }
+        }
+
         [JsonProperty("first_month")]
+        [NotMapped]
         public Date FirstMonth
         {
             get => _firstMonth;
             set { _firstMonth = value; OnPropertyChanged(); }
+        }
+
+        public string _FirstMonth
+        {
+            get => JsonConvert.SerializeObject(_FirstMonth);
+            set { FirstMonth = JsonConvert.DeserializeObject<Date>(value); }
         }
 
         public override int Size => Transactions.Count + MasterCategories.Count + Settings.Count +
