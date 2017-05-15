@@ -21,11 +21,35 @@ var nmspace = data.NameSpace;
 <#+
 foreach (var keyvalue in data.Classes){
 var classname = keyvalue.Key;
-var notmapped = new List<string>{
+var complexTypes = new List<string>{
 "Date",
 "Amount",
 "CurrencyFormat",
 "DateFormat",
+};
+var complexTypesDictionary = new Dictionary<string,List<Property>>{
+    ["Date"] = new List<Property>{
+        new Property{Type="DateTime", Name="Value"}
+    },
+    ["Amount"] = new List<Property>{
+        new Property{Type="decimal", Name="Value"}
+    },
+    ["Amount"] = new List<Property>{
+        new Property{Type="decimal", Name="Value"}
+    },
+    ["DateFormat"] = new List<Property>{
+        new Property{Type="string",Name= "Format"}
+    },
+    ["CurrencyFormat"] = new List<Property>{
+        new Property{Type="bool", Name="DisplaySymbol"},
+        new Property{Type="string", Name="IsoCode"},
+        new Property{Type="bool", Name="SymbolFirst"},
+        new Property{Type="string", Name="CurrencySymbol"},
+        new Property{Type="int", Name="DecimalDigits"},
+        new Property{Type="string", Name="DecimalSeparator"},
+        new Property{Type="string", Name="GroupSeparator"},
+        new Property{Type="string", Name="ExampleFormat"}
+    }
 };
 var @class = keyvalue.Value;
 #>
@@ -40,14 +64,13 @@ var @class = keyvalue.Value;
 <#+ if (property.ForeignKey!=null){ #>
         [ForeignKey(<#= property.ForeignKey #>)]
 <#+ } #>
-<#+ if (notmapped.Contains(property.Type)){ #>
+<#+ if (complexTypesDictionary.ContainsKey(property.Type)){ #>
         [NotMapped]
         public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
-        public string <#= "_" + CamelCase(property.Name) #> { 
-            get => JsonConvert.SerializeObject(<#= CamelCase(property.Name) #>) ; 
-            set { <#= CamelCase(property.Name) #> = JsonConvert.DeserializeObject<<#= property.Type #>>(value);} 
-        } 
-<#+ }else{ #>
+<#+ foreach (var complexProperty in complexTypesDictionary[property.Type]){ #>
+            public <#= complexProperty.Type #> <#= "_" + CamelCase(property.Name) #>_<#= complexProperty.Name #> { get => <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> ; set{ <#= CamelCase(property.Name) #>.<#= complexProperty.Name #> = value;OnPropertyChanged(nameof(<#= CamelCase(property.Name) #>));} } 
+<#+ } #>
+<#+ } else { #>
         public <#= property.Type #> <#= CamelCase(property.Name) #> { get => <#=fieldname#> ; set{ <#=fieldname#> = value;OnPropertyChanged();} } 
 <#+ } #>
 <#+ } #>
@@ -62,6 +85,10 @@ var fieldname = FieldName(property); #>
 <#+ } #>
 }
 <#+} 
+public class ComplexType {
+    public string Name {get; set;}
+    public List<Property> Properties {get; set;}
+}
 public class ClassGroup{
     public string NameSpace {get;set;}
     public Dictionary<string,List<Property>> Classes {get;set;}
