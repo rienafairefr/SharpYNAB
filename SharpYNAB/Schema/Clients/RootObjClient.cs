@@ -7,8 +7,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpYNAB.Contracts;
-using SharpYNAB.Responses;
 using SharpYNAB.Schema.Contracts;
+using SharpYNAB.Schema.Models;
+using SharpYNAB.Schema.Models.Contracts;
 using SharpYNAB.Schema.Roots.Contracts;
 using SharpYNAB.Schema.Types;
 using SharpYNAB.Schema.Types.Converters;
@@ -17,7 +18,6 @@ namespace SharpYNAB.Schema.Clients
 {
     public abstract class RootObjClient<T> : IRootObjClient where T : class, IRootObj, new()
     {
-        public abstract Dictionary<string, object> Extra { get; }
         public abstract string Opname { get; }
         public Client Client { get; set; }
         public Knowledge Knowledge { get; set; }
@@ -157,56 +157,36 @@ namespace SharpYNAB.Schema.Clients
                 Obj.Knowledge.CurrentDeviceKnowledge = serverKnowledgeOfDevice;
             }
             Obj.Knowledge.DeviceKnowledgeOfServer = currentServerKnowledge;
+            Client.Context.SaveChanges();
+            ResetChanged();
         }
 
         public async Task Push()
         {
-            Incorporate(await GetPushDataObj());
+            Incorporate(await GetPushSyncDataObj());
         }
 
         public async Task Sync()
         {
-            Incorporate(await GetSyncDataObj());
+            Incorporate(await GetPushSyncDataObj());
         }
 
-        public async Task<string> GetPushDataObj()
+        public IClientData<T> SetupCommonClientData(IClientData<T> clientdata)
         {
-            var requestData = new Dictionary<string, object>
-            {
-                ["starting_device_knowledge"] = Client.StartingDeviceKnowledge,
-                ["ending_device_knowledge"] = Client.EndingDeviceKnowledge,
-                ["device_knowledge_of_server"] = Obj.Knowledge.DeviceKnowledgeOfServer,
-                ["changed_entities"] = Changed
-
-            };
-
-            foreach (var keyValuePair in Extra)
-            {
-                requestData.Add(keyValuePair.Key, keyValuePair.Value);
-            }
-
-            return await Connection.Dorequest(requestData, Opname);
+            clientdata.StartingDeviceKnowledge = Client.StartingDeviceKnowledge;
+            clientdata.EndingDeviceKnowledge = Client.EndingDeviceKnowledge;
+            clientdata.DeviceKnowledgeOfServer = Obj.Knowledge.DeviceKnowledgeOfServer;
+            clientdata.Changed = Changed;
+            return clientdata;
         }
+
+        public abstract IClientData<T> GetClientData();
 
         public abstract void UpdateFromChangedEntities(T syncDataChangedEntities);
 
-        public async Task<string> GetSyncDataObj()
+        public async Task<string> GetPushSyncDataObj()
         {
-            var requestData = new Dictionary<string, object>
-            {
-                ["starting_device_knowledge"] = Client.StartingDeviceKnowledge,
-                ["ending_device_knowledge"] = Client.EndingDeviceKnowledge,
-                ["device_knowledge_of_server"] = Obj.Knowledge.DeviceKnowledgeOfServer,
-                ["changed_entities"] = new Dictionary<string, object>()
-
-            };
-
-            foreach (var keyValuePair in Extra)
-            {
-                requestData.Add(keyValuePair.Key, keyValuePair.Value);
-            }
-
-            return await Connection.Dorequest(requestData, Opname);
+            return await Connection.Dorequest(SetupCommonClientData(GetClientData()), Opname);
         }
 
         public IConnection Connection => Client.Connection;

@@ -26,7 +26,7 @@ namespace SharpYNAB.Schema.Types
 
         public decimal Value { get; set; }
 
-        public Amount(decimal value)
+        public Amount(decimal value=0)
         {
             Value = value;
         }

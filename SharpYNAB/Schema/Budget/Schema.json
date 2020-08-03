@@ -668,8 +668,7 @@
       },
       {
         "Type": "Amount",
-        "Name": "target_balance",
-        "Default": "0"
+        "Name": "target_balance"
       },
       {
         "Type": "string",

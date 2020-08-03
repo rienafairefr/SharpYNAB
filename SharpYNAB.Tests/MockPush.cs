@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpYNAB.Contracts;
-using SharpYNAB.Responses;
-using SharpYNAB.Schema;
 using SharpYNAB.Schema.Budget;
 using SharpYNAB.Schema.Catalog;
-using SharpYNAB.Schema.Roots;
+using SharpYNAB.Schema.Models;
 using Xunit;
 
 namespace SharpYNAB.Tests
@@ -16,21 +14,21 @@ namespace SharpYNAB.Tests
     {
         public class Request
         {
-            public Dictionary<string, object> Dict { get; set; }
+            public object Data { get; set; }
             public string Opname { get; set; }
         }
 
         public List<Request> Requests = new List<Request>();
-        public async Task init_session()
+        public async Task InitSession()
         {
             return;
         }
 
-        public async Task<string> Dorequest(Dictionary<string, object> requestDict, string opname)
+        public async Task<string> Dorequest(object data, string opname)
         {
             Requests.Add(new Request
             {
-                Dict = requestDict,
+                Data = data,
                 Opname = opname
             });
             return JsonConvert.SerializeObject(new Dictionary<string,object>
@@ -68,10 +66,10 @@ namespace SharpYNAB.Tests
             Assert.Equal("syncBudgetData", connection.Requests[1].Opname);
 
 
-            var cchangedEntities = connection.Requests[0].Dict["changed_entities"] as Catalog;
+            var cchangedEntities = (connection.Requests[0].Data as CatalogData)?.Changed;
             Assert.NotNull(cchangedEntities);
             Assert.Equal(0, cchangedEntities.Size);
-            var bchangedEntities = connection.Requests[1].Dict["changed_entities"] as Budget;
+            var bchangedEntities = (connection.Requests[1].Data as BudgetData)?.Changed;
             Assert.NotNull(bchangedEntities);
             Assert.Equal(1, bchangedEntities.Size);
             Assert.Equal(1, bchangedEntities.Transactions.Count);

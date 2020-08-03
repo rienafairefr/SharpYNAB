@@ -57,7 +57,7 @@
         "Name": "email"
       },
       {
-        "Type": "List<FeatureFlag>",
+        "Type": "List<string>",
         "Name": "feature_flags"
       },
       {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SharpYNAB.Responses
+namespace SharpYNAB.Schema.Models
 {
     public class Response<T>
     {

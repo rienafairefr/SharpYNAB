@@ -6,11 +6,15 @@ namespace SharpYNAB.Schema.Types
     [ComplexType]
     public class Date
     {
-        public DateTime Value { get; set; }
+        public DateTime Value { get; set; } = new DateTime();
 
         public Date(DateTime value)
         {
             Value = value;
+        }
+
+        public Date()
+        {
         }
 
         public static implicit operator Date(DateTime d)

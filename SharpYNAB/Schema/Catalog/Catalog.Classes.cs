@@ -37,13 +37,20 @@ namespace SharpYNAB.Schema.Catalog
         public Guid BudgetId { get => _budgetid ; set{ _budgetid = value;OnPropertyChanged();} } 
 
 #region fields
-        private DateFormat _dateformat ;
-        private DateTime _lastaccessedon ;
-        private CurrencyFormat _currencyformat ;
-        private Guid _budgetid ;
-        private CatalogBudget _budget ;
-        private string _versionname ;
-        private string _source ;
+        private DateFormat _dateformat  = new DateFormat();
+
+        private DateTime _lastaccessedon  ;
+
+        private CurrencyFormat _currencyformat  = new CurrencyFormat();
+
+        private Guid _budgetid  ;
+
+        private CatalogBudget _budget  ;
+
+        private string _versionname  ;
+
+        private string _source  ;
+
 #endregion
     }
     public class CatalogBudget : Entity
@@ -54,8 +61,10 @@ namespace SharpYNAB.Schema.Catalog
         public string BudgetName { get => _budgetname ; set{ _budgetname = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _budgetname ;
-        private DateTime? _createdat ;
+        private string _budgetname  ;
+
+        private DateTime? _createdat  ;
+
 #endregion
     }
     public class User : Entity
@@ -71,17 +80,23 @@ namespace SharpYNAB.Schema.Catalog
         [JsonProperty("is_subscribed")]
         public bool IsSubscribed { get => _issubscribed ; set{ _issubscribed = value;OnPropertyChanged();} } 
         [JsonProperty("feature_flags")]
-        public List<FeatureFlag> FeatureFlags { get => _featureflags ; set{ _featureflags = value;OnPropertyChanged();} } 
+        public List<string> FeatureFlags { get => _featureflags ; set{ _featureflags = value;OnPropertyChanged();} } 
         [JsonProperty("email")]
         public string Email { get => _email ; set{ _email = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _username ;
-        private Date _trialexpireson ;
-        private string _email ;
-        private List<FeatureFlag> _featureflags ;
-        private int _signincount ;
-        private bool _issubscribed ;
+        private string _username  ;
+
+        private Date _trialexpireson  = new Date();
+
+        private string _email  ;
+
+        private List<string> _featureflags  ;
+
+        private int _signincount  ;
+
+        private bool _issubscribed  ;
+
 #endregion
     }
     public class UserBudget : Entity
@@ -100,11 +115,16 @@ namespace SharpYNAB.Schema.Catalog
         public CatalogBudget Budget { get => _budget ; set{ _budget = value;OnPropertyChanged();} } 
 
 #region fields
-        private CatalogBudget _budget ;
-        private Guid _budgetid ;
-        private User _user ;
-        private Guid _userid ;
-        private int _permissions ;
+        private CatalogBudget _budget  ;
+
+        private Guid _budgetid  ;
+
+        private User _user  ;
+
+        private Guid _userid  ;
+
+        private int _permissions  ;
+
 #endregion
     }
     public class UserSetting : Entity
@@ -120,10 +140,14 @@ namespace SharpYNAB.Schema.Catalog
         public string SettingName { get => _settingname ; set{ _settingname = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _settingname ;
-        private User _user ;
-        private Guid _userid ;
-        private string _settingvalue ;
+        private string _settingname  ;
+
+        private User _user  ;
+
+        private Guid _userid  ;
+
+        private string _settingvalue  ;
+
 #endregion
     }
 }

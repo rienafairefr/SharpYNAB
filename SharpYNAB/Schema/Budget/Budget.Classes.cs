@@ -53,24 +53,42 @@ namespace SharpYNAB.Schema.Budget
         public List<AccountCalculation> AccountCalculations { get => _accountcalculations ; set{ _accountcalculations = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _accountname ;
-        private List<AccountCalculation> _accountcalculations ;
-        private AccountType _accounttype ;
-        private bool _hidden ;
-        private string _lastenteredchecknumber ;
-        private Date _lastreconciledbalance ;
-        private Date _lastreconcileddate ;
-        private string _note ;
-        private int _sortableindex ;
-        private bool _onbudget ;
-        private bool _directconnectenabled ;
-        private Guid? _directconnectaccountid ;
-        private Guid? _directconnectinstitutionid ;
-        private Date _directconnectlastimportedat ;
-        private string _directconnectlasterrorcode ;
-        private string _directimportstatus ;
-        private string _directimportinstitutionname ;
-        private string _directimportaccountname ;
+        private string _accountname  ;
+
+        private List<AccountCalculation> _accountcalculations  ;
+
+        private AccountType _accounttype  ;
+
+        private bool _hidden  ;
+
+        private string _lastenteredchecknumber  ;
+
+        private Date _lastreconciledbalance  = new Date();
+
+        private Date _lastreconcileddate  = new Date();
+
+        private string _note  ;
+
+        private int _sortableindex  ;
+
+        private bool _onbudget  ;
+
+        private bool _directconnectenabled  ;
+
+        private Guid? _directconnectaccountid  ;
+
+        private Guid? _directconnectinstitutionid  ;
+
+        private Date _directconnectlastimportedat  = new Date();
+
+        private string _directconnectlasterrorcode  ;
+
+        private string _directimportstatus  ;
+
+        private string _directimportinstitutionname  ;
+
+        private string _directimportaccountname  ;
+
 #endregion
     }
     public class AccountCalculation : Entity
@@ -98,14 +116,22 @@ namespace SharpYNAB.Schema.Budget
             public decimal ClearedBalanceValue { get => ClearedBalance.Value ; set{ ClearedBalance.Value = value;OnPropertyChanged(nameof(ClearedBalance));} } 
 
 #region fields
-        private Amount _clearedbalance ;
-        private string _errorcount ;
-        private string _infocount ;
-        private string _transactioncount ;
-        private Amount _unclearedbalance ;
-        private string _warningcount ;
-        private Account _entitiesaccount ;
-        private Guid _entitiesaccountid ;
+        private Amount _clearedbalance  = new Amount();
+
+        private string _errorcount  ;
+
+        private string _infocount  ;
+
+        private string _transactioncount  ;
+
+        private Amount _unclearedbalance  = new Amount();
+
+        private string _warningcount  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid _entitiesaccountid  ;
+
 #endregion
     }
     public class AccountMapping : Entity
@@ -134,16 +160,26 @@ namespace SharpYNAB.Schema.Budget
             public DateTime DateSequenceValue { get => DateSequence.Value ; set{ DateSequence.Value = value;OnPropertyChanged(nameof(DateSequence));} } 
 
 #region fields
-        private Date _datesequence ;
-        private string _hash ;
-        private string _fid ;
-        private string _salt ;
-        private string _shortenedaccountid ;
-        private string _shouldflippayeesmemos ;
-        private string _shouldimportmemos ;
-        private string _skipimport ;
-        private Account _entitiesaccount ;
-        private Guid _entitiesaccountid ;
+        private Date _datesequence  = new Date();
+
+        private string _hash  ;
+
+        private string _fid  ;
+
+        private string _salt  ;
+
+        private string _shortenedaccountid  ;
+
+        private string _shouldflippayeesmemos  ;
+
+        private string _shouldimportmemos  ;
+
+        private string _skipimport  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid _entitiesaccountid  ;
+
 #endregion
     }
     public class PayeeRenameCondition : Entity
@@ -159,10 +195,14 @@ namespace SharpYNAB.Schema.Budget
         public Guid EntitiesPayeeId { get => _entitiespayeeid ; set{ _entitiespayeeid = value;OnPropertyChanged();} } 
 
 #region fields
-        private Guid _entitiespayeeid ;
-        private Payee _entitiespayee ;
-        private string _operator ;
-        private string _operand ;
+        private Guid _entitiespayeeid  ;
+
+        private Payee _entitiespayee  ;
+
+        private string _operator  ;
+
+        private string _operand  ;
+
 #endregion
     }
     public class MasterCategory : Entity
@@ -181,12 +221,18 @@ namespace SharpYNAB.Schema.Budget
         public bool Deletable { get => _deletable ; set{ _deletable = value;OnPropertyChanged();} } 
 
 #region fields
-        private bool _deletable ;
-        private string _internalname ;
-        private bool? _ishidden ;
-        private string _name ;
-        private string _note ;
-        private int _sortableindex ;
+        private bool _deletable  ;
+
+        private string _internalname  ;
+
+        private bool? _ishidden  ;
+
+        private string _name  ;
+
+        private string _note  ;
+
+        private int _sortableindex  ;
+
 #endregion
     }
     public class MonthlyAccountCalculation : Entity
@@ -220,16 +266,26 @@ namespace SharpYNAB.Schema.Budget
             public decimal ClearedBalanceValue { get => ClearedBalance.Value ; set{ ClearedBalance.Value = value;OnPropertyChanged(nameof(ClearedBalance));} } 
 
 #region fields
-        private Amount _clearedbalance ;
-        private Account _entitiesaccount ;
-        private Guid _entitiesaccountid ;
-        private string _errorcount ;
-        private string _infocount ;
-        private string _month ;
-        private string _transactioncount ;
-        private Amount _unclearedbalance ;
-        private string _warningcount ;
-        private Amount _rollingbalance ;
+        private Amount _clearedbalance  = new Amount();
+
+        private Account _entitiesaccount  ;
+
+        private Guid _entitiesaccountid  ;
+
+        private string _errorcount  ;
+
+        private string _infocount  ;
+
+        private string _month  ;
+
+        private string _transactioncount  ;
+
+        private Amount _unclearedbalance  = new Amount();
+
+        private string _warningcount  ;
+
+        private Amount _rollingbalance  = new Amount();
+
 #endregion
     }
     public class MonthlyBudget : Entity
@@ -242,8 +298,10 @@ namespace SharpYNAB.Schema.Budget
             public DateTime MonthValue { get => Month.Value ; set{ Month.Value = value;OnPropertyChanged(nameof(Month));} } 
 
 #region fields
-        private Date _month ;
-        private string _note ;
+        private Date _month  = new Date();
+
+        private string _note  ;
+
 #endregion
     }
     public class MonthlyBudgetCalculation : Entity
@@ -321,27 +379,48 @@ namespace SharpYNAB.Schema.Budget
             public decimal AdditionalToBeBudgetedValue { get => AdditionalToBeBudgeted.Value ; set{ AdditionalToBeBudgeted.Value = value;OnPropertyChanged(nameof(AdditionalToBeBudgeted));} } 
 
 #region fields
-        private Amount _additionaltobebudgeted ;
-        private string _ageofmoney ;
-        private string _availabletobudget ;
-        private string _balance ;
-        private string _budgeted ;
-        private string _calculationnotes ;
-        private Amount _cashoutflows ;
-        private Amount _creditoutflows ;
-        private Amount _deferredincome ;
-        private MonthlyBudget _entitiesmonthlybudget ;
-        private Guid _entitiesmonthlybudgetid ;
-        private Amount _hiddenbalance ;
-        private Amount _hiddenbudgeted ;
-        private Amount _hiddencashoutflows ;
-        private Amount _hiddencreditoutflows ;
-        private Amount _immediateincome ;
-        private Amount _overspent ;
-        private Amount _previousincome ;
-        private Amount _uncategorizedbalance ;
-        private Amount _uncategorizedcashoutflows ;
-        private Amount _uncategorizedcreditoutflows ;
+        private Amount _additionaltobebudgeted  = new Amount();
+
+        private string _ageofmoney  ;
+
+        private string _availabletobudget  ;
+
+        private string _balance  ;
+
+        private string _budgeted  ;
+
+        private string _calculationnotes  ;
+
+        private Amount _cashoutflows  = new Amount();
+
+        private Amount _creditoutflows  = new Amount();
+
+        private Amount _deferredincome  = new Amount();
+
+        private MonthlyBudget _entitiesmonthlybudget  ;
+
+        private Guid _entitiesmonthlybudgetid  ;
+
+        private Amount _hiddenbalance  = new Amount();
+
+        private Amount _hiddenbudgeted  = new Amount();
+
+        private Amount _hiddencashoutflows  = new Amount();
+
+        private Amount _hiddencreditoutflows  = new Amount();
+
+        private Amount _immediateincome  = new Amount();
+
+        private Amount _overspent  = new Amount();
+
+        private Amount _previousincome  = new Amount();
+
+        private Amount _uncategorizedbalance  = new Amount();
+
+        private Amount _uncategorizedcashoutflows  = new Amount();
+
+        private Amount _uncategorizedcreditoutflows  = new Amount();
+
 #endregion
     }
     public class MonthlySubcategoryBudget : Entity
@@ -366,13 +445,20 @@ namespace SharpYNAB.Schema.Budget
             public decimal BudgetedValue { get => Budgeted.Value ; set{ Budgeted.Value = value;OnPropertyChanged(nameof(Budgeted));} } 
 
 #region fields
-        private Amount _budgeted ;
-        private MonthlyBudget _entitiesmonthlybudget ;
-        private Guid _entitiesmonthlybudgetid ;
-        private Subcategory _entitiessubcategory ;
-        private Guid _entitiessubcategoryid ;
-        private string _note ;
-        private string _overspendinghandling ;
+        private Amount _budgeted  = new Amount();
+
+        private MonthlyBudget _entitiesmonthlybudget  ;
+
+        private Guid _entitiesmonthlybudgetid  ;
+
+        private Subcategory _entitiessubcategory  ;
+
+        private Guid _entitiessubcategoryid  ;
+
+        private string _note  ;
+
+        private string _overspendinghandling  ;
+
 #endregion
     }
     public class Setting : Entity
@@ -383,8 +469,10 @@ namespace SharpYNAB.Schema.Budget
         public string SettingName { get => _settingname ; set{ _settingname = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _settingname ;
-        private string _settingvalue ;
+        private string _settingname  ;
+
+        private string _settingvalue  ;
+
 #endregion
     }
     public class UpcomingInstance : Entity
@@ -396,8 +484,10 @@ namespace SharpYNAB.Schema.Budget
         public ScheduledTransaction ScheduledTransaction { get => _scheduledtransaction ; set{ _scheduledtransaction = value;OnPropertyChanged();} } 
 
 #region fields
-        private ScheduledTransaction _scheduledtransaction ;
-        private Guid _scheduledtransactionid ;
+        private ScheduledTransaction _scheduledtransaction  ;
+
+        private Guid _scheduledtransactionid  ;
+
 #endregion
     }
     public class Transaction : Entity
@@ -492,39 +582,72 @@ namespace SharpYNAB.Schema.Budget
         public bool Accepted { get => _accepted ; set{ _accepted = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _ynabid ;
-        private List<Subtransaction> _subtransactions ;
-        private string _memo ;
-        private string _source ;
-        private Amount _subcategorycreditamountpreceding ;
-        private bool _accepted ;
-        private Amount _amount ;
-        private Amount _cashamount ;
-        private string _checknumber ;
-        private string _cleared ;
-        private Amount _creditamount ;
-        private bool? _creditamountadjusted ;
-        private Date _date ;
-        private Date _dateenteredfromschedule ;
-        private string _flag ;
-        private Date _importeddate ;
-        private string _importedpayee ;
-        private Account _entitiesaccount ;
-        private Guid _entitiesaccountid ;
-        private Payee _entitiespayee ;
-        private Guid _entitiespayeeid ;
-        private Subcategory _entitiessubcategory ;
-        private Guid _entitiessubcategoryid ;
-        private ScheduledTransaction _entitiesscheduledtransaction ;
-        private Guid? _entitiesscheduledtransactionid ;
-        private Transaction _matchedtransaction ;
-        private Guid? _matchedtransactionid ;
-        private Account _transferaccount ;
-        private Guid? _transferaccountid ;
-        private Subtransaction _transfersubtransaction ;
-        private Guid? _transfersubtransactionid ;
-        private Transaction _transfertransaction ;
-        private Guid? _transfertransactionid ;
+        private string _ynabid  ;
+
+        private List<Subtransaction> _subtransactions  ;
+
+        private string _memo  ;
+
+        private string _source  ;
+
+        private Amount _subcategorycreditamountpreceding  = new Amount();
+
+        private bool _accepted  ;
+
+        private Amount _amount  = new Amount();
+
+        private Amount _cashamount  = new Amount();
+
+        private string _checknumber  ;
+
+        private string _cleared  ;
+
+        private Amount _creditamount  = new Amount();
+
+        private bool? _creditamountadjusted  ;
+
+        private Date _date  = new Date();
+
+        private Date _dateenteredfromschedule  = new Date();
+
+        private string _flag  ;
+
+        private Date _importeddate  = new Date();
+
+        private string _importedpayee  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid _entitiesaccountid  ;
+
+        private Payee _entitiespayee  ;
+
+        private Guid _entitiespayeeid  ;
+
+        private Subcategory _entitiessubcategory  ;
+
+        private Guid _entitiessubcategoryid  ;
+
+        private ScheduledTransaction _entitiesscheduledtransaction  ;
+
+        private Guid? _entitiesscheduledtransactionid  ;
+
+        private Transaction _matchedtransaction  ;
+
+        private Guid? _matchedtransactionid  ;
+
+        private Account _transferaccount  ;
+
+        private Guid? _transferaccountid  ;
+
+        private Subtransaction _transfersubtransaction  ;
+
+        private Guid? _transfersubtransactionid  ;
+
+        private Transaction _transfertransaction  ;
+
+        private Guid? _transfertransactionid  ;
+
 #endregion
     }
     public class Subtransaction : Entity
@@ -576,23 +699,40 @@ namespace SharpYNAB.Schema.Budget
             public decimal AmountValue { get => Amount.Value ; set{ Amount.Value = value;OnPropertyChanged(nameof(Amount));} } 
 
 #region fields
-        private Amount _amount ;
-        private Amount _cashamount ;
-        private string _hecknumber ;
-        private Amount _creditamount ;
-        private string _memo ;
-        private int _sortableindex ;
-        private int _subcategorycreditamountpreceding ;
-        private Payee _entitiespayee ;
-        private Guid _entitiespayeeid ;
-        private Subcategory _entitiessubcategory ;
-        private Guid _entitiessubcategoryid ;
-        private Transaction _entitiestransaction ;
-        private Guid _entitiestransactionid ;
-        private Account _transferaccount ;
-        private Guid _transferaccountid ;
-        private Transaction _transfertransaction ;
-        private Guid _transfertransactionid ;
+        private Amount _amount  = new Amount();
+
+        private Amount _cashamount  = new Amount();
+
+        private string _hecknumber  ;
+
+        private Amount _creditamount  = new Amount();
+
+        private string _memo  ;
+
+        private int _sortableindex  ;
+
+        private int _subcategorycreditamountpreceding  ;
+
+        private Payee _entitiespayee  ;
+
+        private Guid _entitiespayeeid  ;
+
+        private Subcategory _entitiessubcategory  ;
+
+        private Guid _entitiessubcategoryid  ;
+
+        private Transaction _entitiestransaction  ;
+
+        private Guid _entitiestransactionid  ;
+
+        private Account _transferaccount  ;
+
+        private Guid _transferaccountid  ;
+
+        private Transaction _transfertransaction  ;
+
+        private Guid _transfertransactionid  ;
+
 #endregion
     }
     public class Subcategory : Entity
@@ -635,22 +775,38 @@ namespace SharpYNAB.Schema.Budget
         public MonthlySubcategoryBudget MonthlySubcategoryBudget { get => _monthlysubcategorybudget ; set{ _monthlysubcategorybudget = value;OnPropertyChanged();} } 
 
 #region fields
-        private MonthlySubcategoryBudget _monthlysubcategorybudget ;
-        private string _goalcreationmonth ;
-        private string _goaltype ;
-        private string _internalname ;
-        private bool? _ishidden  = false;
-        private string _monthlyfunding ;
-        private string _name ;
-        private string _note ;
-        private int _sortableindex ;
-        private Amount _targetbalance  = 0;
-        private string _targetbalancemonth ;
-        private string _type ;
-        private Account _entitiesaccount ;
-        private Guid? _entitiesaccountid ;
-        private MasterCategory _entitiesmastercategory ;
-        private Guid _entitiesmastercategoryid ;
+        private MonthlySubcategoryBudget _monthlysubcategorybudget  ;
+
+        private string _goalcreationmonth  ;
+
+        private string _goaltype  ;
+
+        private string _internalname  ;
+
+        private bool? _ishidden  = false ;
+
+        private string _monthlyfunding  ;
+
+        private string _name  ;
+
+        private string _note  ;
+
+        private int _sortableindex  ;
+
+        private Amount _targetbalance  = new Amount();
+
+        private string _targetbalancemonth  ;
+
+        private string _type  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid? _entitiesaccountid  ;
+
+        private MasterCategory _entitiesmastercategory  ;
+
+        private Guid _entitiesmastercategoryid  ;
+
 #endregion
     }
     public class ScheduledTransaction : Entity
@@ -698,22 +854,38 @@ namespace SharpYNAB.Schema.Budget
             public decimal AmountValue { get => Amount.Value ; set{ Amount.Value = value;OnPropertyChanged(nameof(Amount));} } 
 
 #region fields
-        private Amount _amount ;
-        private Date _date ;
-        private string _flag ;
-        private string _frequency ;
-        private string _memo ;
-        private Account _entitiesaccount ;
-        private Guid _entitiesaccountid ;
-        private Payee _entitiespayee ;
-        private Guid _entitiespayeeid ;
-        private Subcategory _entitiessubcategory ;
-        private Guid _entitiessubcategoryid ;
-        private Transaction _transaction ;
-        private Guid? _transactionid ;
-        private Account _transferaccount ;
-        private Guid _transferaccountid ;
-        private List<UpcomingInstance> _upcominginstances ;
+        private Amount _amount  = new Amount();
+
+        private Date _date  = new Date();
+
+        private string _flag  ;
+
+        private string _frequency  ;
+
+        private string _memo  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid _entitiesaccountid  ;
+
+        private Payee _entitiespayee  ;
+
+        private Guid _entitiespayeeid  ;
+
+        private Subcategory _entitiessubcategory  ;
+
+        private Guid _entitiessubcategoryid  ;
+
+        private Transaction _transaction  ;
+
+        private Guid? _transactionid  ;
+
+        private Account _transferaccount  ;
+
+        private Guid _transferaccountid  ;
+
+        private List<UpcomingInstance> _upcominginstances  ;
+
 #endregion
     }
     public class ScheduledSubtransaction : Entity
@@ -748,17 +920,28 @@ namespace SharpYNAB.Schema.Budget
             public decimal AmountValue { get => Amount.Value ; set{ Amount.Value = value;OnPropertyChanged(nameof(Amount));} } 
 
 #region fields
-        private Amount _amount ;
-        private string _memo ;
-        private int _sortableindex ;
-        private Account _transferaccount ;
-        private Guid _transferaccountid ;
-        private Payee _entitiespayee ;
-        private Guid _entitiespayeeid ;
-        private Transaction _entitiesscheduledtransaction ;
-        private Guid _entitiesscheduledtransactionid ;
-        private Subcategory _entitiessubcategory ;
-        private Guid _entitiessubcategoryid ;
+        private Amount _amount  = new Amount();
+
+        private string _memo  ;
+
+        private int _sortableindex  ;
+
+        private Account _transferaccount  ;
+
+        private Guid _transferaccountid  ;
+
+        private Payee _entitiespayee  ;
+
+        private Guid _entitiespayeeid  ;
+
+        private Transaction _entitiesscheduledtransaction  ;
+
+        private Guid _entitiesscheduledtransactionid  ;
+
+        private Subcategory _entitiessubcategory  ;
+
+        private Guid _entitiessubcategoryid  ;
+
 #endregion
     }
     public class PayeeLocation : Entity
@@ -774,10 +957,14 @@ namespace SharpYNAB.Schema.Budget
         public Payee EntitiesPayee { get => _entitiespayee ; set{ _entitiespayee = value;OnPropertyChanged();} } 
 
 #region fields
-        private Payee _entitiespayee ;
-        private Guid _entitiespayeeid ;
-        private string _latitude ;
-        private string _longitude ;
+        private Payee _entitiespayee  ;
+
+        private Guid _entitiespayeeid  ;
+
+        private string _latitude  ;
+
+        private string _longitude  ;
+
 #endregion
     }
     public class Payee : Entity
@@ -814,19 +1001,32 @@ namespace SharpYNAB.Schema.Budget
             public decimal AutoFillAmountValue { get => AutoFillAmount.Value ; set{ AutoFillAmount.Value = value;OnPropertyChanged(nameof(AutoFillAmount));} } 
 
 #region fields
-        private Amount _autofillamount ;
-        private string _autofillamountenabled ;
-        private string _autofillmemo ;
-        private string _autofillmemoenabled ;
-        private string _autofillsubcategoryenabled ;
-        private Subcategory _autofillsubcategory ;
-        private Guid? _autofillsubcategoryid ;
-        private bool _enabled ;
-        private Account _entitiesaccount ;
-        private Guid? _entitiesaccountid ;
-        private string _internalname ;
-        private string _name ;
-        private string _renameonimportenabled ;
+        private Amount _autofillamount  = new Amount();
+
+        private string _autofillamountenabled  ;
+
+        private string _autofillmemo  ;
+
+        private string _autofillmemoenabled  ;
+
+        private string _autofillsubcategoryenabled  ;
+
+        private Subcategory _autofillsubcategory  ;
+
+        private Guid? _autofillsubcategoryid  ;
+
+        private bool _enabled  ;
+
+        private Account _entitiesaccount  ;
+
+        private Guid? _entitiesaccountid  ;
+
+        private string _internalname  ;
+
+        private string _name  ;
+
+        private string _renameonimportenabled  ;
+
 #endregion
     }
     public class MonthlySubcategoryBudgetCalculation : Entity
@@ -936,36 +1136,66 @@ namespace SharpYNAB.Schema.Budget
         public string AdditionalToBeBudgeted { get => _additionaltobebudgeted ; set{ _additionaltobebudgeted = value;OnPropertyChanged();} } 
 
 #region fields
-        private string _additionaltobebudgeted ;
-        private Amount _allspending ;
-        private Amount _allspendingsincelastpayment ;
-        private Amount _balance ;
-        private Amount _balancepreviousmonth ;
-        private Amount _budgetedaverage ;
-        private Amount _budgetedcashoutflows ;
-        private Amount _budgetedcreditoutflows ;
-        private Amount _budgetedpreviousmonth ;
-        private Amount _budgetedspending ;
-        private Amount _cashoutflows ;
-        private Amount _creditoutflows ;
-        private MonthlySubcategoryBudget _entitiesmonthlysubcategorybudget ;
-        private Guid _entitiesmonthlysubcategorybudgetid ;
-        private string _goalexpectedcompletion ;
-        private Amount _goaloverallfunded ;
-        private Amount _goaloverallleft ;
-        private string _goalpercentagecomplete ;
-        private string _goaltarget ;
-        private string _goalunderfunded ;
-        private string _overspendingaffectsbuffer ;
-        private Amount _paymentaverage ;
-        private Amount _paymentpreviousmonth ;
-        private Amount _spentaverage ;
-        private Amount _spentpreviousmonth ;
-        private Amount _unbudgetedcashoutflows ;
-        private Amount _unbudgetedcreditoutflows ;
-        private Amount _upcomingtransactions ;
-        private string _upcomingtransactionscount ;
-        private Amount _positivecashoutflows ;
+        private string _additionaltobebudgeted  ;
+
+        private Amount _allspending  = new Amount();
+
+        private Amount _allspendingsincelastpayment  = new Amount();
+
+        private Amount _balance  = new Amount();
+
+        private Amount _balancepreviousmonth  = new Amount();
+
+        private Amount _budgetedaverage  = new Amount();
+
+        private Amount _budgetedcashoutflows  = new Amount();
+
+        private Amount _budgetedcreditoutflows  = new Amount();
+
+        private Amount _budgetedpreviousmonth  = new Amount();
+
+        private Amount _budgetedspending  = new Amount();
+
+        private Amount _cashoutflows  = new Amount();
+
+        private Amount _creditoutflows  = new Amount();
+
+        private MonthlySubcategoryBudget _entitiesmonthlysubcategorybudget  ;
+
+        private Guid _entitiesmonthlysubcategorybudgetid  ;
+
+        private string _goalexpectedcompletion  ;
+
+        private Amount _goaloverallfunded  = new Amount();
+
+        private Amount _goaloverallleft  = new Amount();
+
+        private string _goalpercentagecomplete  ;
+
+        private string _goaltarget  ;
+
+        private string _goalunderfunded  ;
+
+        private string _overspendingaffectsbuffer  ;
+
+        private Amount _paymentaverage  = new Amount();
+
+        private Amount _paymentpreviousmonth  = new Amount();
+
+        private Amount _spentaverage  = new Amount();
+
+        private Amount _spentpreviousmonth  = new Amount();
+
+        private Amount _unbudgetedcashoutflows  = new Amount();
+
+        private Amount _unbudgetedcreditoutflows  = new Amount();
+
+        private Amount _upcomingtransactions  = new Amount();
+
+        private string _upcomingtransactionscount  ;
+
+        private Amount _positivecashoutflows  = new Amount();
+
 #endregion
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace SharpYNAB.Responses
+namespace SharpYNAB.Schema.Models
 {
-    public class UserData
+    public class DeviceInfo
     {
         [JsonProperty("id")]
         public string Id { get; set; }

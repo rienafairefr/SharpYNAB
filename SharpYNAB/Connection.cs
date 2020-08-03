@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SharpYNAB.Contracts;
 using SharpYNAB.Exceptions;
-using SharpYNAB.Responses;
+using SharpYNAB.Schema.Models;
 
 namespace SharpYNAB
 {
@@ -17,33 +17,25 @@ namespace SharpYNAB
         private const string BaseCatalog = "/api/v1/catalog";
         private string SessionToken { get; set; }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Id { get; set; } = Utils.GenerateUuid();
         public CookieContainer Cookies { get; private set; }
+
+        public LoginData LoginData { get; set; } = new LoginData
+        {
+            RememberMe = true,
+            DeviceInfo = new DeviceInfo()
+        };
 
         public Connection(string email, string password)
         {
-            Email = email;
-            Password = password;
-
+            LoginData.Email = email;
+            LoginData.Password = password;
+            LoginData.DeviceInfo.Id = Utils.GenerateUuid();
         }
 
-        
-
-        public async Task init_session()
+        public async Task InitSession()
         {
             Cookies = new CookieContainer();
-            var firstLogin = await Dorequest(new Dictionary<string, object>
-            {
-                ["email"] = Email,
-                ["password"] = Password,
-                ["remember_me"] = true,
-                ["device_info"] = new Dictionary<string, object>
-                {
-                    ["id"] = Id
-                }
-            }, "loginUser");
+            var firstLogin = await Dorequest(LoginData, "loginUser");
             var firstlogin = JsonConvert.DeserializeObject<FirstLoginResponse>(firstLogin);
             SessionToken = firstlogin.SessionToken;
             UserId = firstlogin.Userdata?.Id;
@@ -51,9 +43,9 @@ namespace SharpYNAB
 
         
 
-        public async Task<string> Dorequest(Dictionary<string, object> requestDict, string opname)
+        public async Task<string> Dorequest(object requestData, string opname)
         {
-            var jsonRequestDict = JsonConvert.SerializeObject(requestDict);
+            var jsonRequestDict = JsonConvert.SerializeObject(requestData);
             using (var handler = new HttpClientHandler()
             {
                 CookieContainer = Cookies,
@@ -66,7 +58,7 @@ namespace SharpYNAB
             {
                 var requestmessage = new HttpRequestMessage(HttpMethod.Post, BaseCatalog);
                 requestmessage.Headers.Add("User-Agent", "C# client for YNAB rienafairefr");
-                requestmessage.Headers.Add("X-YNAB-Device-Id", Id);
+                requestmessage.Headers.Add("X-YNAB-Device-Id", LoginData.DeviceInfo.Id);
                 if (SessionToken != null)
                 {
                     requestmessage.Headers.Add("X-Session-Token", SessionToken);
@@ -99,7 +91,7 @@ namespace SharpYNAB
                                 if (retryrafter != null)
                                 {
                                     await Task.Delay((int)retryrafter);
-                                    return Dorequest(requestDict, opname).Result;
+                                    return Dorequest(requestData, opname).Result;
                                 }
                                 break;
                             default:

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace SharpYNAB.Responses
+namespace SharpYNAB.Schema.Models
 {
     public class YnabResponse
     {

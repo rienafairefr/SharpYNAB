@@ -9,8 +9,8 @@ namespace SharpYNAB.Schema.Roots
 {
     public class Budget : RootObj
     {
-        private Date _lastMonth;
-        private Date _firstMonth;
+        private Date _lastMonth = new Date();
+        private Date _firstMonth = new Date();
         [JsonProperty("be_transactions")]
         public ObservableCollection<Transaction> Transactions { get; set; } = new ObservableCollection<Transaction>();
         [JsonProperty("be_master_categories")]
@@ -59,7 +59,7 @@ namespace SharpYNAB.Schema.Roots
         public DateTime LastMonthValue
         {
             get => LastMonth.Value;
-            set  { LastMonth.Value = value;OnPropertyChanged(nameof(LastMonth)); }
+            set  { LastMonth.Value = value; OnPropertyChanged(nameof(LastMonth));}
         }
 
         [JsonProperty("first_month")]

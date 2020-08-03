@@ -78,7 +78,8 @@ var @class = keyvalue.Value;
 #region fields
 <#+ foreach (var property in @class){ 
 var fieldname = FieldName(property); #>
-        private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#>;
+        private <#= property.Type #> <#=fieldname#> <#+ if (property.Default!=null){#> = <#= property.Default #><#+}#> <#+ if (complexTypesDictionary.ContainsKey(property.Type)){ #>= new <#= property.Type #>()<#+ } #>;
+
 <#+ } #>
 #endregion
     }

@@ -55,20 +55,26 @@ namespace SharpYNAB
             if (args.Connection == null)
             {
                 args.Connection = new Connection(args.Email, args.Password);
-                Task.Run(()=>args.Connection.init_session()).Wait();
+                Task.Run(()=>args.Connection.InitSession()).Wait();
             }
             var clientId = args.Connection.UserId;
-            using (var db = new T())
+            var db = new T();
+            var previousClient = db.Clients.SingleOrDefault(x => x.UserId == clientId);
+
+            if (previousClient != null)
             {
-                var previousClient = db.Clients.SingleOrDefault(x => x.UserId == clientId);
-                if (previousClient != null) return previousClient;
-                var client = new Client
-                {
-                    BudgetName = args.BudgetName,
-                    Connection = args.Connection
-                };
-                return client;
+                previousClient.Context = db;
+                return previousClient;
             }
+            var client = new Client
+            {
+                BudgetName = args.BudgetName,
+                Connection = args.Connection,
+                Context = db
+            };
+            db.Add(client);
+            db.SaveChanges();
+            return client;
         }
     }
 

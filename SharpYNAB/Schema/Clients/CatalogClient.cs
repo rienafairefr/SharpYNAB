@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using SharpYNAB.Schema.Models;
+using SharpYNAB.Schema.Models.Contracts;
 
 namespace SharpYNAB.Schema.Clients
 {
@@ -6,10 +7,13 @@ namespace SharpYNAB.Schema.Clients
     {
         public CatalogClient(Client client) : base(client,client.Catalog) { }
 
-        public override Dictionary<string, object> Extra => new Dictionary<string, object>()
-        {
-            ["user_id"] = Client.UserId
-        };
         public override string Opname => "syncCatalogData";
+        public override IClientData<Roots.Catalog> GetClientData()
+        {
+            return new CatalogData
+            {
+                UserId = Client.UserId
+            };
+        }
     }
 }
